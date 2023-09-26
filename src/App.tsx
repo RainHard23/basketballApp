@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Checkbox} from "./common/components/checkbox/checkbox";
+import Button from "./common/components/button/button";
+import Input from "./common/components/input/input";
+import plus from "./assests/icons/iconAdd.svg"
+import {Select1} from "./common/components/select/select";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' },
+        { value: 'vanilla1', label: 'Vanilla1' },
+        { value: 'vanilla2', label: 'Vanilla2' },
+    ]
+
+
+
+    return (
+        <div>
+            <Checkbox label={"Text"}/>
+            <Button cancelBtn>
+                Add <img src={plus} alt=""
+            />
+            </Button>
+            <Input type={"text"} name={"kek"} label={"Login"} disabled={false} placeholder={"Search"}/>
+            <Select1 options={options}/>
+        </div>
+    );
 }
 
 export default App;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { FC, ReactNode } from "react";
-import { CardsHeader } from "../HeaderCards";
-import { CardsFooter } from "../FooterCards";
+import { CardsHeader } from "./HeaderCards";
+import { CardsFooter } from "./FooterCards";
 
 export const CardsdLayouts: FC<{ children: ReactNode }> = ({ children }) => {
     return (

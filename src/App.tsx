@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./common/components/Header/header";
-import {MenuNavBar} from "./common/components/navigation/menu/MenuNavBar";
-import {TeamCard} from "./modules/teams/components/teamcard/teamcard";
+import {Header} from "./common/components/navigation/Header";
+import {MenuNavBar} from "./common/components/navigation/MenuNavBar";
+import {TeamCard} from "./pages/entities/teams/components/teamCard/TeamCard";
 import {Pagination} from "./common/components/ui/Pagination";
-import {CardsFooter} from "./common/components/FooterCards";
-import {CardsdLayouts} from "./common/components/layouts/CardsLayouts";
-import {TeamsPage} from "./modules/teams/components/teams/TeamsPage";
-import  {PagesRouter} from "./route/PagesRouter";
+import {CardsFooter} from "./pages/entities/FooterCards";
+import {CardsdLayouts} from "./pages/entities/CardsLayouts";
+import {TeamsPage} from "./pages/entities/teams/components/teams/TeamsPage";
+import {PagesRouter} from "./pages/routes/PagesRouter";
+
 
 
 function App() {

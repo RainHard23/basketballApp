@@ -66,8 +66,7 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     color: inherit;
-
-    &:link,
+    
     &:visited,
     &:hover {
       text-decoration: none;

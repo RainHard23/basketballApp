@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Input from "./ui/input/input";
-import Button from "./ui/button/button";
+import Input from "../../common/components/ui/Input";
+import Button from "../../common/components/ui/Button";
 
 
 export const CardsHeader = () => {
@@ -12,10 +12,9 @@ export const CardsHeader = () => {
                     type={'search'}
                     placeholder={'Search'}
                     name={''}
-                    disabled={false}
                 />
             </FilterContainer>
-                <Button addBtn>Add +</Button>
+                <Button isAdd>Add +</Button>
         </Wrapper>
     );
 };

@@ -1,27 +1,28 @@
+import React from "react";
 import styled from "styled-components";
-import  {ReactComponent as IconSignOut } from "../../../../assests/icons/iconSignOut.svg"
-import {ReactComponent as IconTeams } from "../../../../assests/icons/iconTeams.svg"
-import  {ReactComponent as IconPlayers } from "../../../../assests/icons/iconPlayers.svg"
-import {colors} from "../../../../assests/styles/colors";
-
+import { ReactComponent as IconSignOut } from "../../../assests/icons/iconSignOut.svg";
+import { ReactComponent as IconTeams } from "../../../assests/icons/iconTeams.svg";
+import { ReactComponent as IconPlayers } from "../../../assests/icons/iconPlayers.svg";
+import { colors } from "../../../assests/styles/colors";
 
 export const MenuNavBar = () => {
-
     return (
         <MenuContainer>
             <Nav>
-                <NavItem href={'#'} >
+                <NavItem href="#">
                     <IconTeams />
                     <LinkText>Teams</LinkText>
                 </NavItem>
-                <NavItem  >
+                <NavItem>
                     <IconPlayers />
                     <LinkText>Players</LinkText>
                 </NavItem>
             </Nav>
             <NavItem>
-               <IconSignOut />
-                <LinkText><span>Sign out</span></LinkText>
+                <IconSignOut />
+                <LinkText>
+                    <span>Sign out</span>
+                </LinkText>
             </NavItem>
         </MenuContainer>
     );
@@ -49,8 +50,8 @@ const Nav = styled.nav`
   align-items: center;
   width: 100%;
   flex-direction: column;
-
 `;
+
 const NavItem = styled.a`
   cursor: pointer;
   display: flex;
@@ -73,10 +74,9 @@ const NavItem = styled.a`
 
 const LinkText = styled.p`
   margin-top: 4px;
-  
+
   & span {
-    color: ${colors.lightestRed}
+    color: ${colors.lightestRed};
   }
 `;
-
 

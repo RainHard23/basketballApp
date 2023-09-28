@@ -1,8 +1,6 @@
-import styled from "styled-components";
 import ReactPaginate from "react-paginate";
-import {colors} from "../../../assests/styles/colors";
-
-
+import styled from "styled-components";
+import { colors } from "../../../assests/styles/colors";
 
 export const Pagination = () => (
     <PaginationContainer>
@@ -18,8 +16,9 @@ export const Pagination = () => (
         />
     </PaginationContainer>
 );
+
 const PaginationContainer = styled.div`
-  .pagination  li {
+  .pagination li {
     display: inline-block;
     padding-left: 0;
     list-style: none;
@@ -60,3 +59,5 @@ const PaginationContainer = styled.div`
     color: ${colors.grey};
   }
 `;
+
+

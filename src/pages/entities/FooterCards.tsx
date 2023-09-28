@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Select from "./ui/select/select";
-import {Pagination} from "./ui/Pagination";
+import Select from "../../common/components/ui/select/select";
+import {Pagination} from "../../common/components/ui/Pagination";
 import {colors} from "../../assests/styles/colors";
 // import { Select, SelectProps } from "./ui/Select/Select";
 // import { Pagination } from "./Pagination";

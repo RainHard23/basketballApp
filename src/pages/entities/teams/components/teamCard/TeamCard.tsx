@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {colors} from "../../../../assests/styles/colors";
-import iconTeam from '../../../../assests/images/iconTeam.png'
+import {colors} from "../../../../../assests/styles/colors";
+import iconTeam from '../../../../../assests/images/iconTeam.png'
 
 export const TeamCard = () => (
     <CardContainer>

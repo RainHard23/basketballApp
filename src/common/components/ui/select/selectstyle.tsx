@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import {colors} from "../../../../assests/styles/colors";
 
-export const SelectStyles = styled.div<{
-    selectPageSize?: boolean;
-    selectTeamName?: boolean;
-}>`
+export const SelectStyles = styled.div`
   .react-select__value-container {
     padding: 0 12px;
     height: 100%;
@@ -15,10 +12,7 @@ export const SelectStyles = styled.div<{
     border-radius: 4px;
     box-shadow: none;
     border: none;
-    background: ${({ selectPageSize, selectTeamName }) =>
-    selectPageSize || selectTeamName
-        ? colors.white
-        : colors.lightestGrey1};
+    background: ${colors.lightestGrey1};
 
     &:hover {
       background: ${colors.lightestGrey};
@@ -48,7 +42,7 @@ export const SelectStyles = styled.div<{
     }
   }
 
-  .react-select__loading-indicator > span {
+  .react-select__loading-indicator span {
     font-size: 8px;
     color: ${colors.red};
   }
@@ -63,7 +57,7 @@ export const SelectStyles = styled.div<{
     border: 0.5px solid ${colors.lightestGrey};
   }
 
-  .react-select__menu > div {
+  .react-select__menu div {
     padding: 0;
     border-radius: 4px;
   }
@@ -84,7 +78,7 @@ export const SelectStyles = styled.div<{
     }
   }
 
-  .react-select_is-open > .react-select__control {
+  .react-select_is-open .react-select__control {
     border: 0.5px solid ${colors.lightGrey};
   }
 `;

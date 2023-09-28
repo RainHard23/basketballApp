@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
-import {colors} from "../../../../assests/styles/colors";
-import iconCheck from '../../../../assests/icons/iconCheck.svg'
-import {fonts} from "../../../../assests/fonts/fonts";
+import {colors} from "../../../assests/styles/colors";
+import iconCheck from '../../../assests/icons/iconCheck.svg'
+import {fonts} from "../../../assests/fonts/fonts";
 
 
 type CheckboxProps = {
@@ -14,7 +14,7 @@ type CheckboxProps = {
     id?: string;
 };
 
-export const Checkbox: FC<CheckboxProps> = ({
+export const CheckBox: FC<CheckboxProps> = ({
                                                 label,
                                                 checked,
                                                 required,

@@ -1,9 +1,7 @@
 import React from "react";
-import {CardsdLayouts} from "../../../../common/components/layouts/CardsLayouts";
+import {CardsdLayouts} from "../../../CardsLayouts";
 import styled from "styled-components";
-import {TeamCard} from "../teamcard/teamcard";
-import {MenuNavBar} from "../../../../common/components/navigation/menu/MenuNavBar";
-import {Header} from "../../../../common/components/Header/header";
+import {TeamCard} from "../teamCard/TeamCard";
 
 export const TeamsPage = () => {
 
@@ -21,10 +19,6 @@ export const TeamsPage = () => {
         </CardsdLayouts>
     );
 };
-
-const TeamLink = styled.a`
-  text-decoration: none;
-`;
 
 
 export const CardWrapper = styled.div`

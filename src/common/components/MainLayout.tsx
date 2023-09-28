@@ -1,9 +1,9 @@
 import {FC, ReactNode, useState} from "react";
 
 import styled from "styled-components";
-import {colors} from "../../../assests/styles/colors";
-import {MenuNavBar} from "../navigation/menu/MenuNavBar";
-import {Header} from "../Header/header";
+import {colors} from "../../assests/styles/colors";
+import {MenuNavBar} from "./navigation/MenuNavBar";
+import {Header} from "./navigation/Header";
 
 type AppLayoutProps = {
     children: ReactNode;

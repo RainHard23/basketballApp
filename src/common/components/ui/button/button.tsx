@@ -1,14 +1,14 @@
 
 import styled from "styled-components";
-import {colors} from "../../../assests/styles/colors";
-import {fonts} from "../../../assests/fonts/fonts";
+import {colors} from "../../../../assests/styles/colors";
+import {fonts} from "../../../../assests/fonts/fonts";
 
 
 const Button = styled.button<{ cancelBtn?: boolean; addBtn?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 365px;
+  max-width: ${({addBtn}) => addBtn ? '104px' : '364'}; 
   width: 100%;
   background-color: ${({cancelBtn}) =>
           cancelBtn ? colors.white : colors.red};

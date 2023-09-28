@@ -29,9 +29,6 @@ export const GlobalStyle = createGlobalStyle`
 
   html,
   body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     min-width: 320px;
     min-height: 100%;

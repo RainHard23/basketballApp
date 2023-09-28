@@ -1,15 +1,15 @@
 import React, {ComponentProps, FC, useState} from 'react';
 import {FieldError, RegisterOptions} from "react-hook-form";
 import styled from "styled-components";
-import {colors} from "../../../assests/styles/colors";
-import eyeIcon from "../../../assests/icons/iconEye.svg"
-import eyeIconClose from "../../../assests/icons/iconCloseEye.svg"
-import searchIcon from "../../../assests/icons/iconSearch.svg"
+import {colors} from "../../../../assests/styles/colors";
+import eyeIcon from "../../../../assests/icons/iconEye.svg"
+import eyeIconClose from "../../../../assests/icons/iconCloseEye.svg"
+import searchIcon from "../../../../assests/icons/iconSearch.svg"
 
 type InputProps = {
     type: "text" | "password" | "search"
     name: string
-    label: string
+    label?: string
     value?: string
     disabled: boolean
     error?: FieldError

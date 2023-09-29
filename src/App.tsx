@@ -8,7 +8,8 @@ import {CardsFooter} from "./pages/entities/FooterCards";
 import {CardsdLayouts} from "./pages/entities/CardsLayouts";
 import {TeamsPage} from "./pages/entities/teams/components/teams/TeamsPage";
 import {PagesRouter} from "./pages/routes/PagesRouter";
-import {TeamDetails} from "./pages/entities/teams/components/teamCard/TeamDetails";
+import {TeamDetailsPage} from "./pages/entities/teams/components/teamCard/TeamDetailsPage";
+import TeamRoster from "./pages/entities/teams/components/teamCard/TeamRosterPage/TeamRoster";
 
 
 
@@ -35,8 +36,9 @@ function App() {
             {/*<Pagination />*/}
             {/*<TeamCard />*/}
             {/*<CardsFooter />*/}
-            {/*<PagesRouter />*/}
-            <TeamDetails/>
+            <PagesRouter />
+            {/*<TeamDetails/>*/}
+            {/*<TeamRoster/>*/}
         </div>
     );
 }

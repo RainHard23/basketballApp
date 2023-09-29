@@ -8,6 +8,7 @@ import {CardsFooter} from "./pages/entities/FooterCards";
 import {CardsdLayouts} from "./pages/entities/CardsLayouts";
 import {TeamsPage} from "./pages/entities/teams/components/teams/TeamsPage";
 import {PagesRouter} from "./pages/routes/PagesRouter";
+import {TeamDetails} from "./pages/entities/teams/components/teamCard/TeamDetails";
 
 
 
@@ -34,8 +35,8 @@ function App() {
             {/*<Pagination />*/}
             {/*<TeamCard />*/}
             {/*<CardsFooter />*/}
-            <PagesRouter />
-
+            {/*<PagesRouter />*/}
+            <TeamDetails/>
         </div>
     );
 }

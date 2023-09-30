@@ -107,4 +107,4 @@ const ItemSubtitle = styled.span`
   color: ${colors.white};
 `;
 
-export default TeamDetailsPage;
+

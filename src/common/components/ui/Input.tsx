@@ -39,7 +39,7 @@ const Input: FC<InputProps> = ({
             {label && <label>{label}</label>}
             <InputWrapper error={!!error} type={type}>
                 <StyledInput
-                    // ref={register && register(registerOptions)}
+
                     type={finalType}
                     id={name}
                     name={name}

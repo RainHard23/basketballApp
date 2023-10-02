@@ -1,17 +1,14 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import Select from 'react-select';
 import styled from "styled-components";
 import {colors} from "../../../../assests/styles/colors";
 import {SelectStyles} from "./selectstyle";
 
 
-
-
 export type OptionType = {
     value: string;
     label: string;
 };
-
 
 
 type SelectPropsType = {
@@ -21,8 +18,7 @@ type SelectPropsType = {
     name: string
 };
 
-export const Select1: FC<SelectPropsType> = ({ options, isMulti, label, name }) => (
-
+export const Select1: FC<SelectPropsType> = ({options, isMulti, label, name}) => (
 
 
     // <Select
@@ -32,16 +28,16 @@ export const Select1: FC<SelectPropsType> = ({ options, isMulti, label, name }) 
     //     classNamePrefix={"react-select"}
     // />
     <SelectWrapper>
-        <SelectStyles >
-    <Select
-        name={name}
-        options={options}
-        isMulti
-        isClearable={true}
-        defaultValue={options}
-        classNamePrefix={"react-select"}
-        menuPlacement={"top"}
-    />
+        <SelectStyles>
+            <Select
+                name={name}
+                options={options}
+                isMulti
+                isClearable={true}
+                defaultValue={options}
+                classNamePrefix={"react-select"}
+                menuPlacement={"top"}
+            />
         </SelectStyles>
     </SelectWrapper>
 );

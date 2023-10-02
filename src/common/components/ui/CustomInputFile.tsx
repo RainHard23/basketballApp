@@ -1,10 +1,11 @@
 import styled from "styled-components";
+// @ts-ignore
 import { ReactComponent as IconAddPhoto } from "../../../assests/images/iconAddPhoto.svg";
 import { colors } from "../../../assests/styles/colors";
 import {FC} from "react";
 
 type InputFile = {
-    image: any
+    image?: any
 }
 export const CustomInputFile: FC<InputFile> = ({image}) => {
     return (

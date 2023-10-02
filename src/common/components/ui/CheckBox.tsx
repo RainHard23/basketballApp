@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import {colors} from "../../../assests/styles/colors";
+// @ts-ignore
 import iconCheck from '../../../assests/icons/iconCheck.svg'
 import {fonts} from "../../../assests/fonts/fonts";
 

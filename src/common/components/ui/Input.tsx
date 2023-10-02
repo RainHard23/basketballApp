@@ -2,8 +2,11 @@ import React, {ComponentProps, FC, useState} from 'react';
 import {FieldError, RegisterOptions} from "react-hook-form";
 import styled from "styled-components";
 import {colors} from "../../../assests/styles/colors";
+// @ts-ignore
 import eyeIcon from "../../../assests/icons/iconEye.svg"
+// @ts-ignore
 import eyeIconClose from "../../../assests/icons/iconCloseEye.svg"
+// @ts-ignore
 import searchIcon from "../../../assests/icons/iconSearch.svg"
 
 type InputProps = {

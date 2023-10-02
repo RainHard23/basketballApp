@@ -66,7 +66,7 @@ const Input: FC<InputProps> = ({
 };
 
 const InputWrapper = styled.div<{ error: boolean; type?: InputProps['type']}>`
-  max-width: 365px;
+  max-width: 340px;
   display: flex;
   align-items: center;
   justify-content: space-between;

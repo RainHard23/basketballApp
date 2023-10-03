@@ -2,13 +2,20 @@ import Input from "../../common/components/ui/Input";
 import Button from "../../common/components/ui/Button";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
-
+import {authThunks} from "../../api/auth/authSlice";
+import {useActions} from "../../api/common/hooks/useActions";
 
 export const Login = () => {
 
+
+    const {login} = useActions(authThunks);
+
     const submitForm = (e: any) => {
         e.preventDefault();
-        alert('Send!')
+
+        login({login: 'm111', password: 'm111'})
+
+        // alert('Send!')
     }
 
     return (
@@ -16,7 +23,7 @@ export const Login = () => {
             <WrapperTitle>
                 <Title>Sign In</Title>
             </WrapperTitle>
-            <Form onSubmit={submitForm}>
+            <Form onSubmit={(e) => submitForm(e)}>
                 <Input
                     type="text"
                     label="Login"

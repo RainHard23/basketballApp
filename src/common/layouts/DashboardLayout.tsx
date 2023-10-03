@@ -1,12 +1,20 @@
-import {Outlet} from "react-router-dom";
+import {Navigate, Outlet, redirect, useNavigate} from "react-router-dom";
 import {Header} from "../components/dashboard/header/Header";
 import {MenuNavBar} from "../components/dashboard/header/MenuNavBar";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
-
+import {useSelector} from "react-redux";
+import {selectIsLoggedIn} from "../../api/auth/auth.selectors";
 
 
 export const DashboardLayout = () => {
+
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"}/>;
+    }
+
     return (
         <Layout>
             <Header/>

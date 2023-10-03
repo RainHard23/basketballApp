@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // @ts-ignore
-import iconTeam from '../../../../../../../assests/icons/iconTeams.svg'
+import iconTeam from '../../../../../../../assests/images/iconTeam.png'
 import {colors} from "../../../../../../../assests/styles/colors";
 
 export const TeamCard = () => (

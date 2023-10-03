@@ -1,29 +1,45 @@
 import React from "react";
 import styled from "styled-components";
 // @ts-ignore
-import { ReactComponent as IconSignOut } from "../../../../assests/icons/iconSignOut.svg";
+import {ReactComponent as IconSignOut} from "../../../../assests/icons/iconSignOut.svg";
 // @ts-ignore
-import { ReactComponent as IconTeams } from "../../../../assests/icons//iconTeams.svg";
+import {ReactComponent as IconTeams} from "../../../../assests/icons//iconTeams.svg";
 // @ts-ignore
-import { ReactComponent as IconPlayers } from '../../../../assests/icons/iconPlayers.svg'
+import {ReactComponent as IconPlayers} from '../../../../assests/icons/iconPlayers.svg'
 import {colors} from "../../../../assests/styles/colors";
+import {useActions} from "../../../../api/common/hooks/useActions";
+import {authSlice, authThunks, logout} from "../../../../api/auth/authSlice";
+import {useDispatch} from "react-redux";
+import {NavLink, useNavigate} from "react-router-dom";
+import {Login} from "../../../../pages/auth/Login";
 
 
 export const MenuNavBar = () => {
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+
+    };
+
     return (
         <MenuContainer>
             <Nav>
-                <NavItem href="#">
-                    <IconTeams />
+                <NavItem to={'/' +
+                    ''}>
+                    <IconTeams/>
                     <LinkText>Teams</LinkText>
                 </NavItem>
-                <NavItem>
-                    <IconPlayers />
+                <NavItem to='/'>
+                    <IconPlayers/>
                     <LinkText>Players</LinkText>
                 </NavItem>
             </Nav>
-            <NavItem>
-                <IconSignOut />
+            <NavItem onClick={handleLogout}
+                     to='/login'
+            >
+
+                <IconSignOut/>
                 <LinkText>
                     <span>Sign out</span>
                 </LinkText>
@@ -56,7 +72,7 @@ const Nav = styled.nav`
   flex-direction: column;
 `;
 
-const NavItem = styled.a`
+const NavItem = styled(NavLink)`
   cursor: pointer;
   display: flex;
   text-decoration: none;

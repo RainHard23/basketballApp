@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {DetailTeam} from "../../pages/dashboard/team/DetailTeam";
 import {ListTeam} from "../../pages/dashboard/team/ListTeam";
@@ -8,14 +8,20 @@ import AuthLayout from "../layouts/AuthLayout";
 import {Login} from "../../pages/auth/Login";
 import {Register} from "../../pages/auth/Register";
 import {NotFound} from "../../pages/NotFound";
+import {TeamsPage} from "../components/dashboard/entities/teams/components/teams/TeamsPage";
 
 
 export const MainRoutes = () => {
+
+
+
+
     return (
         <BrowserRouter>
             <Routes>
+
                 <Route element={<DashboardLayout/>}>
-                    <Route path="/" element={<ListTeam/>} index/>
+                    <Route path="/" element={<TeamsPage/>} index/>
 
                     <Route path="/team/:teamId" element={<DetailTeam/>}/>
                     <Route path="/teams/create" element={<AddTeam/>}/>

@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
-import {Outlet, useLocation} from "react-router-dom";
+import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import imgRegister from '../../assests/images/imgRegistr.png'
 import imgLogin from '../../assests/images/imgLogin.png'
+import {useSelector} from "react-redux";
+import {selectIsLoggedIn} from "../../api/auth/auth.selectors";
+
 
 
 const AuthLayout = () => {
@@ -10,7 +13,11 @@ const AuthLayout = () => {
 
     const location = useLocation();
 
-    console.log(location)
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    if (isLoggedIn) {
+        return <Navigate to={"/"} />;
+    }
+
 
     return (
         <AuthContainerLayout>

@@ -6,7 +6,7 @@ import {ResultCode} from "../common/enums/common.enums";
 import {clearTasksAndTodolists} from "../common/actions/common.actions";
 
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
+const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
     const res = await authAPI.login(arg);
     if (res.data && res.data?.token) {
@@ -21,7 +21,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("aut
     }
 });
 
-const register = createAppAsyncThunk<{ isLoggedIn: boolean }, RegisterParamsType>("auth/register", async (arg, thunkAPI) => {
+const registrationTC = createAppAsyncThunk<{ isLoggedIn: boolean }, RegisterParamsType>("auth/register", async (arg, thunkAPI) => {
     const {rejectWithValue} = thunkAPI;
     const res = await authAPI.register(arg);
     if (res.data && res.data?.token) {
@@ -59,10 +59,10 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(login.fulfilled, (state, action) => {
+            .addCase(loginTC.fulfilled, (state, action) => {
                 state.isLoggedIn = action.payload.isLoggedIn;
             })
-            .addCase(register.fulfilled, (state, action) => {
+            .addCase(registrationTC.fulfilled, (state, action) => {
                 state.isLoggedIn = action.payload.isLoggedIn;
             })
     },
@@ -75,5 +75,5 @@ export const authSlice = slice.reducer;
 
 
 export const { logout } = slice.actions;
-export const authThunks = {login, register};
+export const authThunks = {loginTC, registrationTC};
 

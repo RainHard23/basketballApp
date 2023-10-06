@@ -4,36 +4,53 @@ import {colors} from "../../../assests/styles/colors";
 // @ts-ignore
 import iconCheck from '../../../assests/icons/iconCheck.svg'
 import {fonts} from "../../../assests/fonts/fonts";
+import {Controller, useFormContext} from "react-hook-form";
 
 
 type CheckboxProps = {
     label?: string;
     checked?: boolean;
-    onChange?: (checked: boolean) => void;
+    name: string
     disabled?: boolean;
     required?: boolean;
     id?: string;
+    errorMessage: any
+    control: any
 };
 
 export const CheckBox: FC<CheckboxProps> = ({
+                                                errorMessage,
+                                                name,
                                                 label,
                                                 checked,
                                                 required,
                                                 disabled,
-                                                onChange,
+                                                control,
                                             }) => {
+
+
     return (
-        <CheckboxWrapper>
-            <input
-                type="checkbox"
-                checked={checked}
-                id="c1"
-                required={required}
-                disabled={disabled}
-                onChange={() => onChange && onChange(!checked)}
-            />
-            <Label>{label}</Label>
-        </CheckboxWrapper>
+        <>
+            <CheckboxWrapper>
+                <Controller
+                    name={name}
+                    control={control}
+                    render={({field}) => (
+                        <input
+                            checked={checked}
+                            type="checkbox"
+                            {...field}
+                            id={name}
+                            name={name}
+                            disabled={disabled}
+                        />
+                    )}
+                />
+                <Label>{label}</Label>
+
+            </CheckboxWrapper>
+            {errorMessage && <ErrorMessage>{errorMessage.message}</ErrorMessage>}
+        </>
 
     );
 }
@@ -42,6 +59,7 @@ export const CheckBox: FC<CheckboxProps> = ({
 const CheckboxWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 24px;
 
 
   & input {
@@ -65,7 +83,7 @@ const CheckboxWrapper = styled.div`
       &::after {
         content: url(${iconCheck});
         position: absolute;
-        top: 15%;
+        top: 30%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
@@ -89,7 +107,16 @@ const Label = styled.label`
   color: ${colors.grey};
   line-height: 24px;
   font-weight: 500;
+
+
 `;
 
+const ErrorMessage = styled.p`
+  color: ${colors.lightRed};
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+
+`;
 
 

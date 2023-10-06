@@ -1,34 +1,33 @@
-import React, {ComponentProps, FC, useState} from 'react';
-import {FieldError, RegisterOptions} from "react-hook-form";
+import React, {ComponentProps, ComponentPropsWithoutRef, FC, forwardRef, useState} from 'react';
+import {FieldError} from "react-hook-form";
 import styled from "styled-components";
 import {colors} from "../../../assests/styles/colors";
-// @ts-ignore
 import eyeIcon from "../../../assests/icons/iconEye.svg"
-// @ts-ignore
+
 import eyeIconClose from "../../../assests/icons/iconCloseEye.svg"
-// @ts-ignore
+
 import searchIcon from "../../../assests/icons/iconSearch.svg"
 
-type InputProps = {
+export type InputProps = {
     type: "text" | "password" | "search"
-    name: string
+
     label?: string
     value?: string
     disabled?: boolean
-    error?: FieldError
-    registerOptions?: RegisterOptions;
+    errorMessage?: any
     placeholder?: string
-}
-const Input: FC<InputProps> = ({
-                                   name, error, disabled, value, label, type, placeholder
-                               }) => {
+
+} & ComponentPropsWithoutRef<'input'>
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({
+                                           errorMessage, disabled, value, label, type, placeholder,...restProps
+                                      }, ref) => {
 
     const [showPassword, setShowPassword] = useState(false)
     let getFinalType = (type: ComponentProps<'input'>['type'], showPassword: boolean) => {
         if (type === 'password' && showPassword) {
             return 'text'
         }
-
         return type
     }
 
@@ -40,18 +39,17 @@ const Input: FC<InputProps> = ({
     return (
         <InputContainer>
             {label && <label>{label}</label>}
-            <InputWrapper error={!!error} type={type}>
+            <InputWrapper error={!!errorMessage} type={type}>
+                
                 <StyledInput
-
+                    ref={ref}
                     type={finalType}
-                    id={name}
-                    name={name}
                     placeholder={type === 'search' ? placeholder : ''}
-
+                    {...restProps}
                 />
                 {isShowSearch && (
                     <SearchButton>
-                                <img src={searchIcon} alt=""/>
+                        <img src={searchIcon} alt=""/>
                     </SearchButton>
                 )}
                 {isShowPassword && (
@@ -60,28 +58,33 @@ const Input: FC<InputProps> = ({
                     </IconWrapper>
                 )}
             </InputWrapper>
-            {error && <ErrorMessage>{error.message}</ErrorMessage>}
+            {errorMessage && true && <ErrorMessage>{errorMessage}</ErrorMessage>}
         </InputContainer>
     );
-};
+});
 
-const InputWrapper = styled.div<{ error: boolean; type?: InputProps['type']}>`
-  max-width: 340px;
+const InputWrapper = styled.div<{ error?: boolean; type?: InputProps['type'] }>`
+  margin-top: 8px;
+  
+  max-width: 364px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: ${colors.darkGrey};
-  background-color: ${({ type }) => (type === 'search' ? '#fff' : colors.lightestGrey1)};
+  background-color: ${({type}) => (type === 'search' ? '#fff' : colors.lightestGrey1)};
   width: 100%;
   height: 40px;
   padding: 0 12px;
-  border: ${({ error, type }) => error ? '1px solid #FF768E' : (type === 'search' ? `1px solid ${colors.lightestGrey}` : 'none')};
+  border: ${({
+               error,
+               type
+             }) => error ? '1px solid #FF768E' : (type === 'search' ? `1px solid ${colors.lightestGrey}` : 'none')};
   border-radius: 4px;
-  cursor: pointer;
+  
 
 
   &:hover {
-    background:  ${({ type }) => (type !== 'search' ? colors.lightestGrey : colors.lightestGrey1)}
+    background: ${({type}) => (type !== 'search' ? colors.lightestGrey : colors.lightestGrey1)}
     transition: all 0.2s ease-in-out;
   }
 
@@ -108,13 +111,14 @@ const StyledInput = styled.input`
 
   background: transparent;
   border: none;
+  
 
   &:focus {
     outline: none;
   }
 `;
 
-const IconWrapper = styled.button`
+const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   z-index: 1;
@@ -123,16 +127,21 @@ const IconWrapper = styled.button`
 
 const InputContainer = styled.div`
   & label {
+    display: block;
+    margin-top: 24px;
     line-height: 24px;
     color: ${colors.grey};
     margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
   }
 `;
 
 const ErrorMessage = styled.p`
   color: ${colors.lightRed};
+  font-weight: 500;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 24px;
 `;
 
 const SearchButton = styled.div`
@@ -146,4 +155,3 @@ const SearchButton = styled.div`
   height: 20px;
 `;
 
-export default Input

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Input from "../../ui/Input";
+
 import Button from "../../ui/Button";
+import {Input} from "../../ui/Input";
 
 
 

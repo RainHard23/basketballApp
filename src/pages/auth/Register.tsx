@@ -1,11 +1,15 @@
-import Input from "../../common/components/ui/Input";
+import { DevTool } from '@hookform/devtools'
 import {CheckBox} from "../../common/components/ui/CheckBox";
-import Button from "../../common/components/ui/Button";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
 import {useActions} from "../../api/common/hooks/useActions";
 import {authThunks} from "../../api/auth/authSlice";
 import {SubmitHandler, useForm} from "react-hook-form";
+import * as yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
+import {Input} from "../../common/components/ui/Input";
+import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
+import Button from "../../common/components/ui/Button";
 
 export const Register = () => {
     type FormData = {
@@ -13,58 +17,104 @@ export const Register = () => {
         login: string;
         password: string;
         confirmPassword: string;
+        check: boolean
     }
 
 
-    const {register} = useActions(authThunks);
+    const {registrationTC} = useActions(authThunks);
+
+
+
+    const schema = yup.object().shape({
+        userName: yup.string().required('Name is required.'),
+        login: yup.string().required('Login is required.'),
+        password: yup.string()
+            .min(4, 'Password must be at least 4 characters long.')
+            .max(10, 'Password must be at most 10 characters long.')
+            .required('Password is required.'),
+        confirmPassword: yup.string()
+            .oneOf([yup.ref('password')], 'Passwords must match.')
+            .required('Please confirm your password.'),
+        check: yup.boolean()
+            .oneOf([true], 'You must accept the agreement.')
+            .required('You must accept the agreement.'),
+    });
 
     const {
-
-        handleSubmit,
         watch,
+        control,
+        handleSubmit,
+        formState:{ errors }
+    } = useForm<FormData>({
+        mode: 'onBlur',
+        resolver: yupResolver(schema),
+        defaultValues: {
+            userName: '',
+            login: '',
+            password: '',
+            confirmPassword: '',
+            check: false
+        },
+    })
 
-    } = useForm<FormData>()
     const onSubmit: SubmitHandler<FormData> = (data) => {
+        const { userName, login, password } = data;
 
-    }
+        registrationTC({ userName, login, password });
+    };
+
+    const handleFormSubmitted = handleSubmit(onSubmit);
 
 
 
 
     return (
+
         <RegisterFormContainer>
+            <DevTool control={control} />
             <WrapperTitle>
                 <Title>Sign Up</Title>
             </WrapperTitle>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleFormSubmitted}>
 
-                <Input
+                <ControlledTextField
+                    control={control}
                     type="text"
                     label="Name"
-                    name='userName'
-
+                    name={'userName'}
+                    errorMessage={errors.userName}
                 />
-                <Input
+                <ControlledTextField
+                    control={control}
                     type="text"
                     label="Login"
-                    name="login"  />
-                <Input
-                    name="password"
+                    name={'login'}
+
+                    errorMessage={errors.login}
+                />
+                <ControlledTextField
+                    control={control}
                     type="password"
                     label="Password"
+                    name={'password'}
 
+                    errorMessage={errors.password}
                 />
-                <Input
-                    name="confirmPassword"
+                <ControlledTextField
+                    control={control}
                     type="password"
-                    label="Confirm Password"
+                    label="Enter your password again"
+                    name={'confirmPassword'}
 
-                    // validate={(value: string) =>
-                    //     value === watch("password") || "Passwords do not match"
-                    // }
+                    errorMessage={errors.confirmPassword}
                 />
-                <CheckBox label={"I accept the agreement"} />
-                <Button >Sign Up</Button>
+                <CheckBox
+                    control={control}
+                    checked={watch('check')}
+                    errorMessage={errors.check}
+                    name={'check'}
+                    label={"I accept the agreement"}/>
+               <Button type={'submit'}>Sign Up</Button>
             </Form>
         </RegisterFormContainer>
     );
@@ -81,15 +131,12 @@ const Form = styled.form`
   max-width: 366px;
   width: 100%;
   margin: 0 auto;
-
-  & div {
-    margin-bottom: 24px;
-  }
+  
 `;
 
 const WrapperTitle = styled.div`
-  max-width: 366px;
-  width: 100%;
+ 
+  
   margin: 0 auto 32px auto;
 `;
 

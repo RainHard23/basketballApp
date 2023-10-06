@@ -1,38 +1,72 @@
-import Input from "../../common/components/ui/Input";
 import Button from "../../common/components/ui/Button";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
 import {authThunks} from "../../api/auth/authSlice";
 import {useActions} from "../../api/common/hooks/useActions";
+import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
+import * as yup from "yup";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 export const Login = () => {
 
-
-    const {login} = useActions(authThunks);
-
-    const submitForm = (e: any) => {
-        e.preventDefault();
-
-        login({login: 'm111', password: 'm111'})
-
-        // alert('Send!')
+    const {loginTC} = useActions(authThunks);
+    type FormData = {
+        login: string;
+        password: string;
     }
+
+
+
+
+    const schema = yup.object().shape({
+        login: yup.string().required('Login is required.'),
+        password: yup.string()
+            .min(4, 'Password must be at least 4 characters long.')
+            .max(10, 'Password must be at most 10 characters long.')
+            .required('Password is required.'),
+    });
+
+    const {
+        control,
+        handleSubmit,
+        formState: {errors}
+    } = useForm<FormData>({
+        mode: 'onBlur',
+        resolver: yupResolver(schema),
+        defaultValues: {
+            login: '',
+            password: '',
+        },
+    })
+
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        const { login, password } = data;
+
+        loginTC({ login, password });
+    };
+
+    const handleFormSubmitted = handleSubmit(onSubmit);
 
     return (
         <LoginFormContainer>
             <WrapperTitle>
                 <Title>Sign In</Title>
             </WrapperTitle>
-            <Form onSubmit={(e) => submitForm(e)}>
-                <Input
+            <Form onSubmit={handleFormSubmitted}>
+                <ControlledTextField
+                    control={control}
                     type="text"
                     label="Login"
                     name="login"
+                    errorMessage={errors.login}
                 />
-                <Input
+                <ControlledTextField
+                    control={control}
                     name="password"
                     type="password"
                     label="Password"
+                    errorMessage={errors.password}
                 />
                 <Button>Sign In</Button>
             </Form>

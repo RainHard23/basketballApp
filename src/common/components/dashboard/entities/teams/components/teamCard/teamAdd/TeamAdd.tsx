@@ -3,9 +3,10 @@ import styled from "styled-components";
 // @ts-ignore
 import test from '../../../../../../../../assests/images/iconPlayer.png'
 import {CustomInputFile} from "../../../../../../ui/CustomInputFile";
-import Input from "../../../../../../ui/Input";
+
 import Button from "../../../../../../ui/Button";
 import {colors} from "../../../../../../../../assests/styles/colors";
+import {Input} from "../../../../../../ui/Input";
 
 
 export const TeamForm = () => {

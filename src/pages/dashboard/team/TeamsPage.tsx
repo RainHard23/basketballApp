@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {TeamCard} from "../teamCard/TeamCard";
-import {CardsdLayouts} from "../../../../../../layouts/CardsLayouts";
+import {TeamCard} from "../../../common/components/dashboard/entities/teams/components/teamCard/TeamCard";
+import {CardsdLayouts} from "../../../common/layouts/CardsLayouts";
 
 
 export const TeamsPage = () => {

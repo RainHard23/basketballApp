@@ -1,25 +1,23 @@
-import {BaseResponseType} from "../../../types/common.types";
 import {instance} from "../../common/api/commonApi";
-export const authAPI = {
-    login(data: LoginParamsType) {
-        return instance.post<BaseResponseType>("api/Auth/SignIn", data);
+
+export const teamApi = {
+    getTeams() {
+        return instance.get<TeamsType>("api/Team/GetTeams");
     },
-
-    register(data: RegisterParamsType) {
-        return instance.post<BaseResponseType>("api/Auth/SignUp", data);
-    },
-    // me() {
-    //     return instance.get<BaseResponseType<{ id: number; email: string; login: string }>>("auth/me");
-    // },
 };
 
-export type LoginParamsType = {
-    login: string;
-    password: string;
-};
-
-export type RegisterParamsType = {
-    userName: string;
-    login: string;
-    password: string;
-};
+export type TeamsType = {
+    data: [
+        {
+            "name": "string",
+            "foundationYear": number,
+            "division": "string",
+            "conference": "string",
+            "imageUrl": "string",
+            "id": number
+        }
+    ],
+    count: number,
+    page: number,
+    size: number
+}

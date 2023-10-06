@@ -1,9 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {authAPI, LoginParamsType, RegisterParamsType} from "./api/api";
 import {createAppAsyncThunk} from "../common/utils/create-app-async-thunk";
-import {handleServerNetworkError} from "../common/utils/handle-server-network-error";
-import {ResultCode} from "../common/enums/common.enums";
-import {clearTasksAndTodolists} from "../common/actions/common.actions";
 
 
 const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {
@@ -37,17 +34,14 @@ const registrationTC = createAppAsyncThunk<{ isLoggedIn: boolean }, RegisterPara
 });
 
 
-// Get user from localStorage
-// @ts-ignore
-const user = JSON.parse(localStorage.getItem('user'))
 
-console.log(user)
-
+const userJSON = localStorage.getItem('user');
+const user = userJSON ? JSON.parse(userJSON) : '';
 
 const slice = createSlice({
     name: "auth",
     initialState:  {
-        user: user ? user : null,
+        user: user || null,
         isLoggedIn: !!user,
     } ,
     reducers: {

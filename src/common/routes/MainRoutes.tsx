@@ -1,14 +1,13 @@
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {DetailTeam} from "../../pages/dashboard/team/DetailTeam";
-import {ListTeam} from "../../pages/dashboard/team/ListTeam";
 import {AddTeam} from "../../pages/dashboard/team/AddTeam";
 import {AddPlayer} from "../../pages/dashboard/player/AddPlayer";
 import AuthLayout from "../layouts/AuthLayout";
 import {Login} from "../../pages/auth/Login";
 import {Register} from "../../pages/auth/Register";
 import {NotFound} from "../../pages/NotFound";
-import {TeamsPage} from "../components/dashboard/entities/teams/components/teams/TeamsPage";
+import {TeamsPage} from "../../pages/dashboard/team/TeamsPage";
 
 
 export const MainRoutes = () => {

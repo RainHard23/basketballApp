@@ -6,7 +6,7 @@ import {SelectStyles} from "./selectstyle";
 
 
 export type OptionType = {
-    value: string;
+    value: string | number;
     label: string;
 };
 
@@ -31,11 +31,13 @@ export const Select1: FC<SelectPropsType> = ({options, isMulti, label, name}) =>
         <SelectStyles>
             <Select
                 name={name}
+
                 options={options}
-                isMulti
-                isClearable={true}
-                defaultValue={options}
+                isMulti={isMulti}
+                defaultValue={options && options[0]}
                 classNamePrefix={"react-select"}
+
+                maxMenuHeight={300}
                 menuPlacement={"top"}
             />
         </SelectStyles>
@@ -43,11 +45,7 @@ export const Select1: FC<SelectPropsType> = ({options, isMulti, label, name}) =>
 );
 
 const SelectWrapper = styled.div`
-  max-width: 365px;
-  max-height: 40px;
-  width: 100%;
-  border: 0.5px solid ${colors.lightestGrey};
-  border-radius: 4px;
+  
 `;
 
 

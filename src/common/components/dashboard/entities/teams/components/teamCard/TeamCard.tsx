@@ -1,20 +1,28 @@
 import styled from "styled-components";
-
-// @ts-ignore
 import iconTeam from '../../../../../../../assests/images/iconTeam.png'
 import {colors} from "../../../../../../../assests/styles/colors";
+import {FC} from "react";
 
-export const TeamCard = () => (
-    <CardContainer>
-        <LogoWrapper>
-            <CardLogo src={iconTeam} alt='CardTeam' />
-        </LogoWrapper>
-        <CardDescription>
-            <CardTitle>Portland trail blazers</CardTitle>
-            <CardFoundation>Year of foundation: 1970</CardFoundation>
-        </CardDescription>
-    </CardContainer>
-);
+type TeamProps = {
+    name?: string
+    foundationYear: number
+    imageUrl?: string
+}
+export const TeamCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
+
+    return (
+        <CardContainer>
+            <LogoWrapper>
+                <CardLogo src={iconTeam} alt="img" />
+            </LogoWrapper>
+            <CardDescription>
+                <CardTitle>{name}</CardTitle>
+                <CardFoundation>Year of foundation: {foundationYear}</CardFoundation>
+            </CardDescription>
+        </CardContainer>
+    )
+}
+
 
 const CardContainer = styled.div`
   //max-width: 364px;
@@ -26,11 +34,9 @@ const LogoWrapper = styled.div`
   justify-content: center;
   padding: 25px 56px;
   border-radius: 4px 4px 0 0;
-  background: linear-gradient(
-    121.57deg,
-    ${colors.grey} 1.62%,
-    #393939 81.02%
-  );
+  background: linear-gradient(121.57deg,
+  ${colors.grey} 1.62%,
+  #393939 81.02%);
 `;
 const CardLogo = styled.img`
   max-width: 100%;

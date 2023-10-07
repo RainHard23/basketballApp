@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-// @ts-ignore
-import imageTeam from '../../../../../../../assests/images/fullIconTeam.png';
 
-import TeamRoster from "./TeamRosterPage/TeamRoster";
-import {colors} from "../../../../../../../assests/styles/colors";
+import imageTeam from '../../../assests/images/fullIconTeam.png';
+
+import TeamRoster from "../../../common/components/dashboard/entities/teams/components/teamCard/TeamRosterPage/TeamRoster";
+import {colors} from "../../../assests/styles/colors";
 
 
-export const TeamDetailsPage = () => {
+export const DetailPlayer = () => {
     return (
         <>
             <Container>

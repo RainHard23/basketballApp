@@ -1,23 +1,32 @@
 import {instance} from "../common/api/commonApi";
-import {BaseResponseType} from "../../types/common.types";
+const userJSON = localStorage.getItem('user');
+const user = userJSON ? JSON.parse(userJSON) : '';
 
-export const authAPI = {
-    login(data: LoginParamsType) {
-        return instance.post<BaseResponseType>("api/Auth/SignIn", data);
+export const teamApi = {
+    getTeams() {
+        return instance.get<TeamsType>("api/Team/GetTeams", {
+            headers: { Authorization: "Bearer " + user.token },
+        })
+            .then((res) => res.data)
+            .catch((error) => {
+                console.error("Error fetching teams:", error);
+                throw error;
+            });
     },
-
-    register(data: RegisterParamsType) {
-        return instance.post<BaseResponseType>("api/Auth/SignUp", data);
-    },
 };
 
-export type LoginParamsType = {
-    login: string;
-    password: string;
-};
+export type TeamsType = {
+    data: TeamType[],
+    count: number,
+    page: number,
+    size: number
+}
 
-export type RegisterParamsType = {
-    userName: string;
-    login: string;
-    password: string;
-};
+export type TeamType = {
+    name: string;
+    foundationYear: number;
+    division: string;
+    conference: string;
+    imageUrl: string;
+    id: number;
+}

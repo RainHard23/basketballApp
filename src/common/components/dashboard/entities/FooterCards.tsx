@@ -1,10 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 import {Pagination} from "../../ui/Pagination";
 import Select from "../../ui/select/select";
 import {colors} from "../../../../assests/styles/colors";
+import Select1 from "../../ui/select/select";
 
-
+type PropsType = {
+    paginationPage?: number
+}
 
 const options = [
     { value: "6", label: "6" },
@@ -13,12 +16,13 @@ const options = [
 ];
 
 
-export const CardsFooter = () => {
+export const CardsFooter: FC<PropsType> = ({paginationPage}) => {
     return (
         <ContentWrapper>
-            <Pagination  />
+            <Pagination  paginationPage={paginationPage}/>
             <SelectWrapper>
-                <Select
+                <Select1
+                    isMulti={false}
                     name={"6"}
                     options={options}
                 />

@@ -1,8 +1,12 @@
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { colors } from "../../../assests/styles/colors";
+import {FC} from "react";
+type PropsType = {
+    paginationPage?: number
+}
 
-export const Pagination = () => (
+export const Pagination: FC<PropsType> = ({paginationPage}) => (
     <PaginationContainer>
         <ReactPaginate
             previousLabel={"<"}
@@ -12,7 +16,7 @@ export const Pagination = () => (
             pageRangeDisplayed={4}
             containerClassName={"pagination"}
             pageLinkClassName={"page-link"}
-            pageCount={27}
+            pageCount={paginationPage || 1}
         />
     </PaginationContainer>
 );

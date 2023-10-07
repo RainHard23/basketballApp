@@ -5,15 +5,21 @@ import {CardsFooter} from "../components/dashboard/entities/FooterCards";
 
 type PropsType = {
     children: ReactNode
-    paginationPage?: number
+    paginationPage?: number,
+    updatePageSize: (newPageSize: number) => void
+    updatePageSelect: (newPageSelect: number) => void
 }
 
-export const CardsdLayouts: FC<PropsType> = ({ children, paginationPage }) => {
+export const CardsdLayouts: FC<PropsType> = ({ children, paginationPage, updatePageSize, updatePageSelect }) => {
     return (
         <CardsContainer>
             <CardsHeader />
             <ContentWrapper>{children}</ContentWrapper>
-            <CardsFooter paginationPage={paginationPage}/>
+            <CardsFooter
+                updatePageSize={updatePageSize}
+                paginationPage={paginationPage}
+                updatePageSelect={updatePageSelect}
+            />
         </CardsContainer>
     );
 };
@@ -26,5 +32,5 @@ const CardsContainer = styled.section`
 
 const ContentWrapper = styled.div`
   margin: 0;
-  min-height: 718px;
+  min-height: 784px;
 `;

@@ -6,9 +6,10 @@ import {useSelector} from "react-redux";
 import {teamsSelector} from "../../../module/teams/teamsSelectors";
 import {useActions} from "../../../api/common/hooks/useActions";
 import {teamsThunks} from "../../../module/teams/teamsSlice";
+import {PlayerCard} from "../../../common/components/dashboard/entities/players/components/playerCard/PlayerCard";
 
 
-export const TeamsPage = () => {
+export const PlayersPage = () => {
     const {dataTeams, count, size, page} = useSelector(teamsSelector)
     const {getTeamsTC} = useActions(teamsThunks);
 
@@ -72,7 +73,7 @@ export const TeamsPage = () => {
         <CardsdLayouts paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
             <CardWrapper>
                 {(dataTeams && dataTeams.map((el) =>
-                    <TeamCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl}/>
+                    <PlayerCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl}/>
                 ))}
             </CardWrapper>
         </CardsdLayouts>

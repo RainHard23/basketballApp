@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { colors } from "../../../assests/styles/colors";
 import {FC} from "react";
 type PropsType = {
-    paginationPage?: number
+    paginationPage?: number,
+    updatePageSelect: any
 }
 
-export const Pagination: FC<PropsType> = ({paginationPage}) => (
+export const Pagination: FC<PropsType> = ({paginationPage, updatePageSelect}) => (
     <PaginationContainer>
         <ReactPaginate
             previousLabel={"<"}
@@ -17,6 +18,8 @@ export const Pagination: FC<PropsType> = ({paginationPage}) => (
             containerClassName={"pagination"}
             pageLinkClassName={"page-link"}
             pageCount={paginationPage || 1}
+            onPageChange={(selectedItem) => updatePageSelect(selectedItem ? selectedItem.selected + 1 : 1)}
+
         />
     </PaginationContainer>
 );

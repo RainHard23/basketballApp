@@ -1,32 +1,38 @@
 import React, {FC} from "react";
 import styled from "styled-components";
 import {Pagination} from "../../ui/Pagination";
-import Select from "../../ui/select/select";
 import {colors} from "../../../../assests/styles/colors";
-import Select1 from "../../ui/select/select";
+import {SelectStyles} from "../../ui/select/selectstyle";
+import Select from "react-select";
 
 type PropsType = {
-    paginationPage?: number
+    paginationPage?: number,
+    updatePageSize: (newPageSize: number) => void
+    updatePageSelect: (newPageSelect: number) => void
 }
 
 const options = [
-    { value: "6", label: "6" },
-    { value: "12", label: "12" },
-    { value: "24", label: "24" },
+    {value: 6, label: "6"},
+    {value: 12, label: "12"},
+    {value: 24, label: "24"},
 ];
 
 
-export const CardsFooter: FC<PropsType> = ({paginationPage}) => {
+export const CardsFooter: FC<PropsType> = ({paginationPage, updatePageSize, updatePageSelect}) => {
     return (
         <ContentWrapper>
-            <Pagination  paginationPage={paginationPage}/>
-            <SelectWrapper>
-                <Select1
-                    isMulti={false}
-                    name={"6"}
+            <Pagination updatePageSelect={updatePageSelect} paginationPage={paginationPage}/>
+            <SelectStyles>
+                <Select
+                    name={''}
                     options={options}
+                    isMulti={false}
+                    defaultValue={options && options[0]}
+                    classNamePrefix={"react-select"}
+                    onChange={(newValue) => updatePageSize(newValue ? newValue.value : 6)}
+                    menuPlacement={"top"}
                 />
-            </SelectWrapper>
+            </SelectStyles>
         </ContentWrapper>
     );
 };

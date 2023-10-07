@@ -8,6 +8,7 @@ import {TeamsPage} from "../../pages/dashboard/team/TeamsPage";
 import {TeamFormAdd} from "../../pages/dashboard/team/TeamAdd";
 import {TeamDetailsPage} from "../../pages/dashboard/player/DetailPlayer";
 import {PlayerFormAdd} from "../../pages/dashboard/player/AddPlayer";
+import {PlayersPage} from "../../pages/dashboard/player/PlayersPage";
 
 
 export const MainRoutes = () => {
@@ -27,6 +28,7 @@ export const MainRoutes = () => {
 
                     <Route path="/team/:teamId/:playerId" element={<TeamDetailsPage/>}/>
                     <Route path="/team/:teamId/players/create" element={<PlayerFormAdd/>}/>
+                    <Route path="/players" element={<PlayersPage/>}/>
                 </Route>
 
                 <Route element={<AuthLayout/>}>

@@ -1,11 +1,13 @@
 import {instance} from "../common/api/commonApi";
+
 const userJSON = localStorage.getItem('user');
 const user = userJSON ? JSON.parse(userJSON) : '';
 
 export const teamApi = {
-    getTeams() {
+    getTeams(paramsQuery: any) {
         return instance.get<TeamsType>("api/Team/GetTeams", {
-            headers: { Authorization: "Bearer " + user.token },
+            headers: {Authorization: "Bearer " + user.token},
+            params: paramsQuery
         })
             .then((res) => res.data)
             .catch((error) => {

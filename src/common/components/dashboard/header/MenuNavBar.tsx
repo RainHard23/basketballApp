@@ -10,29 +10,33 @@ import {colors} from "../../../../assests/styles/colors";
 import {useActions} from "../../../../api/common/hooks/useActions";
 import {authSlice, authThunks, logout} from "../../../../api/auth/authSlice";
 import {useDispatch} from "react-redux";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {Login} from "../../../../pages/auth/Login";
 
 
 export const MenuNavBar = () => {
     const dispatch = useDispatch();
 
+    const location = useLocation();
+    const currentPath = location.pathname;
+
+    const isTeamsActive = currentPath === "/";
+    const isPlayersActive = currentPath === "/players";
+
     const handleLogout = () => {
         dispatch(logout());
-
     };
 
     return (
         <MenuContainer>
             <Nav>
-                <NavItem to={'/' +
-                    ''}>
+                <NavItem to='/' active={isTeamsActive}>
                     <IconTeams/>
-                    <LinkText>Teams</LinkText>
+                    <LinkText >Teams</LinkText>
                 </NavItem>
-                <NavItem to='/'>
+                <NavItem to='/players' active={isPlayersActive}>
                     <IconPlayers/>
-                    <LinkText>Players</LinkText>
+                    <LinkText >Players</LinkText>
                 </NavItem>
             </Nav>
             <NavItem onClick={handleLogout}
@@ -40,9 +44,9 @@ export const MenuNavBar = () => {
             >
 
                 <IconSignOut/>
-                <LinkText>
+                <div>
                     <span>Sign out</span>
-                </LinkText>
+                </div>
             </NavItem>
         </MenuContainer>
     );
@@ -72,28 +76,26 @@ const Nav = styled.nav`
   flex-direction: column;
 `;
 
-const NavItem = styled(NavLink)`
+const NavItem = styled(NavLink)<{ active?: boolean}>`
   cursor: pointer;
   display: flex;
   text-decoration: none;
   align-items: center;
   margin-bottom: 30px;
   flex-direction: column;
-  color: ${colors.lightGrey};
-
-  &:active {
-    color: ${colors.red};
-
-    svg {
-      path {
-        fill: ${colors.red};
-      }
+  color: ${props => props.active ? colors.red : colors.lightGrey};
+  svg {
+    path {
+      fill: ${props => props.active ? colors.red : colors.lightGrey};
     }
   }
+
+  
 `;
 
 const LinkText = styled.p`
   margin-top: 4px;
+  text-decoration: none;
 
   & span {
     color: ${colors.lightestRed};

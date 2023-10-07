@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import iconTeam from '../../../../../../../assests/images/iconTeam.png'
+import iconPlayer from '../../../../../../../assests/images/IconPlayerPage.png'
 import {colors} from "../../../../../../../assests/styles/colors";
 import {FC} from "react";
 
@@ -8,16 +8,16 @@ type TeamProps = {
     foundationYear: number
     imageUrl?: string
 }
-export const TeamCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
+export const PlayerCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
 
     return (
         <CardContainer>
             <LogoWrapper>
-                <CardLogo src={iconTeam} alt="img" />
+                <CardLogo src={iconPlayer} alt="PlayerPage" />
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>
-                <CardFoundation>Year of foundation: {foundationYear}</CardFoundation>
+                <CardFoundation>Portland trail blazers</CardFoundation>
             </CardDescription>
         </CardContainer>
     )
@@ -32,7 +32,7 @@ const CardContainer = styled.div`
 const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding: 65px 56px;
+  padding: 65px 56px 0 56px;
   border-radius: 4px 4px 0 0;
   background: linear-gradient(121.57deg,
   ${colors.grey} 1.62%,

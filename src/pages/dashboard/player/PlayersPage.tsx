@@ -1,20 +1,23 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import styled from "styled-components";
-import {TeamCard} from "../../../common/components/dashboard/entities/teams/components/teamCard/TeamCard";
 import {CardsdLayouts} from "../../../common/layouts/CardsLayouts";
 import {useSelector} from "react-redux";
-import {teamsSelector} from "../../../module/teams/teamsSelectors";
 import {useActions} from "../../../api/common/hooks/useActions";
-import {teamsThunks} from "../../../module/teams/teamsSlice";
-import {PlayerCard} from "../../../common/components/dashboard/entities/players/components/playerCard/PlayerCard";
+import {PlayerCard} from "../../../common/components/dashboard/entities/players/components/PlayerCard";
+import {playersSelector} from "../../../module/players/playersSelectors";
+import {playersThunks} from "../../../module/players/playersSlice";
+import {EmptyPage} from "../../EmptyPage";
+import emptyPlayers from "../../../assests/images/emptyPlayers.png";
+import {selectAppStatus} from "../../../module/app/appSelectors";
+import {Loader} from "../../../common/components/Loader";
 
 
 export const PlayersPage = () => {
-    const {dataTeams, count, size, page} = useSelector(teamsSelector)
-    const {getTeamsTC} = useActions(teamsThunks);
-
-    const userJSON = localStorage.getItem('user');
-    const user = userJSON ? JSON.parse(userJSON) : '';
+    const {dataPlayers, count, size, page} = useSelector(playersSelector)
+    const {getPlayersTC} = useActions(playersThunks);
+    const status = useSelector(selectAppStatus);
+    // const userJSON = localStorage.getItem('user');
+    // const user = userJSON ? JSON.parse(userJSON) : '';
 
     const [parramsQuery, setParramsQuery] = useState(
         {
@@ -57,7 +60,7 @@ export const PlayersPage = () => {
 
 
     useEffect(() => {
-        getTeamsTC(parramsQuery);
+        getPlayersTC(parramsQuery);
     }, [parramsQuery]);
 
     const paginationPage = useMemo(() => {
@@ -70,18 +73,28 @@ export const PlayersPage = () => {
 
 
     return (
-        <CardsdLayouts paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
-            <CardWrapper>
-                {(dataTeams && dataTeams.map((el) =>
-                    <PlayerCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl}/>
-                ))}
-            </CardWrapper>
+        <CardsdLayouts linkPath={'/team/:teamId/players/create'} paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
+            {status === "loading" ? (
+                <Loader />
+            ) : (
+                <>
+                    {dataPlayers && dataPlayers.length > 0 ? (
+                        <CardsContainer>
+                            {(dataPlayers && dataPlayers.map((el) =>
+                                <PlayerCard key={el.id} name={el.name} teamName={el.teamName} avatarUrl={el.avatarUrl}/>
+                            ))}
+                        </CardsContainer>
+                    ) : (
+                        <EmptyPage Image={emptyPlayers} Label={'Add new players to continue'}/>
+                    )}
+                </>
+            )}
         </CardsdLayouts>
     );
 };
 
 
-export const CardWrapper = styled.div`
+export const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 24px), 1fr));
   gap: 24px;

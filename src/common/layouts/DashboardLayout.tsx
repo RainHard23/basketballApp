@@ -4,7 +4,7 @@ import {MenuNavBar} from "../components/dashboard/header/MenuNavBar";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
 import {useSelector} from "react-redux";
-import {selectIsLoggedIn} from "../../api/auth/auth.selectors";
+import {selectIsLoggedIn} from "../../module/auth/auth.selectors";
 
 
 export const DashboardLayout = () => {

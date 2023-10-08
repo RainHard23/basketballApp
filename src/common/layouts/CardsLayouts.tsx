@@ -8,12 +8,13 @@ type PropsType = {
     paginationPage?: number,
     updatePageSize: (newPageSize: number) => void
     updatePageSelect: (newPageSelect: number) => void
+    linkPath: string
 }
 
-export const CardsdLayouts: FC<PropsType> = ({ children, paginationPage, updatePageSize, updatePageSelect }) => {
+export const CardsdLayouts: FC<PropsType> = ({linkPath, children, paginationPage, updatePageSize, updatePageSelect }) => {
     return (
         <CardsContainer>
-            <CardsHeader />
+            <CardsHeader  linkPath={linkPath}/>
             <ContentWrapper>{children}</ContentWrapper>
             <CardsFooter
                 updatePageSize={updatePageSize}

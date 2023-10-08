@@ -2,18 +2,19 @@ import styled from "styled-components";
 import {colors} from "../../../../assests/styles/colors";
 
 
-export const SelectStyles = styled.div`
+export const SelectStyles = styled.div<{ long?: boolean }>`
   .react-select__value-container {
-    padding: 0 12px;
+    padding: 0 16px;
     height: 100%;
   }
+
   .react-select__control {
     width: 100%;
     min-height: 40px;
     border-radius: 4px;
     box-shadow: none;
     border: none;
-    background: ${colors.white};
+    background-color: ${({long}) => long ? colors.lightestGrey1 : colors.white};
 
     &:hover {
       background: ${colors.lightestGrey};
@@ -53,9 +54,11 @@ export const SelectStyles = styled.div`
   }
 
   .react-select__menu {
+    
     color: ${colors.lightGrey};
     border-radius: 4px;
     border: 0.5px solid ${colors.lightestGrey};
+    
   }
 
   .react-select__menu > div {
@@ -70,6 +73,7 @@ export const SelectStyles = styled.div`
   .react-select__option {
     cursor: pointer;
     border-bottom: 0.5px solid ${colors.lightestGrey};
+
     &:last-child {
       border-bottom: none;
     }

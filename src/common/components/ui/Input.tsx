@@ -1,5 +1,5 @@
-import React, {ComponentProps, ComponentPropsWithoutRef, FC, forwardRef, useState} from 'react';
-import {FieldError} from "react-hook-form";
+import React, {ComponentProps, ComponentPropsWithoutRef,forwardRef, useState} from 'react';
+
 import styled from "styled-components";
 import {colors} from "../../../assests/styles/colors";
 import eyeIcon from "../../../assests/icons/iconEye.svg"
@@ -9,8 +9,7 @@ import eyeIconClose from "../../../assests/icons/iconCloseEye.svg"
 import searchIcon from "../../../assests/icons/iconSearch.svg"
 
 export type InputProps = {
-    type: "text" | "password" | "search"
-
+    type: "text" | "password" | "search" | 'date' | 'number'
     label?: string
     value?: string
     disabled?: boolean

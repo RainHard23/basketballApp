@@ -1,12 +1,16 @@
 import Button from "../../common/components/ui/Button";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
-import {authThunks} from "../../api/auth/authSlice";
+import {authThunks} from "../../module/auth/authSlice";
 import {useActions} from "../../api/common/hooks/useActions";
 import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
+import {NavLink} from "react-router-dom";
+import {Simulate} from "react-dom/test-utils";
+import submit = Simulate.submit;
+import {ErrorSnackbar} from "../../common/components/dashboard/ErorBar";
 
 export const Login = () => {
 
@@ -50,6 +54,7 @@ export const Login = () => {
 
     return (
         <LoginFormContainer>
+            <ErrorSnackbar />
             <WrapperTitle>
                 <Title>Sign In</Title>
             </WrapperTitle>
@@ -68,12 +73,36 @@ export const Login = () => {
                     label="Password"
                     errorMessage={errors.password}
                 />
-                <Button>Sign In</Button>
+                <Button type={'submit'} isAuth={true}>Sign In</Button>
             </Form>
+
+            <MemberContainer>
+                <span>Not a member yet?</span>
+                <MemberLink to={'/register'}>Sign Up</MemberLink>
+            </MemberContainer>
         </LoginFormContainer>
     );
 };
 
+
+const MemberContainer = styled.div`
+  display: flex;
+  
+  & span {
+    margin-right: 5px;
+    color: ${colors.grey};
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+`
+
+const MemberLink = styled(NavLink)`
+  color: ${colors.red};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+`
 
 const LoginFormContainer = styled.div`
   display: flex;
@@ -86,10 +115,6 @@ const Form = styled.form`
   max-width: 366px;
   width: 100%;
   margin: 0 auto;
-
-  & div {
-    margin-bottom: 24px;
-  }
 `;
 
 const WrapperTitle = styled.div`

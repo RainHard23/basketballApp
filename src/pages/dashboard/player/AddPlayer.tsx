@@ -1,14 +1,23 @@
 import styled from "styled-components";
 
-// @ts-ignore
+
 import test from '../../../assests/images/iconPlayer.png'
 import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
 
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
 import {Input} from "../../../common/components/ui/Input";
-import Select from "../../../common/components/ui/select/select";
+import {Select1} from "../../../common/components/ui/select/select";
+import {ControlledTextField} from "../../../common/components/ui/ControlledInput/ControlledInput";
 
+
+const options = [
+    {value: "Center Forward", label: "Center Forward"},
+    {value: "Guard Forward", label: "Guard Forward"},
+    {value: "Forward", label: "Forward"},
+    {value: "Center", label: "Center"},
+    {value: "Guard", label: "Guard"},
+];
 
 export const PlayerFormAdd = () => {
     return (
@@ -24,35 +33,45 @@ export const PlayerFormAdd = () => {
                             name="name"
                             label="Name"
                             type="text"
+
                         />
-                        <Select
-                            name="position"
-                            label="Position"
-                            isMulti={true}
-                        />
-                        <Select
-                            name="team"
-                            label="Team"
-                            isMulti={true}
-                        />
+                        <ContainerSelect>
+                            <Select1
+                                options={options}
+                                name="position"
+                                label="Position"
+                                isMulti={false}
+                            />
+                        </ContainerSelect>
+                        <ContainerSelect>
+                            <Select1
+                                name="team"
+                                label="Team"
+                                isMulti={false}
+                            />
+                        </ContainerSelect>
                         <ContainerInputDetail>
                             <Input
-                                type='text'
+                                type='number'
                                 name='height'
                                 label='Height (cm)'
                             />
                             <Input
-                                type='text'
+                                type='number'
                                 name='weight'
                                 label='Weight (kg)'
                             />
+
                             <Input
-                                type='text'
+
+
+                                type='date'
                                 name='birthday'
                                 label='Birthday (cm)'
+                                placeholder={'sss'}
                             />
                             <Input
-                                type='text'
+                                type='number'
                                 name='number'
                                 label='Number (cm)'
                             />
@@ -71,15 +90,19 @@ export const PlayerFormAdd = () => {
     );
 };
 
+
+const ContainerSelect = styled.div`
+  margin-top: 24px; 
+`;
+
 const ContainerInputDetail = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 24px;
 
   & > div {
-    margin-bottom: 12px;
-    width: 50%; /* Two items in a row */
-    padding-right: 10px; /* Some spacing between inputs */
+    max-width: 171px;
+    width: 100%;
   }
 `;
 
@@ -110,9 +133,7 @@ const WrapperItem = styled.div`
   max-width: 366px;
   width: 100%;
 
-  & div {
-    margin-bottom: 24px;
-  }
+  
 
 `;
 
@@ -121,4 +142,5 @@ const ButtonsWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   width: 100%;
+  margin-top: 24px;
 `;

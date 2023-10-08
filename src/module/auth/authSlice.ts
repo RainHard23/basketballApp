@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {authAPI, LoginParamsType, RegisterParamsType} from "./api/api";
-import {createAppAsyncThunk} from "../common/utils/create-app-async-thunk";
+import {authAPI, LoginParamsType, RegisterParamsType} from "../../api/auth/api/api";
+import {createAppAsyncThunk} from "../../api/common/utils/create-app-async-thunk";
 
 
 const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (arg, thunkAPI) => {

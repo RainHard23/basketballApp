@@ -8,7 +8,7 @@ import {ReactComponent as IconTeams} from "../../../../assests/icons//iconTeams.
 import {ReactComponent as IconPlayers} from '../../../../assests/icons/iconPlayers.svg'
 import {colors} from "../../../../assests/styles/colors";
 import {useActions} from "../../../../api/common/hooks/useActions";
-import {authSlice, authThunks, logout} from "../../../../api/auth/authSlice";
+import {authSlice, authThunks, logout} from "../../../../module/auth/authSlice";
 import {useDispatch} from "react-redux";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {Login} from "../../../../pages/auth/Login";
@@ -39,15 +39,12 @@ export const MenuNavBar = () => {
                     <LinkText >Players</LinkText>
                 </NavItem>
             </Nav>
-            <NavItem onClick={handleLogout}
-                     to='/login'
-            >
-
+            <LogOut onClick={handleLogout}>
                 <IconSignOut/>
                 <div>
                     <span>Sign out</span>
                 </div>
-            </NavItem>
+            </LogOut>
         </MenuContainer>
     );
 };
@@ -89,9 +86,46 @@ const NavItem = styled(NavLink)<{ active?: boolean}>`
       fill: ${props => props.active ? colors.red : colors.lightGrey};
     }
   }
+  &:hover {
+    svg {
+      path {
+        fill: ${colors.red};
+        transition: 0.1s linear;
+      }
+    }
+    p {
+      transition: 0.1s linear;
+      color: ${colors.red};
 
-  
+    }
+  }
 `;
+
+const LogOut = styled.div`
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-direction: column;
+  color: ${colors.lightestRed};
+ 
+
+  &:hover {
+    svg {
+      path {
+        fill: ${colors.red};
+        transition: 0.1s linear;
+      }
+    }
+    span {
+      transition: 0.1s linear;
+      color: ${colors.red};
+      
+    }
+  }
+  
+`
 
 const LinkText = styled.p`
   margin-top: 4px;

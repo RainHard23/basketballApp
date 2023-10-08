@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import iconPlayer from '../../../../../../../assests/images/IconPlayerPage.png'
-import {colors} from "../../../../../../../assests/styles/colors";
+import iconPlayer from '../../../../../../assests/images/IconPlayerPage.png'
+import {colors} from "../../../../../../assests/styles/colors";
 import {FC} from "react";
 
-type TeamProps = {
+type PlayerProps = {
     name?: string
-    foundationYear: number
-    imageUrl?: string
+    teamName: string
+    avatarUrl?: string
 }
-export const PlayerCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
+export const PlayerCard: FC<PlayerProps> = ({name, teamName, avatarUrl}) => {
 
     return (
         <CardContainer>
@@ -17,7 +17,7 @@ export const PlayerCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>
-                <CardFoundation>Portland trail blazers</CardFoundation>
+                <CardFoundation>{teamName}</CardFoundation>
             </CardDescription>
         </CardContainer>
     )
@@ -25,7 +25,6 @@ export const PlayerCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
 
 
 const CardContainer = styled.div`
-  //max-width: 364px;
   width: 100%;
 `
 

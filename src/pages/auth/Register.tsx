@@ -3,13 +3,14 @@ import {CheckBox} from "../../common/components/ui/CheckBox";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
 import {useActions} from "../../api/common/hooks/useActions";
-import {authThunks} from "../../api/auth/authSlice";
+import {authThunks} from "../../module/auth/authSlice";
 import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {Input} from "../../common/components/ui/Input";
 import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
 import Button from "../../common/components/ui/Button";
+import {NavLink} from "react-router-dom";
 
 export const Register = () => {
     type FormData = {
@@ -114,11 +115,35 @@ export const Register = () => {
                     errorMessage={errors.check}
                     name={'check'}
                     label={"I accept the agreement"}/>
-               <Button type={'submit'}>Sign Up</Button>
+               <Button type={'submit'} isAuth={true}>Sign Up</Button>
             </Form>
+            <MemberContainer>
+                <span>Already a member?</span>
+                <MemberLink to={'/login'}>Sign In</MemberLink>
+            </MemberContainer>
         </RegisterFormContainer>
     );
 };
+
+const MemberContainer = styled.div`
+  display: flex;
+  margin-top: 24px;
+  
+  & span {
+    margin-right: 5px;
+    color: ${colors.grey};
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+`
+
+const MemberLink = styled(NavLink)`
+  color: ${colors.red};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+`
 
 const RegisterFormContainer = styled.div`
   display: flex;
@@ -131,6 +156,7 @@ const Form = styled.form`
   max-width: 366px;
   width: 100%;
   margin: 0 auto;
+  
   
 `;
 

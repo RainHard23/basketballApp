@@ -16,29 +16,22 @@ type SelectPropsType = {
     label?: string;
     isMulti?: boolean;
     name: string
+    long?: boolean
 };
 
 export const Select1: FC<SelectPropsType> = ({options, isMulti, label, name}) => (
 
-
-    // <Select
-    //     isMulti
-    //     options={options}
-    //     maxMenuHeight={300}
-    //     classNamePrefix={"react-select"}
-    // />
     <SelectWrapper>
-        <SelectStyles>
+        <Title>{label}</Title>
+        <SelectStyles long>
             <Select
                 name={name}
-
                 options={options}
                 isMulti={isMulti}
                 defaultValue={options && options[0]}
                 classNamePrefix={"react-select"}
-
                 maxMenuHeight={300}
-                menuPlacement={"top"}
+                menuPlacement={options && options.length > 3 ? "bottom" : "top"}
             />
         </SelectStyles>
     </SelectWrapper>
@@ -47,6 +40,11 @@ export const Select1: FC<SelectPropsType> = ({options, isMulti, label, name}) =>
 const SelectWrapper = styled.div`
   
 `;
-
+const Title = styled.h4`
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  color: ${colors.grey};
+`
 
 export default Select1;

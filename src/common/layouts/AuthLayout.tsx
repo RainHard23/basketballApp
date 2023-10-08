@@ -4,7 +4,7 @@ import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import imgRegister from '../../assests/images/imgRegistr.png'
 import imgLogin from '../../assests/images/imgLogin.png'
 import {useSelector} from "react-redux";
-import {selectIsLoggedIn} from "../../api/auth/auth.selectors";
+import {selectIsLoggedIn} from "../../module/auth/auth.selectors";
 
 
 

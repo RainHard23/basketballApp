@@ -6,15 +6,15 @@ import {useSelector} from "react-redux";
 import {teamsSelector} from "../../../module/teams/teamsSelectors";
 import {useActions} from "../../../api/common/hooks/useActions";
 import {teamsThunks} from "../../../module/teams/teamsSlice";
-
+import {EmptyPage} from "../../EmptyPage";
+import emptyTeams from '../../../assests/images/emptyTeams.png'
+import {Loader} from "../../../common/components/Loader";
+import {selectAppStatus} from "../../../module/app/appSelectors";
 
 export const TeamsPage = () => {
     const {dataTeams, count, size, page} = useSelector(teamsSelector)
     const {getTeamsTC} = useActions(teamsThunks);
-
-    const userJSON = localStorage.getItem('user');
-    const user = userJSON ? JSON.parse(userJSON) : '';
-
+    const status = useSelector(selectAppStatus);
     const [parramsQuery, setParramsQuery] = useState(
         {
             paramsQuery: {
@@ -69,12 +69,22 @@ export const TeamsPage = () => {
 
 
     return (
-        <CardsdLayouts paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
-            <CardWrapper>
-                {(dataTeams && dataTeams.map((el) =>
-                    <TeamCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl}/>
-                ))}
-            </CardWrapper>
+        <CardsdLayouts  linkPath={'/teams/create'} paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
+            {status === "loading" ? (
+                <Loader />
+            ) : (
+                <>
+            {dataTeams && dataTeams.length > 0 ? (
+                <CardWrapper>
+                    {dataTeams.map((el) => (
+                        <TeamCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl} />
+                    ))}
+                </CardWrapper>
+            ) : (
+                <EmptyPage Image={emptyTeams} Label={'Add new teams to continue'}/>
+            )}
+                </>
+            )}
         </CardsdLayouts>
     );
 };

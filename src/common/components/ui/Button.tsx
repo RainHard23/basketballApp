@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { colors } from "../../../assests/styles/colors";
 import { fonts } from "../../../assests/fonts/fonts";
 
-const Button = styled.button<{ isCancel?: boolean; isAdd?: boolean }>`
+const Button = styled.button<{ isCancel?: boolean; isAdd?: boolean; isAuth?: boolean}>`
+  margin: ${({ isAuth }) => (isAuth ? '24px 0' : '0')};
   display: flex;
   align-items: center;
   justify-content: center;

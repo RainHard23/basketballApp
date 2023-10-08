@@ -8,9 +8,7 @@ import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {NavLink} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
-import {ErrorSnackbar} from "../../common/components/dashboard/ErorBar";
+
 
 export const Login = () => {
 
@@ -54,7 +52,12 @@ export const Login = () => {
 
     return (
         <LoginFormContainer>
-            <ErrorSnackbar />
+            <div>
+                test
+                login: 1111
+                password: 1111
+            </div>
+            {/*<ErrorSnackbar />*/}
             <WrapperTitle>
                 <Title>Sign In</Title>
             </WrapperTitle>

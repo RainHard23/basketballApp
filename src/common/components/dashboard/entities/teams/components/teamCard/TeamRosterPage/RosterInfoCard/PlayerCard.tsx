@@ -1,39 +1,45 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {colors} from "../../../../../../../../../assests/styles/colors";
 
 
 type PlayerInfoProps = {
-    inNumber: string;
+    number: number;
     imgSrc: string;
     playerName: string;
     position: string;
-    height: string;
-    weight: string;
-    age: string;
+    height: number;
+    weight: number;
+    age: number;
+    teamId: string,
+    id: number,
 };
 
 export const PlayerRosterCard: FC<PlayerInfoProps> = ({
-                                                    inNumber,
-                                                    imgSrc,
-                                                    playerName,
-                                                    position,
-                                                    height,
-                                                    weight,
-                                                    age,
-                                                }) => {
+                                                          number,
+                                                          imgSrc,
+                                                          playerName,
+                                                          position,
+                                                          height,
+                                                          weight,
+                                                          age,
+                                                          id,
+                                                          teamId
+                                                      }) => {
+    const navigate = useNavigate();
+
     return (
-        <ContainerPlayer>
-            <TableRow key={inNumber}>
-                <TableLeft>{inNumber}</TableLeft>
+        <ContainerPlayer >
+            <TableRow key={id}>
+                <TableLeft>{number}</TableLeft>
                 <TableLeft>
-                    <TableItem>
-                        <PlayerLink to={`/players/${inNumber}`}>
-                            <Img src={imgSrc} alt="Logo" />
-                        </PlayerLink>
+                    <TableItem onClick={() => navigate(`/team/${teamId}/${id}`)}>
+                        <PlayerLogo >
+                            <Img src={imgSrc} alt="Logo"/>
+                        </PlayerLogo>
                         <PlayerDescription>
-                            <NameLink to={`/players/${inNumber}`}>{playerName}</NameLink>
+                            <NamePlayer>{playerName}</NamePlayer>
                             <Position>{position}</Position>
                         </PlayerDescription>
                     </TableItem>
@@ -70,8 +76,8 @@ const PlayerDescription = styled.div`
 `;
 
 
-const PlayerLink = styled(Link)`
-  text-decoration: none;
+const PlayerLogo = styled.div`
+  
 `;
 
 export const TableRight = styled.div`
@@ -94,10 +100,9 @@ const TableRow = styled.div`
 `;
 
 
-const NameLink = styled(Link)`
+const NamePlayer = styled.p`
   font-size: 15px;
   color: ${colors.grey};
-  text-decoration: none;
 `;
 
 const Position = styled.p`

@@ -66,23 +66,23 @@ export const TeamsPage = () => {
     }, [count, size]);
 
 
-
-
     return (
-        <CardsdLayouts  linkPath={'/teams/create'} paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
+        <CardsdLayouts linkPath={'/teams/create'} paginationPage={paginationPage} updatePageSelect={updatePageSelect}
+                       updatePageSize={updatePageSize}>
             {status === "loading" ? (
-                <Loader />
+                <Loader/>
             ) : (
                 <>
-            {dataTeams && dataTeams.length > 0 ? (
-                <CardWrapper>
-                    {dataTeams.map((el) => (
-                        <TeamCard key={el.id} name={el.name} foundationYear={el.foundationYear} imageUrl={el.imageUrl} />
-                    ))}
-                </CardWrapper>
-            ) : (
-                <EmptyPage Image={emptyTeams} Label={'Add new teams to continue'}/>
-            )}
+                    {dataTeams && dataTeams.length > 0 ? (
+                        <CardWrapper>
+                            {dataTeams.map((el) => (
+                                <TeamCard key={el.id} name={el.name} id={el.id} foundationYear={el.foundationYear}
+                                          imageUrl={el.imageUrl}/>
+                            ))}
+                        </CardWrapper>
+                    ) : (
+                        <EmptyPage Image={emptyTeams} Label={'Add new teams to continue'}/>
+                    )}
                 </>
             )}
         </CardsdLayouts>

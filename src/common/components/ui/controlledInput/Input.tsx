@@ -1,12 +1,12 @@
 import React, {ComponentProps, ComponentPropsWithoutRef,forwardRef, useState} from 'react';
 
 import styled from "styled-components";
-import {colors} from "../../../assests/styles/colors";
-import eyeIcon from "../../../assests/icons/iconEye.svg"
+import {colors} from "../../../../assests/styles/colors";
+import eyeIcon from "../../../../assests/icons/iconEye.svg"
 
-import eyeIconClose from "../../../assests/icons/iconCloseEye.svg"
+import eyeIconClose from "../../../../assests/icons/iconCloseEye.svg"
 
-import searchIcon from "../../../assests/icons/iconSearch.svg"
+import searchIcon from "../../../../assests/icons/iconSearch.svg"
 
 export type InputProps = {
     type: "text" | "password" | "search" | 'date' | 'number'
@@ -41,6 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <InputWrapper error={!!errorMessage} type={type}>
                 
                 <StyledInput
+                    value={value}
                     ref={ref}
                     type={finalType}
                     placeholder={type === 'search' ? placeholder : ''}

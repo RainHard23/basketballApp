@@ -3,22 +3,20 @@ import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
 import {authThunks} from "../../module/auth/authSlice";
 import {useActions} from "../../api/common/hooks/useActions";
-import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
+
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {NavLink} from "react-router-dom";
+import {ControlledTextField} from "../../common/components/ui/controlledInput/ControlledInput";
 
-
+type FormData = {
+    login: string;
+    password: string;
+}
 export const Login = () => {
 
     const {loginTC} = useActions(authThunks);
-    type FormData = {
-        login: string;
-        password: string;
-    }
-
-
 
 
     const schema = yup.object().shape({

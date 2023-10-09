@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components';
 // @ts-ignore
 import iconPlayerRoster from '../../../../../../../../assests/icons/iconPlayers.svg';
 import {TableLeft, TableRight, PlayerRosterCard} from "./RosterInfoCard/PlayerCard";
 import {colors} from "../../../../../../../../assests/styles/colors";
-
+import {PlayerType} from "../../../../../../../../api/players/api";
+import {getAge} from "../../../../../../../../core/helpers/getAgeFunc";
 
 
 type  Player = {
@@ -56,7 +57,12 @@ const players: Player[] = [
     },
 ];
 
-const TeamRoster: FC = () => {
+interface TeamRosterProps {
+    dataPlayers: PlayerType[],
+    team: any
+}
+
+const TeamRoster: FC<TeamRosterProps> = ({team, dataPlayers}) => {
     return (
         <Container>
             <TeamRosterContainer>
@@ -69,18 +75,23 @@ const TeamRoster: FC = () => {
                     <TableRight>Age</TableRight>
                 </PlayerInfoContainer>
                 <RosterGrid>
-                    {players.map((player, index) => (
-                        <PlayerRosterCard
-                            key={index}
-                            inNumber={player.in}
-                            imgSrc={player.img}
-                            playerName={player.name}
-                            position={player.position}
-                            height={player.cm}
-                            weight={player.kg}
-                            age={player.age}
-                        />
-                    ))}
+                    {dataPlayers.map((player, index) => {
+                        const age = getAge(player.birthday)
+                        return (
+                            <PlayerRosterCard
+                                teamId={team}
+                                key={index}
+                                id={player.id}
+                                number={player.number}
+                                imgSrc={player.avatarUrl}
+                                playerName={player.name}
+                                position={player.position}
+                                height={player.height}
+                                weight={player.weight}
+                                age={age}
+                            />
+                        )
+                    })}
                 </RosterGrid>
             </TeamRosterContainer>
         </Container>
@@ -93,7 +104,6 @@ const PlayerInfoContainer = styled.div`
   padding: 10px 0 10px 32px;
   grid-template-columns: 0.1fr 1fr 0.3fr 0.3fr 0.3fr;
 `;
-
 
 
 const Container = styled.div`

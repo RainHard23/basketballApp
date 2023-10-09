@@ -2,22 +2,25 @@ import styled from "styled-components";
 import iconPlayer from '../../../../../../assests/images/IconPlayerPage.png'
 import {colors} from "../../../../../../assests/styles/colors";
 import {FC} from "react";
+import {useNavigate} from "react-router-dom";
 
 type PlayerProps = {
     name?: string
-    teamName: string
+    teamName?: string
     avatarUrl?: string
+    id?: number
 }
-export const PlayerCard: FC<PlayerProps> = ({name, teamName, avatarUrl}) => {
+export const PlayerCard: FC<PlayerProps> = ({name, teamName, avatarUrl, id}) => {
+    const navigate = useNavigate()
 
     return (
-        <CardContainer>
+        <CardContainer onClick={() => navigate(`/team/:teamId/${id}`)}>
             <LogoWrapper>
                 <CardLogo src={iconPlayer} alt="PlayerPage" />
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>
-                <CardFoundation>{teamName}</CardFoundation>
+                <CardTeam>{teamName}</CardTeam>
             </CardDescription>
         </CardContainer>
     )
@@ -56,7 +59,7 @@ const CardTitle = styled.p`
   margin-bottom: 10px;
   color: ${colors.white}
 `;
-const CardFoundation = styled.p`
+const CardTeam = styled.p`
   font-size: 14px;
   line-height: 24px;
   font-weight: 500;

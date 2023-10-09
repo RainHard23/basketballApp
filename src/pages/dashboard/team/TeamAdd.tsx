@@ -1,51 +1,116 @@
 import styled from "styled-components";
-
-// @ts-ignore
-import test from '../../../assests/images/iconPlayer.png'
 import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
-
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
-import {Input} from "../../../common/components/ui/Input";
+import * as yup from "yup";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {ControlledTextField} from "../../../common/components/ui/controlledInput/ControlledInput";
+import {useActions} from "../../../api/common/hooks/useActions";
+import {teamsThunks} from "../../../module/teams/teamsSlice";
+import {useNavigate} from "react-router-dom";
+
+type FormData = {
+    name: string
+    division: string
+    conference: string
+    foundationYear: number
+    imageUrl: any
+}
 
 
 export const TeamFormAdd = () => {
+    const navigate = useNavigate()
+    const handleFileSelect = (file: File | null) => {
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target) {
+                    setValue('imageUrl', e.target.result);
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setValue('imageUrl', null);
+        }
+    };
+    const {addTeamTC} = useActions(teamsThunks);
+    const schema = yup.object().shape({
+        name: yup.string().required('Name is required.'),
+        division: yup.string().required('Division is required.'),
+        conference: yup.string().required('Conference is required.'),
+        foundationYear: yup.number().required('Year of foundation is required.'),
+        imageUrl: yup.mixed().required('Image is required'),
+    });
+
+    const {
+        watch,
+        reset,
+        setValue,
+        control,
+        handleSubmit,
+        formState: {errors}
+    } = useForm<FormData>({
+
+        mode: 'onBlur',
+        resolver: yupResolver(schema),
+        defaultValues: {
+            name: '',
+            division: '',
+            conference: '',
+            foundationYear: 1973,
+            imageUrl: null,
+        },
+    })
+
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        addTeamTC(data)
+        reset();
+    };
+
+    const handleFormSubmitted = handleSubmit(onSubmit);
+
     return (
         <Container>
-            <Form>
+            <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <CustomInputFile image={test}
+                    <CustomInputFile
+
+
+                        onFileSelect={handleFileSelect}
                     />
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>
-                        <Input
-
+                        <ControlledTextField
+                            control={control}
                             name="name"
                             label="Name"
                             type="text"
-
                         />
-                        <Input
+                        <ControlledTextField
+                            control={control}
                             name="division"
                             label="Division"
                             type="text"
                         />
-                        <Input
+                        <ControlledTextField
+                            control={control}
                             name="conference"
                             label="Conference"
                             type="text"
                         />
-                        <Input
+                        <ControlledTextField
+                            control={control}
                             name="foundationYear"
                             label="Year of foundation"
                             type='text'
                         />
                         <ButtonsWrapper>
-                            <Button type="reset" isCancel={true}>
+                            <Button onClick={() => navigate(-1)} type="reset" isCancel={true}>
                                 Cancel
                             </Button>
-                            <Button>Save</Button>
+                            <Button type={'submit'}>Save</Button>
                         </ButtonsWrapper>
                     </WrapperItem>
                 </ContainerInput>

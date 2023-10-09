@@ -13,11 +13,11 @@ import {Loader} from "../../../common/components/Loader";
 
 
 export const PlayersPage = () => {
-    const {dataPlayers, count, size, page} = useSelector(playersSelector)
-    const {getPlayersTC} = useActions(playersThunks);
+
+    const {dataPlayers, count, size} = useSelector(playersSelector)
+    const {getPlayersTC, getPlayersIdTC} = useActions(playersThunks);
+
     const status = useSelector(selectAppStatus);
-    // const userJSON = localStorage.getItem('user');
-    // const user = userJSON ? JSON.parse(userJSON) : '';
 
     const [parramsQuery, setParramsQuery] = useState(
         {
@@ -46,7 +46,6 @@ export const PlayersPage = () => {
 
     const updatePageSelect = useCallback(
         (newPageSelect: number) => {
-            console.log(newPageSelect)
             setParramsQuery((prevParamsQuery) => ({
                 ...prevParamsQuery,
                 paramsQuery: {
@@ -70,8 +69,6 @@ export const PlayersPage = () => {
     }, [count, size]);
 
 
-
-
     return (
         <CardsdLayouts linkPath={'/team/:teamId/players/create'} paginationPage={paginationPage} updatePageSelect={updatePageSelect} updatePageSize={updatePageSize}>
             {status === "loading" ? (
@@ -81,7 +78,8 @@ export const PlayersPage = () => {
                     {dataPlayers && dataPlayers.length > 0 ? (
                         <CardsContainer>
                             {(dataPlayers && dataPlayers.map((el) =>
-                                <PlayerCard key={el.id} name={el.name} teamName={el.teamName} avatarUrl={el.avatarUrl}/>
+
+                                <PlayerCard key={el.id} id={el.id} name={el.name} teamName={'kek'} avatarUrl={el.avatarUrl}/>
                             ))}
                         </CardsContainer>
                     ) : (

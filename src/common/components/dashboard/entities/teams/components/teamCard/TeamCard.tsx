@@ -2,18 +2,22 @@ import styled from "styled-components";
 import iconTeam from '../../../../../../../assests/images/iconTeam.png'
 import {colors} from "../../../../../../../assests/styles/colors";
 import {FC} from "react";
+import {useNavigate} from "react-router-dom";
 
 type TeamProps = {
     name?: string
     foundationYear: number
-    imageUrl?: string
+    imageUrl?: string,
+    id?:number,
 }
-export const TeamCard: FC<TeamProps> = ({name, foundationYear, imageUrl}) => {
+export const TeamCard: FC<TeamProps> = ({name, foundationYear, imageUrl, id}) => {
+
+    const navigate = useNavigate();
 
     return (
-        <CardContainer>
+        <CardContainer onClick={() => navigate(`/team/${id}`)}>
             <LogoWrapper>
-                <CardLogo src={iconTeam} alt="img" />
+                <CardLogo src={imageUrl} alt="img" />
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>

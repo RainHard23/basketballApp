@@ -3,6 +3,16 @@ import {createSlice} from "@reduxjs/toolkit";
 import {teamApi, TeamType} from "../../api/teams/api";
 import {createAppAsyncThunk} from "../../api/common/utils/create-app-async-thunk";
 
+export const addTeamTC = createAppAsyncThunk('teams/addTeam', async (newTeam: TeamType) => {
+    try {
+        const res = await teamApi.addTeam(newTeam);
+        return res;
+    } catch (error) {
+        console.error('Error adding team:', error);
+        throw error;
+    }
+});
+
 
 const getTeamsTC = createAppAsyncThunk<{
     dataTeams: TeamType[];
@@ -49,6 +59,9 @@ const slice = createSlice({
                 state.size = action.payload.size;
                 state.page = action.payload.page;
             })
+            .addCase(addTeamTC.fulfilled, (state, action) => {
+            state.dataTeams.push(action.payload);
+        });
     },
 });
 
@@ -57,5 +70,5 @@ export const teamsReducer = slice.reducer;
 
 
 export const teamsAction = slice.actions;
-export const teamsThunks = {getTeamsTC};
+export const teamsThunks = {getTeamsTC, addTeamTC};
 

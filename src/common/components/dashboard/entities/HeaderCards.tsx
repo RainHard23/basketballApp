@@ -1,9 +1,9 @@
 import styled from "styled-components";
-
 import Button from "../../ui/Button";
-import {Input} from "../../ui/Input";
+
 import {NavLink} from "react-router-dom";
 import {FC} from "react";
+import {Input} from "../../ui/controlledInput/Input";
 
 type Props = {
     linkPath: string

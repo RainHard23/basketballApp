@@ -6,9 +6,11 @@ import {Register} from "../../pages/auth/Register";
 import {NotFound} from "../../pages/NotFound";
 import {TeamsPage} from "../../pages/dashboard/team/TeamsPage";
 import {TeamFormAdd} from "../../pages/dashboard/team/TeamAdd";
-import {TeamDetailsPage} from "../../pages/dashboard/player/DetailPlayer";
-import {PlayerFormAdd} from "../../pages/dashboard/player/AddPlayer";
+
+import {PlayerFormAdd} from "../../pages/dashboard/player/PlayerAdd";
 import {PlayersPage} from "../../pages/dashboard/player/PlayersPage";
+import {PlayersDetail} from "../../pages/dashboard/player/PlayersDetailsInfo";
+import {TeamDetail} from "../../pages/dashboard/team/TeamDetailsPage";
 
 
 export const MainRoutes = () => {
@@ -23,10 +25,10 @@ export const MainRoutes = () => {
                 <Route element={<DashboardLayout/>}>
                     <Route path="/" element={<TeamsPage/>} index/>
 
-                    <Route path="/team/:teamId" element={<TeamDetailsPage/>}/>
+                    <Route path="/team/:teamId" element={<TeamDetail/>}/>
                     <Route path="/teams/create" element={<TeamFormAdd/>}/>
 
-                    <Route path="/team/:teamId/:playerId" element={<TeamDetailsPage/>}/>
+                    <Route path="/team/:teamId/:playerId" element={<PlayersDetail/>}/>
                     <Route path="/team/:teamId/players/create" element={<PlayerFormAdd/>}/>
                     <Route path="/players" element={<PlayersPage/>}/>
                 </Route>

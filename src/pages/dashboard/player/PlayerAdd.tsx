@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
-
-import test from '../../../assests/images/iconPlayer.png'
-import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
-
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
-import {Input} from "../../../common/components/ui/Input";
+
 import {Select1} from "../../../common/components/ui/select/select";
-import {ControlledTextField} from "../../../common/components/ui/ControlledInput/ControlledInput";
+import {Input} from "../../../common/components/ui/controlledInput/Input";
 
 
 const options = [
@@ -24,8 +20,8 @@ export const PlayerFormAdd = () => {
         <Container>
             <Form>
                 <AddImg>
-                    <CustomInputFile image={test}
-                    />
+                    {/*<CustomInputFile  image={test}*/}
+                    {/*/>*/}
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>

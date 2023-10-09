@@ -1,46 +1,77 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-
-import imageTeam from '../../../assests/images/fullIconTeam.png';
-
-import TeamRoster from "../../../common/components/dashboard/entities/teams/components/teamCard/TeamRosterPage/TeamRoster";
+import TeamRoster
+    from "../../../common/components/dashboard/entities/teams/components/teamCard/TeamRosterPage/TeamRoster";
 import {colors} from "../../../assests/styles/colors";
+import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {useActions} from "../../../api/common/hooks/useActions";
+import {playersThunks} from "../../../module/players/playersSlice";
+import {playersSelector} from "../../../module/players/playersSelectors";
 
 
-export const DetailPlayer = () => {
+export const TeamDetail = () => {
+
+    const {teamId} = useParams();
+
+    const {getPlayersTC} = useActions(playersThunks);
+
+    const {dataPlayers, team} = useSelector(playersSelector)
+
+
+    const [parramsQuery, setParramsQuery] = useState(
+        {
+            paramsQuery: {
+                name: "",
+                page: 1,
+                pageSize: 6,
+                team: teamId,
+            }
+        }
+    );
+
+
+    useEffect(() => {
+        getPlayersTC(parramsQuery);
+    }, []);
+
+    console.log(dataPlayers)
+
+
     return (
         <>
-            <Container>
-                <Logo>
-                    <img src={imageTeam} alt="ImageTeam"/>
-                </Logo>
-                <TeamInfo>
-                    <Title>Denver Nuggets</Title>
-                    <InfoContainer>
-                        <InfoRow>
-                            <InfoWrapper>
-                                <ItemTitle>Year of foundation</ItemTitle>
-                                <ItemSubtitle>1976</ItemSubtitle>
-                            </InfoWrapper>
-                            <InfoWrapper>
-                                <ItemTitle>Division</ItemTitle>
-                                <ItemSubtitle>Northwestern</ItemSubtitle>
-                            </InfoWrapper>
-                        </InfoRow>
-                        <InfoRow>
-                            <InfoWrapper>
-                                <ItemTitle>Conference</ItemTitle>
-                                <ItemSubtitle>Western</ItemSubtitle>
-                            </InfoWrapper>
-                        </InfoRow>
-                    </InfoContainer>
-                </TeamInfo>
-            </Container>
-            <TeamRoster/>
+            {team && (
+                <Container key={team.id}>
+                    <Logo>
+                        <img src={''} alt={`Image of ${team.name}`}/>
+                    </Logo>
+                    <TeamInfo>
+                        <Title>{team.name}</Title>
+                        <InfoContainer>
+                            <InfoRow>
+                                <InfoWrapper>
+                                    <ItemTitle>Year of foundation</ItemTitle>
+                                    <ItemSubtitle>{team.foundationYear}</ItemSubtitle>
+                                </InfoWrapper>
+                                <InfoWrapper>
+                                    <ItemTitle>Division</ItemTitle>
+                                    <ItemSubtitle>{team.division}</ItemSubtitle>
+                                </InfoWrapper>
+                            </InfoRow>
+                            <InfoRow>
+                                <InfoWrapper>
+                                    <ItemTitle>Conference</ItemTitle>
+                                    <ItemSubtitle>{team.conference}</ItemSubtitle>
+                                </InfoWrapper>
+                            </InfoRow>
+                        </InfoContainer>
+                    </TeamInfo>
+                </Container>
+            )}
+            <TeamRoster team={teamId} dataPlayers={dataPlayers}/>
         </>
     );
-};
-
+}
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -90,7 +121,7 @@ const InfoWrapper = styled.div`
   flex-direction: column;
 
   &:first-child {
-    margin-right: 84px; 
+    margin-right: 84px;
   }
 `;
 

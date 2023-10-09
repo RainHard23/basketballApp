@@ -1,4 +1,4 @@
-import { DevTool } from '@hookform/devtools'
+import {DevTool} from '@hookform/devtools'
 import {CheckBox} from "../../common/components/ui/CheckBox";
 import styled from "styled-components";
 import {colors} from "../../assests/styles/colors";
@@ -7,10 +7,10 @@ import {authThunks} from "../../module/auth/authSlice";
 import {SubmitHandler, useForm} from "react-hook-form";
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
-import {Input} from "../../common/components/ui/Input";
-import {ControlledTextField} from "../../common/components/ui/ControlledInput/ControlledInput";
+
 import Button from "../../common/components/ui/Button";
 import {NavLink} from "react-router-dom";
+import {ControlledTextField} from "../../common/components/ui/controlledInput/ControlledInput";
 
 export const Register = () => {
     type FormData = {
@@ -77,7 +77,6 @@ export const Register = () => {
                 <Title>Sign Up</Title>
             </WrapperTitle>
             <Form onSubmit={handleFormSubmitted}>
-
                 <ControlledTextField
                     control={control}
                     type="text"

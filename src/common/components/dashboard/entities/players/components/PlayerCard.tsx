@@ -16,7 +16,7 @@ export const PlayerCard: FC<PlayerProps> = ({name, teamName, avatarUrl, id}) => 
     return (
         <CardContainer onClick={() => navigate(`/team/:teamId/${id}`)}>
             <LogoWrapper>
-                <CardLogo src={avatarUrl} alt="PlayerPage" />
+                <CardLogo src={avatarUrl && avatarUrl ? avatarUrl :  iconPlayer} alt="PlayerPage" />
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>
@@ -41,8 +41,9 @@ const LogoWrapper = styled.div`
   #393939 81.02%);
 `;
 const CardLogo = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 274px;
+  height: 207px;
+  width: 100%;
   object-fit: cover;
 `;
 const CardDescription = styled.div`

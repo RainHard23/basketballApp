@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { ReactComponent as IconAddPhoto } from "../../../assests/images/iconAddPhoto.svg";
-import { colors } from "../../../assests/styles/colors";
+import {ReactComponent as IconAddPhoto} from "../../../assests/images/iconAddPhoto.svg";
+import {colors} from "../../../assests/styles/colors";
 import {FC, useState} from "react";
-import {UseFormSetValue} from "react-hook-form";
 
 type InputFile = {
     onFileSelect: (file: File | null) => void;

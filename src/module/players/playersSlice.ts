@@ -1,6 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {createAppAsyncThunk} from "../../api/common/utils/create-app-async-thunk";
 import {ParamsType, playersApi, PlayerType} from "../../api/players/api";
+import {teamApi, TeamType} from "../../api/teams/api";
+import {addTeamTC} from "../teams/teamsSlice";
+
+export const addPlayerTC = createAppAsyncThunk('players/addPlayer', async (newPlayer: PlayerType) => {
+    try {
+        const res = await playersApi.addPlayer(newPlayer);
+        return res;
+    } catch (error) {
+        console.error('Error adding team:', error);
+        throw error;
+    }
+});
 
 const getPlayersIdTC = createAppAsyncThunk<PlayerType, { id: number }>(
     "players/getPlayerId",
@@ -73,7 +85,9 @@ const slice = createSlice({
             })
             .addCase(getPlayersIdTC.fulfilled, (state, action) => {
                 state.player = action.payload;
-                // Добавьте другую логику, если это необходимо
+            })
+            .addCase(addPlayerTC.fulfilled, (state, action) => {
+                state.dataPlayers.push(action.payload);
             });
     },
 });
@@ -83,5 +97,5 @@ export const playersReducer = slice.reducer;
 
 
 export const playersAction = slice.actions;
-export const playersThunks = {getPlayersTC, getPlayersIdTC};
+export const playersThunks = {getPlayersTC, getPlayersIdTC, addPlayerTC};
 

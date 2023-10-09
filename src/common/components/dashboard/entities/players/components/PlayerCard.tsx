@@ -16,7 +16,7 @@ export const PlayerCard: FC<PlayerProps> = ({name, teamName, avatarUrl, id}) => 
     return (
         <CardContainer onClick={() => navigate(`/team/:teamId/${id}`)}>
             <LogoWrapper>
-                <CardLogo src={iconPlayer} alt="PlayerPage" />
+                <CardLogo src={avatarUrl} alt="PlayerPage" />
             </LogoWrapper>
             <CardDescription>
                 <CardTitle>{name}</CardTitle>

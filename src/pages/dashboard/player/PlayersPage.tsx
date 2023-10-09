@@ -78,7 +78,6 @@ export const PlayersPage = () => {
                     {dataPlayers && dataPlayers.length > 0 ? (
                         <CardsContainer>
                             {(dataPlayers && dataPlayers.map((el) =>
-
                                 <PlayerCard key={el.id} id={el.id} name={el.name} teamName={'kek'} avatarUrl={el.avatarUrl}/>
                             ))}
                         </CardsContainer>

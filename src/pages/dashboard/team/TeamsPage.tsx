@@ -25,9 +25,11 @@ export const TeamsPage = () => {
         }
     );
 
+    console.log(dataTeams)
+
     const updatePageSize = useCallback(
         (newPageSize: number) => {
-            console.log(newPageSize)
+
 
             setParramsQuery((prevParamsQuery) => ({
                 ...prevParamsQuery,

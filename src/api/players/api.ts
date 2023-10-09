@@ -40,7 +40,16 @@ export const playersApi = {
                 throw error;
             });
     },
-
+    addPlayer(newPlayer: PlayerType) {
+        return instance.post<PlayerType>("api/Player/Add", newPlayer, {
+            headers: {Authorization: "Bearer " + user.token},
+        })
+            .then((res) => res.data)
+            .catch((error) => {
+                console.error("Error fetching teams:", error);
+                throw error;
+            });
+    },
 };
 
 export type ParamsType = {
@@ -69,7 +78,7 @@ export type PlayerType = {
     birthday: Date
     height: number,
     weight: number,
-    avatarUrl: string,
-    id: number
+    avatarUrl?: string,
+    id?: number
     teamName?: string
 }

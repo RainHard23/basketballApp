@@ -2,11 +2,13 @@ import styled from "styled-components";
 import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
+import {Input} from "../../../common/components/ui/controlledInput/Input";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {ControlledTextField} from "../../../common/components/ui/controlledInput/ControlledInput";
 import {useActions} from "../../../api/common/hooks/useActions";
+import {authThunks} from "../../../module/auth/authSlice";
 import {teamsThunks} from "../../../module/teams/teamsSlice";
 import {useNavigate} from "react-router-dom";
 
@@ -75,8 +77,6 @@ export const TeamFormAdd = () => {
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
                     <CustomInputFile
-
-
                         onFileSelect={handleFileSelect}
                     />
                 </AddImg>
@@ -107,7 +107,7 @@ export const TeamFormAdd = () => {
                             type='text'
                         />
                         <ButtonsWrapper>
-                            <Button onClick={() => navigate(-1)} type="reset" isCancel={true}>
+                            <Button onClick={()=> navigate(-1)} type="reset"  isCancel={true}>
                                 Cancel
                             </Button>
                             <Button type={'submit'}>Save</Button>

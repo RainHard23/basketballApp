@@ -6,14 +6,14 @@ import {colors} from "../../../../../../../../../assests/styles/colors";
 
 type PlayerInfoProps = {
     number: number;
-    imgSrc: string;
+    imgSrc?: string;
     playerName: string;
     position: string;
     height: number;
     weight: number;
     age: number;
     teamId: string,
-    id: number,
+    id?: number,
 };
 
 export const PlayerRosterCard: FC<PlayerInfoProps> = ({

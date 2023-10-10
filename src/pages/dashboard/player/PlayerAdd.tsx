@@ -3,7 +3,7 @@ import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
 import {Select1} from "../../../common/components/ui/select/Select";
 import {Input} from "../../../common/components/ui/controlledInput/Input";
-import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
+import {ControlledInputFile} from "../../../common/components/ui/CustomInputFile";
 import {useNavigate} from "react-router-dom";
 import {useActions} from "../../../api/common/hooks/useActions";
 import * as yup from "yup";
@@ -103,7 +103,7 @@ export const PlayerFormAdd = () => {
         <Container>
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <CustomInputFile  onFileSelect={handleFileSelect} error={errors}/>
+                    <ControlledInputFile name="imageUrl" control={control} errorMessage={errors?.avatarUrl?.message} />
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>

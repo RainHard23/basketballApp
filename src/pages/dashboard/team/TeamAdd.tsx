@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
 import {Input} from "../../../common/components/ui/controlledInput/Input";
@@ -11,6 +10,7 @@ import {useActions} from "../../../api/common/hooks/useActions";
 import {authThunks} from "../../../module/auth/authSlice";
 import {teamsThunks} from "../../../module/teams/teamsSlice";
 import {useNavigate} from "react-router-dom";
+import {ControlledInputFile} from "../../../common/components/ui/CustomInputFile";
 
 type FormData = {
     name: string
@@ -76,9 +76,7 @@ export const TeamFormAdd = () => {
         <Container>
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <CustomInputFile
-                        onFileSelect={handleFileSelect} error={errors}
-                    />
+                    <ControlledInputFile name='imageUrl' control={control} errorMessage={errors?.imageUrl?.message} />
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>

@@ -1,55 +1,15 @@
-import styled from "styled-components";
-import {ReactComponent as IconAddPhoto} from "../../../assests/images/iconAddPhoto.svg";
-import {colors} from "../../../assests/styles/colors";
-import React, {FC, useState} from "react";
+import { Control, FieldPath, FieldValues, useController } from 'react-hook-form';
 
-type InputFile = {
-    onFileSelect: (file: File | null) => void;
-    error: any
-
-}
-export const CustomInputFile: FC<InputFile> = ({onFileSelect, error}) => {
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files && event.target.files[0];
-        onFileSelect(file || null);
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                if (e.target) {
-                    setSelectedImage(e.target.result as string);
-                }
-            };
-            reader.readAsDataURL(file);
-        } else {
-            setSelectedImage(null);
-        }
-    };
-    return (
-        <CustomImgInputContainer>
-            <CustomFileInputIcon />
-            {selectedImage && <ImgLoad src={selectedImage} alt="Selected Image" />}
-            <CustomStyledInput
-
-                accept="image/*"
-                type="file"
-                name="file"
-                onChange={handleFileSelect}
-            />
-            {error && true && <ErrorMessage>{error}</ErrorMessage>}
-        </CustomImgInputContainer>
-
-    );
-};
-
+import styled from 'styled-components';
+import { colors } from '../../../assests/styles/colors';
+import { ReactComponent as IconAddPhoto } from '../../../assests/images/iconAddPhoto.svg';
+import React from "react";
 
 const ImgLoad = styled.img`
   max-width: 100%;
   max-height: 100%;
-  border-radius: 10px; 
-  object-fit: cover; 
+  border-radius: 10px;
+  object-fit: cover;
   opacity: 0.5;
 `;
 
@@ -74,12 +34,11 @@ const CustomImgInputContainer = styled.div`
 const CustomFileInputIcon = styled(IconAddPhoto)`
   position: absolute;
   z-index: 25;
-  opacity: 70%;
+  opacity: 0.7;
   max-height: 40px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 `;
 
 const CustomStyledInput = styled.input`
@@ -92,3 +51,37 @@ const CustomStyledInput = styled.input`
   cursor: pointer;
   z-index: 100;
 `;
+
+export type ControlledInputFileProps<TFieldValues extends FieldValues> = {
+    name: FieldPath<TFieldValues>;
+    control: Control<TFieldValues>;
+    errorMessage: any;
+} & Omit<any, 'onChange' | 'value' | 'id'>;
+
+export const ControlledInputFile = <TFieldValues extends FieldValues>({
+                                                                          name,
+                                                                          control,
+                                                                          errorMessage,
+                                                                          ...rest
+                                                                      }: ControlledInputFileProps<TFieldValues>) => {
+    const {
+        field: { onChange, onBlur, value, ref },
+    } = useController({
+        name,
+        control,
+    });
+
+    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+        onChange(file || null);
+    };
+
+    return (
+        <CustomImgInputContainer>
+            <CustomFileInputIcon />
+            {value && <ImgLoad src={URL.createObjectURL(value)} alt="Selected Image" />}
+            <CustomStyledInput type="file" accept="image/*" name={name} onChange={handleFileSelect} onBlur={onBlur} ref={ref} {...rest} />
+            {errorMessage && true && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        </CustomImgInputContainer>
+    );
+};

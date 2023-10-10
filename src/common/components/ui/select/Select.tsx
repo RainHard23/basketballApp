@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 import { colors } from '../../../../assests/styles/colors';
-import { SelectStyles } from './selectstyle';
+import { SelectStyles } from './Selectstyle';
 import { Controller } from 'react-hook-form';
 
 export type OptionType = {

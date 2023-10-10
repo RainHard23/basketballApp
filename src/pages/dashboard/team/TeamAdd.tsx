@@ -77,7 +77,7 @@ export const TeamFormAdd = () => {
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
                     <CustomInputFile
-                        onFileSelect={handleFileSelect}
+                        onFileSelect={handleFileSelect} error={errors}
                     />
                 </AddImg>
                 <ContainerInput>

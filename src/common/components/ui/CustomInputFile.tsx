@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import {ReactComponent as IconAddPhoto} from "../../../assests/images/iconAddPhoto.svg";
 import {colors} from "../../../assests/styles/colors";
-import {FC, useState} from "react";
+import React, {FC, useState} from "react";
 
 type InputFile = {
     onFileSelect: (file: File | null) => void;
-
+    error: any
 
 }
-export const CustomInputFile: FC<InputFile> = ({onFileSelect, }) => {
+export const CustomInputFile: FC<InputFile> = ({onFileSelect, error}) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +38,9 @@ export const CustomInputFile: FC<InputFile> = ({onFileSelect, }) => {
                 name="file"
                 onChange={handleFileSelect}
             />
+            {error && true && <ErrorMessage>{error}</ErrorMessage>}
         </CustomImgInputContainer>
+
     );
 };
 
@@ -49,6 +51,13 @@ const ImgLoad = styled.img`
   border-radius: 10px; 
   object-fit: cover; 
   opacity: 0.5;
+`;
+
+const ErrorMessage = styled.p`
+  color: ${colors.lightRed};
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
 `;
 
 const CustomImgInputContainer = styled.div`

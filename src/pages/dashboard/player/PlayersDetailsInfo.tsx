@@ -27,7 +27,7 @@ export const PlayersDetail = () => {
             <Container>
 
                 <Logo>
-                    <img src={player?.avatarUrl} alt="ImagePlayer"/>
+                    <Img src={player?.avatarUrl || playerImage} alt="ImagePlayer"/>
                 </Logo>
                 <InfoContainer>
                     <Title>
@@ -84,6 +84,11 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const Img = styled.img`
+  max-width: 531px;
+  max-height: 531px;
+`
 
 const InfoContainer = styled.div`
   width: 110%;

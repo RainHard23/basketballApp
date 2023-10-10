@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import styled from "styled-components";
 import {Pagination} from "../../ui/Pagination";
 import {colors} from "../../../../assests/styles/colors";
-import {SelectStyles} from "../../ui/select/selectstyle";
+import {SelectStyles} from "../../ui/select/Selectstyle";
 import Select from "react-select";
 
 type PropsType = {

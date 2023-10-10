@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "../../../common/components/ui/Button";
 import {colors} from "../../../assests/styles/colors";
-import {Select1} from "../../../common/components/ui/select/select";
+import {Select1} from "../../../common/components/ui/select/Select";
 import {Input} from "../../../common/components/ui/controlledInput/Input";
 import {CustomInputFile} from "../../../common/components/ui/CustomInputFile";
 import {useNavigate} from "react-router-dom";
@@ -103,11 +103,12 @@ export const PlayerFormAdd = () => {
         <Container>
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <CustomInputFile onFileSelect={handleFileSelect}/>
+                    <CustomInputFile  onFileSelect={handleFileSelect} error={errors}/>
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>
                         <ControlledTextField
+
                             control={control}
                             name="name"
                             label="Name"

@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {useActions} from "../../../api/common/hooks/useActions";
 import {playersThunks} from "../../../module/players/playersSlice";
 import {playersSelector} from "../../../module/players/playersSelectors";
-
+import teamImg from './/../../../assests/images/fullIconTeam.png'
 
 export const TeamDetail = () => {
 
@@ -43,7 +43,7 @@ export const TeamDetail = () => {
             {team && (
                 <Container key={team.id}>
                     <Logo>
-                        <img src={''} alt={`Image of ${team.name}`}/>
+                        <Img src={team?.imageUrl || teamImg} alt={`Image of ${team.name}`}/>
                     </Logo>
                     <TeamInfo>
                         <Title>{team.name}</Title>
@@ -72,6 +72,11 @@ export const TeamDetail = () => {
         </>
     );
 }
+
+const Img = styled.img`
+  max-height: 210px;
+  max-width: 210px;
+`
 const Container = styled.div`
   display: flex;
   justify-content: center;

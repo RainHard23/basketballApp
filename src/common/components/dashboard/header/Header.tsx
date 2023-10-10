@@ -1,20 +1,25 @@
 import styled from "styled-components";
 import {colors} from "../../../../assests/styles/colors";
 
-// @ts-ignore
+
 import iconLogo from "../../../../assests/images/iconLogo.png";
 
-// @ts-ignore
+
 import iconUser from '../../../../assests/icons/iconUser.svg'
+import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectIsUser} from "../../../../module/auth/auth.selectors";
+
 
 export const Header = () => {
+    const userName = useSelector(selectIsUser);
     return (
         <HeaderContainer>
-            <HeaderLogo>
+            <HeaderLogo to={"/"}>
                 <LogoLink src={iconLogo} alt="logo"/>
             </HeaderLogo>
             <UserProfile>
-                <UserName>John Smith</UserName>
+                <UserName>{userName}</UserName>
                 <UserImg src={iconUser} alt=""/>
             </UserProfile>
         </HeaderContainer>
@@ -36,7 +41,7 @@ const HeaderContainer = styled.div`
   padding-right: 50px;
   height: 80px;
 `
-const HeaderLogo = styled.div`
+const HeaderLogo = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-self: center;

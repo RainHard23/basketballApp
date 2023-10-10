@@ -20,8 +20,11 @@ export const MenuNavBar = () => {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    const isTeamsActive = currentPath === "/";
-    const isPlayersActive = currentPath === "/players";
+    const teamPaths = ["/", "/team", "/teams/create"];
+    const playerPaths = ["/players", "/team/:teamId/:playerId", "/team/:teamId/players/create"];
+
+    const isTeamsActive = teamPaths.includes(currentPath);
+    const isPlayersActive = playerPaths.includes(currentPath);
 
     const handleLogout = () => {
         dispatch(logout());

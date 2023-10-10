@@ -50,11 +50,6 @@ export const Login = () => {
 
     return (
         <LoginFormContainer>
-            <div>
-                test
-                login: 1111
-                password: 1111
-            </div>
             {/*<ErrorSnackbar />*/}
             <WrapperTitle>
                 <Title>Sign In</Title>

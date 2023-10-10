@@ -1,12 +1,12 @@
 type FieldErrorType = {
-    error: string;
-    field: string;
-};
+  error: string
+  field: string
+}
 
 export type BaseResponseType<D = {}> = {
-    token: BaseResponseType<{}>;
-    resultCode: number;
-    messages: Array<string>;
-    data: D;
-    fieldsErrors: FieldErrorType[];
-};
+  data: D
+  fieldsErrors: FieldErrorType[]
+  messages: Array<string>
+  resultCode: number
+  token: BaseResponseType<{}>
+}

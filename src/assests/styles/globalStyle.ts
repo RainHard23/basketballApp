@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import {fonts} from "../fonts/fonts";
+import { fonts } from '../fonts/fonts'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -111,6 +111,4 @@ export const GlobalStyle = createGlobalStyle`
     font-size: inherit;
     font-weight: inherit;
   }
-`;
-
-
+`

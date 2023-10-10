@@ -1,31 +1,27 @@
-import styled from "styled-components";
-import {colors} from "../../../../assests/styles/colors";
-
-
-import iconLogo from "../../../../assests/images/iconLogo.png";
-
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 import iconUser from '../../../../assests/icons/iconUser.svg'
-import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {selectIsUser} from "../../../../module/auth/auth.selectors";
-
+import iconLogo from '../../../../assests/images/iconLogo.png'
+import { colors } from '../../../../assests/styles/colors'
+import { selectIsUser } from '../../../../module/auth/auth.selectors'
+import styled from 'styled-components'
 
 export const Header = () => {
-    const userName = useSelector(selectIsUser);
-    return (
-        <HeaderContainer>
-            <HeaderLogo to={"/"}>
-                <LogoLink src={iconLogo} alt="logo"/>
-            </HeaderLogo>
-            <UserProfile>
-                <UserName>{userName}</UserName>
-                <UserImg src={iconUser} alt=""/>
-            </UserProfile>
-        </HeaderContainer>
-    );
-};
+  const userName = useSelector(selectIsUser)
 
+  return (
+    <HeaderContainer>
+      <HeaderLogo to={'/'}>
+        <LogoLink alt={'logo'} src={iconLogo} />
+      </HeaderLogo>
+      <UserProfile>
+        <UserName>{userName}</UserName>
+        <UserImg alt={''} src={iconUser} />
+      </UserProfile>
+    </HeaderContainer>
+  )
+}
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -49,27 +45,22 @@ const HeaderLogo = styled(NavLink)`
   height: 34px;
   cursor: pointer;
   text-decoration: none;
-`;
+`
 const LogoLink = styled.img`
   width: 100%;
   height: 100%;
-`;
+`
 const UserImg = styled.img`
   width: 36px;
   height: 36px;
-`;
+`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const UserName = styled.p`
   margin-right: 19px;
   color: ${colors.darkGrey};
-`;
-
-
-
-
-
+`

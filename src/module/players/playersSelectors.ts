@@ -1,3 +1,3 @@
-import {AppRootStateType} from "../../core/redux/store";
+import { AppRootStateType } from '../../core/redux/store'
 
-export const playersSelector = (state: AppRootStateType) => state.players;
+export const playersSelector = (state: AppRootStateType) => state.players

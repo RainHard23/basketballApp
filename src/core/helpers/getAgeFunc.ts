@@ -1,14 +1,14 @@
 export const getAge = (ageParams: any) => {
-    const today = new Date();
-    const birthDate = new Date(ageParams);
-    let age = today.getFullYear() - birthDate.getFullYear();
+  const today = new Date()
+  const birthDate = new Date(ageParams)
+  let age = today.getFullYear() - birthDate.getFullYear()
 
-    if (
-        (today.getMonth() < birthDate.getMonth()) ||
-        (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
-    ) {
-        age--;
-    }
+  if (
+    today.getMonth() < birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+  ) {
+    age--
+  }
 
-    return age;
-};
+  return age
+}

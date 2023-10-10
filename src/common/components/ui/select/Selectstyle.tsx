@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import {colors} from "../../../../assests/styles/colors";
-
+import { colors } from '../../../../assests/styles/colors'
+import styled from 'styled-components'
 
 export const SelectStyles = styled.div<{ long?: boolean }>`
   .react-select__value-container {
@@ -14,7 +13,7 @@ export const SelectStyles = styled.div<{ long?: boolean }>`
     border-radius: 4px;
     box-shadow: none;
     border: none;
-    background-color: ${({long}) => long ? colors.lightestGrey1 : colors.white};
+    background-color: ${({ long }) => (long ? colors.lightestGrey1 : colors.white)};
 
     &:hover {
       background: ${colors.lightestGrey};
@@ -54,11 +53,9 @@ export const SelectStyles = styled.div<{ long?: boolean }>`
   }
 
   .react-select__menu {
-    
     color: ${colors.lightGrey};
     border-radius: 4px;
     border: 0.5px solid ${colors.lightestGrey};
-    
   }
 
   .react-select__menu > div {
@@ -86,6 +83,4 @@ export const SelectStyles = styled.div<{ long?: boolean }>`
   .react-select_is-open > .react-select__control {
     border: 0.5px solid ${colors.lightGrey};
   }
-`;
-
-
+`

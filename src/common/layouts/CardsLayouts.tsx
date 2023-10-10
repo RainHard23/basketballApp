@@ -1,37 +1,44 @@
-import styled from "styled-components";
-import React, { FC, ReactNode } from "react";
-import {CardsHeader} from "../components/dashboard/entities/HeaderCards";
-import {CardsFooter} from "../components/dashboard/entities/FooterCards";
+import React, { FC, ReactNode } from 'react'
+
+import { CardsFooter } from '../components/dashboard/entities/FooterCards'
+import { CardsHeader } from '../components/dashboard/entities/HeaderCards'
+import styled from 'styled-components'
 
 type PropsType = {
-    children: ReactNode
-    paginationPage?: number,
-    updatePageSize: (newPageSize: number) => void
-    updatePageSelect: (newPageSelect: number) => void
-    linkPath: string
+  children: ReactNode
+  linkPath: string
+  paginationPage?: number
+  updatePageSelect: (newPageSelect: number) => void
+  updatePageSize: (newPageSize: number) => void
 }
 
-export const CardsdLayouts: FC<PropsType> = ({linkPath, children, paginationPage, updatePageSize, updatePageSelect }) => {
-    return (
-        <CardsContainer>
-            <CardsHeader  linkPath={linkPath}/>
-            <ContentWrapper>{children}</ContentWrapper>
-            <CardsFooter
-                updatePageSize={updatePageSize}
-                paginationPage={paginationPage}
-                updatePageSelect={updatePageSelect}
-            />
-        </CardsContainer>
-    );
-};
+export const CardsdLayouts: FC<PropsType> = ({
+  children,
+  linkPath,
+  paginationPage,
+  updatePageSelect,
+  updatePageSize,
+}) => {
+  return (
+    <CardsContainer>
+      <CardsHeader linkPath={linkPath} />
+      <ContentWrapper>{children}</ContentWrapper>
+      <CardsFooter
+        paginationPage={paginationPage}
+        updatePageSelect={updatePageSelect}
+        updatePageSize={updatePageSize}
+      />
+    </CardsContainer>
+  )
+}
 
 const CardsContainer = styled.section`
   display: flex;
   flex-direction: column;
   padding: 0 12px;
-`;
+`
 
 const ContentWrapper = styled.div`
   margin: 0;
   min-height: 784px;
-`;
+`

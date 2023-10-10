@@ -1,28 +1,28 @@
-import ReactPaginate from "react-paginate";
-import styled from "styled-components";
-import { colors } from "../../../assests/styles/colors";
-import {FC} from "react";
+import { FC } from 'react'
+import ReactPaginate from 'react-paginate'
+
+import { colors } from '../../../assests/styles/colors'
+import styled from 'styled-components'
 type PropsType = {
-    paginationPage?: number,
-    updatePageSelect: any
+  paginationPage?: number
+  updatePageSelect: any
 }
 
-export const Pagination: FC<PropsType> = ({paginationPage, updatePageSelect}) => (
-    <PaginationContainer>
-        <ReactPaginate
-            previousLabel={"<"}
-            nextLabel={">"}
-            breakLabel={"..."}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={4}
-            containerClassName={"pagination"}
-            pageLinkClassName={"page-link"}
-            pageCount={paginationPage || 1}
-            onPageChange={(selectedItem) => updatePageSelect(selectedItem ? selectedItem.selected + 1 : 1)}
-
-        />
-    </PaginationContainer>
-);
+export const Pagination: FC<PropsType> = ({ paginationPage, updatePageSelect }) => (
+  <PaginationContainer>
+    <ReactPaginate
+      breakLabel={'...'}
+      containerClassName={'pagination'}
+      marginPagesDisplayed={1}
+      nextLabel={'>'}
+      onPageChange={selectedItem => updatePageSelect(selectedItem ? selectedItem.selected + 1 : 1)}
+      pageCount={paginationPage || 1}
+      pageLinkClassName={'page-link'}
+      pageRangeDisplayed={4}
+      previousLabel={'<'}
+    />
+  </PaginationContainer>
+)
 
 const PaginationContainer = styled.div`
   .pagination li {
@@ -65,6 +65,4 @@ const PaginationContainer = styled.div`
     background: none;
     color: ${colors.grey};
   }
-`;
-
-
+`

@@ -11,6 +11,7 @@ import {authThunks} from "../../../module/auth/authSlice";
 import {teamsThunks} from "../../../module/teams/teamsSlice";
 import {useNavigate} from "react-router-dom";
 import {ControlledInputFile} from "../../../common/components/ui/CustomInputFile";
+import {useState} from "react";
 
 type FormData = {
     name: string
@@ -22,6 +23,7 @@ type FormData = {
 
 
 export const TeamFormAdd = () => {
+    const [isImageVisible, setIsImageVisible] = useState<string | null>(null);
     const navigate = useNavigate()
     const handleFileSelect = (file: File | null) => {
         if (file) {
@@ -68,6 +70,8 @@ export const TeamFormAdd = () => {
     const onSubmit: SubmitHandler<FormData> = (data) => {
         addTeamTC(data)
         reset();
+        setIsImageVisible('')
+        setValue('imageUrl', '')
     };
 
     const handleFormSubmitted = handleSubmit(onSubmit);
@@ -76,7 +80,7 @@ export const TeamFormAdd = () => {
         <Container>
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <ControlledInputFile name='imageUrl' control={control} errorMessage={errors?.imageUrl?.message} />
+                    <ControlledInputFile  name='imageUrl' control={control} errorMessage={errors?.imageUrl?.message}  selectFile={handleFileSelect} imagevisible={isImageVisible}/>
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>
@@ -85,24 +89,28 @@ export const TeamFormAdd = () => {
                             name="name"
                             label="Name"
                             type="text"
+                            errorMessage={errors}
                         />
                         <ControlledTextField
                             control={control}
                             name="division"
                             label="Division"
                             type="text"
+                            errorMessage={errors}
                         />
                         <ControlledTextField
                             control={control}
                             name="conference"
                             label="Conference"
                             type="text"
+                            errorMessage={errors}
                         />
                         <ControlledTextField
                             control={control}
                             name="foundationYear"
                             label="Year of foundation"
                             type='text'
+                            errorMessage={errors}
                         />
                         <ButtonsWrapper>
                             <Button onClick={()=> navigate(-1)} type="reset"  isCancel={true}>
@@ -133,6 +141,7 @@ const Form = styled.form`
 
 const AddImg = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   max-width: 100%;
   width: 100%;

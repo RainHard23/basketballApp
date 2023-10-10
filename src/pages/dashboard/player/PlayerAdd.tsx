@@ -14,6 +14,7 @@ import {PlayerType} from "../../../api/players/api";
 import {ControlledTextField} from "../../../common/components/ui/controlledInput/ControlledInput";
 import {useSelector} from "react-redux";
 import {teamsSelector} from "../../../module/teams/teamsSelectors";
+import {useState} from "react";
 
 type FormDataType = {
     name: string,
@@ -47,6 +48,7 @@ const optionsPosition = [
 
 export const PlayerFormAdd = () => {
     const {dataTeams} = useSelector(teamsSelector)
+    const [isImageVisible, setIsImageVisible] = useState<string | null>(null);
     const optionsTeams = dataTeams.map(team => ({
         value: team.name,
         label: team.name
@@ -96,6 +98,7 @@ export const PlayerFormAdd = () => {
     const onSubmit: SubmitHandler<FormDataType> = (data) => {
         addPlayerTC(data)
         reset();
+        setIsImageVisible('')
     };
 
     const handleFormSubmitted = handleSubmit(onSubmit);
@@ -103,7 +106,7 @@ export const PlayerFormAdd = () => {
         <Container>
             <Form onSubmit={handleFormSubmitted}>
                 <AddImg>
-                    <ControlledInputFile name="imageUrl" control={control} errorMessage={errors?.avatarUrl?.message} />
+                    <ControlledInputFile name="imageUrl" control={control} errorMessage={errors?.avatarUrl?.message}  selectFile={handleFileSelect} imagevisible={isImageVisible}/>
                 </AddImg>
                 <ContainerInput>
                     <WrapperItem>
@@ -212,6 +215,7 @@ const Form = styled.form`
 
 const AddImg = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   max-width: 100%;
   width: 100%;

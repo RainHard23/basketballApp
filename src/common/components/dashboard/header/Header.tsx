@@ -4,20 +4,18 @@ import { NavLink } from 'react-router-dom'
 import iconUser from '../../../../assests/icons/iconUser.svg'
 import iconLogo from '../../../../assests/images/iconLogo.png'
 import { colors } from '../../../../assests/styles/colors'
-import { selectIsUser } from '../../../../module/auth/auth.selectors'
+
 import styled from 'styled-components'
 
 export const Header = () => {
-  const userName = useSelector(selectIsUser)
-
   return (
     <HeaderContainer>
       <HeaderLogo to={'/'}>
         <LogoLink alt={'logo'} src={iconLogo} />
       </HeaderLogo>
       <UserProfile>
-        <UserName>{userName}</UserName>
-        <UserImg alt={''} src={iconUser} />
+        <UserName>1</UserName>
+        <UserImg alt="John Smith" src={iconUser} />
       </UserProfile>
     </HeaderContainer>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +16,9 @@ import { teamsSelector } from '../../../module/teams/teamsSelectors'
 import { yupResolver } from '@hookform/resolvers/yup'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import { selectAppStatus } from '../../../module/app/appSelectors'
+import { Loader } from '../../../common/components/Loader'
+import { teamsThunks } from '../../../module/teams/teamsSlice'
 
 type FormDataType = {
   avatarUrl: any
@@ -28,16 +31,6 @@ type FormDataType = {
   weight: number
 }
 
-const optionsTeam = [
-  { label: '1', value: '1' },
-  { label: '2', value: '2' },
-  { label: '3', value: '3' },
-  { label: '4', value: '4' },
-  { label: '5', value: '5' },
-  { label: '6', value: '6' },
-  { label: '7', value: '7' },
-]
-
 const optionsPosition = [
   { label: 'Center Forward', value: 'Center Forward' },
   { label: 'Guard Forward', value: 'Guard Forward' },
@@ -47,11 +40,12 @@ const optionsPosition = [
 ]
 
 export const PlayerFormAdd = () => {
+  const status = useSelector(selectAppStatus)
   const { dataTeams } = useSelector(teamsSelector)
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
   const optionsTeams = dataTeams.map(team => ({
     label: team.name,
-    value: team.name,
+    value: team.id,
   }))
 
   const { addPlayerTC } = useActions(playersThunks)
@@ -91,7 +85,14 @@ export const PlayerFormAdd = () => {
   } = useForm<any>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
-    // defaultValues: {},
+    defaultValues: {
+      height: 0,
+      name: '',
+      number: 0,
+      position: '',
+      team: '',
+      weight: 0,
+    },
   })
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
@@ -104,84 +105,87 @@ export const PlayerFormAdd = () => {
 
   return (
     <Container>
-      <Form onSubmit={handleFormSubmitted}>
-        <AddImg>
-          <ControlledInputFile
-            control={control}
-            errorMessage={errors?.avatarUrl?.message}
-            imagevisible={isImageVisible}
-            name={'imageUrl'}
-            selectFile={handleFileSelect}
-          />
-        </AddImg>
-        <ContainerInput>
-          <WrapperItem>
-            <ControlledTextField
+      {status === 'loading' ? (
+        <Loader />
+      ) : (
+        <Form onSubmit={handleFormSubmitted}>
+          <AddImg>
+            <ControlledInputFile
               control={control}
-              errorMessage={errors}
-              label={'Name'}
-              name={'name'}
-              type={'text'}
+              errorMessage={errors?.avatarUrl?.message}
+              imagevisible={isImageVisible}
+              name={'imageUrl'}
+              selectFile={handleFileSelect}
             />
-            <ContainerSelect>
-              <Select1
-                control={control}
-                isMulti={false}
-                label={'Position'}
-                name={'position'}
-                options={optionsPosition}
-              />
-            </ContainerSelect>
-            <ContainerSelect>
-              <Select1
-                control={control}
-                isMulti={false}
-                label={'Team'}
-                name={'team'}
-                options={optionsTeam}
-              />
-            </ContainerSelect>
-            <ContainerInputDetail>
+          </AddImg>
+          <ContainerInput>
+            <WrapperItem>
               <ControlledTextField
                 control={control}
                 errorMessage={errors}
-                label={'Height (cm)'}
-                name={'height'}
-                type={'number'}
+                label={'Name'}
+                name={'name'}
+                type={'text'}
               />
-              <ControlledTextField
-                control={control}
-                errorMessage={errors}
-                label={'Weight (kg)'}
-                name={'weight'}
-                type={'number'}
-              />
-
-              <ControlledTextField
-                control={control}
-                errorMessage={errors}
-                label={'Birthday'}
-                name={'birthday'}
-                placeholder={'sss'}
-                type={'date'}
-              />
-              <ControlledTextField
-                control={control}
-                errorMessage={errors}
-                label={'Number'}
-                name={'number'}
-                type={'number'}
-              />
-            </ContainerInputDetail>
-            <ButtonsWrapper>
-              <Button isCancel onClick={() => navigate(-1)} type={'reset'}>
-                Cancel
-              </Button>
-              <Button>Save</Button>
-            </ButtonsWrapper>
-          </WrapperItem>
-        </ContainerInput>
-      </Form>
+              <ContainerSelect>
+                <Select1
+                  control={control}
+                  isMulti={false}
+                  label={'Position'}
+                  name={'position'}
+                  options={optionsPosition}
+                />
+              </ContainerSelect>
+              <ContainerSelect>
+                <Select1
+                  control={control}
+                  isMulti={false}
+                  label={'Team'}
+                  name={'team'}
+                  options={optionsTeams}
+                />
+              </ContainerSelect>
+              <ContainerInputDetail>
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Height (cm)'}
+                  name={'height'}
+                  type={'number'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Weight (kg)'}
+                  name={'weight'}
+                  type={'number'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Birthday'}
+                  name={'birthday'}
+                  placeholder={'sss'}
+                  type={'date'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Number'}
+                  name={'number'}
+                  type={'number'}
+                />
+              </ContainerInputDetail>
+              <ButtonsWrapper>
+                <Button isCancel onClick={() => navigate(-1)} type={'reset'}>
+                  Cancel
+                </Button>
+                <Button>Save</Button>
+              </ButtonsWrapper>
+            </WrapperItem>
+          </ContainerInput>
+        </Form>
+      )}
     </Container>
   )
 }

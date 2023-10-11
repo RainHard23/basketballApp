@@ -14,8 +14,8 @@ export const Header = () => {
         <LogoLink alt={'logo'} src={iconLogo} />
       </HeaderLogo>
       <UserProfile>
-        <UserName>1</UserName>
-        <UserImg alt="John Smith" src={iconUser} />
+        <UserName>John Smith</UserName>
+        <UserImg alt={''} src={iconUser} />
       </UserProfile>
     </HeaderContainer>
   )

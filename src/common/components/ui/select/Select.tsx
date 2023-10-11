@@ -7,8 +7,8 @@ import { SelectStyles } from './Selectstyle'
 import styled from 'styled-components'
 
 export type OptionType = {
-  label: string
-  value: number | string
+  label?: string
+  value?: number | string
 }
 
 type SelectPropsType = {

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
 import { useActions } from '../../../api/common/hooks/useActions'
 import emptyTeams from '../../../assests/images/emptyTeams.png'
 import { Loader } from '../../../common/components/Loader'
@@ -11,9 +10,11 @@ import { teamsSelector } from '../../../module/teams/teamsSelectors'
 import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { EmptyPage } from '../../EmptyPage'
 import styled from 'styled-components'
+import { selectIsLoggedIn } from '../../../module/auth/auth.selectors'
 
 export const TeamsPage = () => {
   const { count, dataTeams, page, size } = useSelector(teamsSelector)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   const { getTeamsTC } = useActions(teamsThunks)
   const status = useSelector(selectAppStatus)
   const [parramsQuery, setParramsQuery] = useState({
@@ -23,8 +24,6 @@ export const TeamsPage = () => {
       pageSize: 6,
     },
   })
-
-  console.log(dataTeams)
 
   const updatePageSize = useCallback(
     (newPageSize: number) => {
@@ -41,7 +40,6 @@ export const TeamsPage = () => {
 
   const updatePageSelect = useCallback(
     (newPageSelect: number) => {
-      console.log(newPageSelect)
       setParramsQuery(prevParamsQuery => ({
         ...prevParamsQuery,
         paramsQuery: {
@@ -54,8 +52,10 @@ export const TeamsPage = () => {
   )
 
   useEffect(() => {
-    getTeamsTC(parramsQuery)
-  }, [parramsQuery])
+    if (isLoggedIn) {
+      getTeamsTC(parramsQuery)
+    }
+  }, [parramsQuery, isLoggedIn, getTeamsTC])
 
   const paginationPage = useMemo(() => {
     if (count && size) {

@@ -25,7 +25,7 @@ const getTeamsTC = createAppAsyncThunk<
   try {
     const res = await teamApi.getTeams(paramsQuery)
 
-    console.log(res)
+    console.log(res.data)
 
     return {
       count: res.count,

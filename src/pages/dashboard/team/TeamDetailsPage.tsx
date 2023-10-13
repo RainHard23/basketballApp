@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { useActions } from '../../../api/common/hooks/useActions'
 import { colors } from '../../../assests/styles/colors'
@@ -9,8 +9,10 @@ import { playersSelector } from '../../../module/players/playersSelectors'
 import { playersThunks } from '../../../module/players/playersSlice'
 import teamImg from './/../../../assests/images/fullIconTeam.png'
 import styled from 'styled-components'
+import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
 
 export const TeamDetail = () => {
+  const { pathname } = useLocation()
   const { teamId } = useParams()
 
   const { getPlayersTC } = useActions(playersThunks)
@@ -30,10 +32,14 @@ export const TeamDetail = () => {
     getPlayersTC(parramsQuery)
   }, [])
 
-  console.log(dataPlayers)
+  const crumbs = [
+    { title: 'Teams', url: '/' },
+    { title: team?.name, url: pathname },
+  ]
 
   return (
     <>
+      <HeaderDetails crumbs={crumbs} />
       {team && (
         <Container key={team.id}>
           <Logo>
@@ -76,7 +82,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, rgba(112, 112, 112, 1), rgba(57, 57, 57, 1));
-  border-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 `
 
 const Logo = styled.div`

@@ -26,6 +26,16 @@ export const PlayersPage = () => {
     },
   })
 
+  const updateSearchQuery = (value: string) => {
+    setParramsQuery(prevParamsQuery => ({
+      ...prevParamsQuery,
+      paramsQuery: {
+        ...prevParamsQuery.paramsQuery,
+        name: value,
+      },
+    }))
+  }
+
   const updatePageSize = useCallback(
     (newPageSize: number) => {
       setParramsQuery(prevParamsQuery => ({
@@ -64,6 +74,7 @@ export const PlayersPage = () => {
 
   return (
     <CardsdLayouts
+      updateSearchQuery={updateSearchQuery}
       linkPath={'/team/:teamId/players/create'}
       paginationPage={paginationPage}
       updatePageSelect={updatePageSelect}

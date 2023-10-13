@@ -74,6 +74,7 @@ const TeamRosterContainer = styled.div`
   border: 0.5px solid rgba(156, 156, 156, 1);
   border-radius: 15px;
   margin-top: 20px;
+  background-color: ${colors.white};
 `
 
 const Title = styled.h2`

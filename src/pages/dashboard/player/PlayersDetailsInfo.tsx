@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { useActions } from '../../../api/common/hooks/useActions'
 import playerImage from '../../../assests/images/playerInfoDetail.png'
@@ -9,8 +9,11 @@ import { getAge } from '../../../core/helpers/getAgeFunc'
 import { playersSelector } from '../../../module/players/playersSelectors'
 import { playersThunks } from '../../../module/players/playersSlice'
 import styled from 'styled-components'
+import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
+import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
 
 export const PlayersDetail = () => {
+  const { pathname } = useLocation()
   const { playerId, teamId } = useParams()
 
   const { getPlayersIdTC } = useActions(playersThunks)
@@ -21,9 +24,13 @@ export const PlayersDetail = () => {
     getPlayersIdTC({ id: Number(playerId) })
   }, [])
   const age = getAge(player?.birthday)
-
+  const crumbs = [
+    { title: 'Players', url: '/players' },
+    { title: player?.name, url: pathname },
+  ]
   return (
     <>
+      <HeaderDetails crumbs={crumbs} />
       <Container>
         <Logo>
           <Img alt={'ImagePlayer'} src={player?.avatarUrl || playerImage} />
@@ -72,7 +79,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, rgba(112, 112, 112, 1), rgba(57, 57, 57, 1));
-  border-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   padding: 20px;
 `
 

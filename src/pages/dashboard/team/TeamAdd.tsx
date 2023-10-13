@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useActions } from '../../../api/common/hooks/useActions'
 import { colors } from '../../../assests/styles/colors'
@@ -13,6 +13,10 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { yupResolver } from '@hookform/resolvers/yup'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
+import { Loader } from '../../../common/components/Loader'
+import { useSelector } from 'react-redux'
+import { selectAppStatus } from '../../../module/app/appSelectors'
 
 type FormData = {
   conference: string
@@ -23,6 +27,8 @@ type FormData = {
 }
 
 export const TeamFormAdd = () => {
+  const { pathname } = useLocation()
+  const status = useSelector(selectAppStatus)
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
   const navigate = useNavigate()
   const handleFileSelect = (file: File | null) => {
@@ -43,7 +49,12 @@ export const TeamFormAdd = () => {
   const schema = yup.object().shape({
     conference: yup.string().required('Conference is required.'),
     division: yup.string().required('Division is required.'),
-    foundationYear: yup.number().required('Year of foundation is required.'),
+    foundationYear: yup
+      .number()
+      .typeError('Year of foundation must be a number.')
+      .min(1900, 'Year of foundation must be greater than or equal to 1900.')
+      .max(2024, 'Year of foundation must be less than or equal to 2024.')
+      .required('Year of foundation is required.'),
     imageUrl: yup.mixed().required('Image is required'),
     name: yup.string().required('Name is required.'),
   })
@@ -54,15 +65,7 @@ export const TeamFormAdd = () => {
     handleSubmit,
     reset,
     setValue,
-    watch,
   } = useForm<FormData>({
-    defaultValues: {
-      conference: '',
-      division: '',
-      foundationYear: 1973,
-      imageUrl: null,
-      name: '',
-    },
     mode: 'onBlur',
     resolver: yupResolver(schema),
   })
@@ -72,67 +75,79 @@ export const TeamFormAdd = () => {
     reset()
     setIsImageVisible('')
     setValue('imageUrl', '')
+    navigate('/')
   }
 
   const handleFormSubmitted = handleSubmit(onSubmit)
-
+  const crumbs = [
+    { title: 'Teams', url: '/' },
+    { title: 'Add new team', url: pathname },
+  ]
   return (
     <Container>
-      <Form onSubmit={handleFormSubmitted}>
-        <AddImg>
-          <ControlledInputFile
-            control={control}
-            errorMessage={errors?.imageUrl?.message}
-            imagevisible={isImageVisible}
-            name={'imageUrl'}
-            selectFile={handleFileSelect}
-          />
-        </AddImg>
-        <ContainerInput>
-          <WrapperItem>
-            <ControlledTextField
-              control={control}
-              errorMessage={errors}
-              label={'Name'}
-              name={'name'}
-              type={'text'}
-            />
-            <ControlledTextField
-              control={control}
-              errorMessage={errors}
-              label={'Division'}
-              name={'division'}
-              type={'text'}
-            />
-            <ControlledTextField
-              control={control}
-              errorMessage={errors}
-              label={'Conference'}
-              name={'conference'}
-              type={'text'}
-            />
-            <ControlledTextField
-              control={control}
-              errorMessage={errors}
-              label={'Year of foundation'}
-              name={'foundationYear'}
-              type={'text'}
-            />
-            <ButtonsWrapper>
-              <Button isCancel onClick={() => navigate(-1)} type={'reset'}>
-                Cancel
-              </Button>
-              <Button type={'submit'}>Save</Button>
-            </ButtonsWrapper>
-          </WrapperItem>
-        </ContainerInput>
-      </Form>
+      {status === 'loading' ? (
+        <Loader />
+      ) : (
+        <>
+          <Breadcrumbs crumbs={crumbs} />
+          <Form onSubmit={handleFormSubmitted}>
+            <AddImg>
+              <ControlledInputFile
+                control={control}
+                errorMessage={errors?.imageUrl?.message}
+                imagevisible={isImageVisible}
+                name={'imageUrl'}
+                selectFile={handleFileSelect}
+              />
+            </AddImg>
+            <ContainerInput>
+              <WrapperItem>
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Name'}
+                  name={'name'}
+                  type={'text'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Division'}
+                  name={'division'}
+                  type={'text'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Conference'}
+                  name={'conference'}
+                  type={'text'}
+                />
+                <ControlledTextField
+                  control={control}
+                  errorMessage={errors}
+                  label={'Year of foundation'}
+                  name={'foundationYear'}
+                  type={'number'}
+                />
+                <ButtonsWrapper>
+                  <Button isCancel onClick={() => navigate(-1)} type={'reset'}>
+                    Cancel
+                  </Button>
+                  <Button type={'submit'}>Save</Button>
+                </ButtonsWrapper>
+              </WrapperItem>
+            </ContainerInput>
+          </Form>
+        </>
+      )}
     </Container>
   )
 }
 
 const Container = styled.div`
   background-color: ${colors.white};
+  border-radius: 15px;
 `
 const ContainerInput = styled.div`
   display: flex;
@@ -140,7 +155,7 @@ const ContainerInput = styled.div`
 `
 const Form = styled.form`
   display: flex;
-  padding: 48px 24px;
+  padding: 48px 24px 48px 74px;
   height: 100%;
 `
 
@@ -156,13 +171,10 @@ const AddImg = styled.div`
 const WrapperItem = styled.div`
   max-width: 366px;
   width: 100%;
-
-  & div {
-    margin-bottom: 24px;
-  }
 `
 
 const ButtonsWrapper = styled.div`
+  margin-top: 24px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;

@@ -32,21 +32,21 @@ const CardContainer = styled.div`
 `
 
 const LogoWrapper = styled.div`
+  min-height: 210px;
   display: flex;
   justify-content: center;
-  padding: 65px 56px 0 56px;
   border-radius: 4px 4px 0 0;
   background: linear-gradient(121.57deg, ${colors.grey} 1.62%, #393939 81.02%);
 `
 const CardLogo = styled.img`
   max-width: 274px;
-  height: 207px;
+  height: 230px;
   width: 100%;
   object-fit: cover;
 `
 const CardDescription = styled.div`
   text-align: center;
-  padding: 21px 5px;
+  padding: 10px 5px;
   border-radius: 0 0 4px 4px;
   background: ${colors.darkGrey};
   color: ${colors.white};

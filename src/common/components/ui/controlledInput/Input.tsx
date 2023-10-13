@@ -15,7 +15,7 @@ export type InputProps = {
   value?: string
 } & ComponentPropsWithoutRef<'input'>
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ disabled, errorMessage, label, placeholder, type, value, ...restProps }, ref) => {
+  ({ disabled, errorMessage, label, placeholder, type, value, onChange, ...restProps }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const getFinalType = (type: ComponentProps<'input'>['type'], showPassword: boolean) => {
       if (type === 'password' && showPassword) {
@@ -38,6 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={finalType}
             value={value}
+            onChange={onChange}
             {...restProps}
           />
           {isShowSearch && (

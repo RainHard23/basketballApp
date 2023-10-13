@@ -18,9 +18,17 @@ type SelectPropsType = {
   long?: boolean
   name: string
   options?: OptionType[]
+  errorMessage?: any
 }
 
-export const Select1: FC<SelectPropsType> = ({ control, isMulti, label, name, options }) => {
+export const Select1: FC<SelectPropsType> = ({
+  control,
+  isMulti,
+  label,
+  name,
+  options,
+  errorMessage,
+}) => {
   return (
     <SelectWrapper>
       <Title>{label}</Title>
@@ -44,6 +52,7 @@ export const Select1: FC<SelectPropsType> = ({ control, isMulti, label, name, op
           )}
         />
       </SelectStyles>
+      {errorMessage && true && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </SelectWrapper>
   )
 }
@@ -55,5 +64,9 @@ const Title = styled.h4`
   font-weight: 500;
   color: ${colors.grey};
 `
-
-export default Select1
+const ErrorMessage = styled.p`
+  color: ${colors.lightRed};
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+`

@@ -30,37 +30,37 @@ export const CheckBox: FC<CheckboxProps> = ({
   return (
     <>
       <CheckboxWrapper>
-        <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <input
-              checked={checked}
-              type={'checkbox'}
-              {...field}
-              disabled={disabled}
-              id={name}
-              name={name}
-            />
-          )}
-        />
-        <Label>{label}</Label>
+        <Label error={!!errorMessage}>
+          <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <StyledInput
+                error={!!errorMessage}
+                checked={checked}
+                type={'checkbox'}
+                {...field}
+                disabled={disabled}
+                id={name}
+                name={name}
+              />
+            )}
+          />
+          {label}
+        </Label>
       </CheckboxWrapper>
       {errorMessage && <ErrorMessage>{errorMessage.message}</ErrorMessage>}
     </>
   )
 }
 
-const CheckboxWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 24px;
-
-  & input {
+const StyledInput = styled.input<{ error: boolean }>`
+    border: ${({ error }) =>
+      error ? `1px solid ${colors.lightRed}` : `1px solid ${colors.lightGrey}`};
     appearance: none;
     width: 12px;
     height: 12px;
-    border: 1px solid ${colors.lightGrey};
+   
     border-radius: 2px;
     margin-right: 8px;
     cursor: pointer;
@@ -95,12 +95,19 @@ const CheckboxWrapper = styled.div`
   }
 `
 
-const Label = styled.label`
+const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+`
+
+const Label = styled.label<{ error: boolean }>`
   font-family: ${fonts.mainFont};
   font-size: 14px;
   color: ${colors.grey};
   line-height: 24px;
   font-weight: 500;
+  color: ${({ error }) => (error ? colors.lightRed : colors.grey)};
 `
 
 const ErrorMessage = styled.p`

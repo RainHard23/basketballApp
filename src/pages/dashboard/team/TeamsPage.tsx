@@ -25,6 +25,16 @@ export const TeamsPage = () => {
     },
   })
 
+  const updateSearchQuery = (value: string) => {
+    setParramsQuery(prevParamsQuery => ({
+      ...prevParamsQuery,
+      paramsQuery: {
+        ...prevParamsQuery.paramsQuery,
+        name: value,
+      },
+    }))
+  }
+
   const updatePageSize = useCallback(
     (newPageSize: number) => {
       setParramsQuery(prevParamsQuery => ({
@@ -65,6 +75,7 @@ export const TeamsPage = () => {
 
   return (
     <CardsdLayouts
+      updateSearchQuery={updateSearchQuery}
       linkPath={'/teams/create'}
       paginationPage={paginationPage}
       updatePageSelect={updatePageSelect}

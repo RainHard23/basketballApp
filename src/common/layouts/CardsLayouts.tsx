@@ -10,6 +10,7 @@ type PropsType = {
   paginationPage?: number
   updatePageSelect: (newPageSelect: number) => void
   updatePageSize: (newPageSize: number) => void
+  updateSearchQuery: (value: string) => void
 }
 
 export const CardsdLayouts: FC<PropsType> = ({
@@ -18,10 +19,11 @@ export const CardsdLayouts: FC<PropsType> = ({
   paginationPage,
   updatePageSelect,
   updatePageSize,
+  updateSearchQuery,
 }) => {
   return (
     <CardsContainer>
-      <CardsHeader linkPath={linkPath} />
+      <CardsHeader linkPath={linkPath} updateSearchQuery={updateSearchQuery} />
       <ContentWrapper>{children}</ContentWrapper>
       <CardsFooter
         paginationPage={paginationPage}
@@ -40,5 +42,4 @@ const CardsContainer = styled.section`
 
 const ContentWrapper = styled.div`
   margin: 0;
-  min-height: 784px;
 `

@@ -6,6 +6,8 @@ import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
 import { Header } from '../components/dashboard/header/Header'
 import { MenuNavBar } from '../components/dashboard/header/MenuNavBar'
 import styled from 'styled-components'
+import { breakpoints } from '../../assests/styles/adaptive'
+import { useState } from 'react'
 
 export const DashboardLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
@@ -14,18 +16,38 @@ export const DashboardLayout = () => {
     return <Navigate to={'/login'} />
   }
 
+  const [onSidebar, setOnSidebar] = useState(false)
+
+  const handleOnSidebar = () => {
+    setOnSidebar(prevState => !prevState)
+  }
+
   return (
     <Layout>
-      <Header />
+      <Header onSidebar={onSidebar} onOpenSideBar={handleOnSidebar} />
       <ContentWrapper>
-        <MenuNavBar />
+        <MenuNavBar onSidebar={onSidebar} />
         <Content>
           <Outlet />
         </Content>
+        <Overlay display={onSidebar} onClick={handleOnSidebar} />
       </ContentWrapper>
     </Layout>
   )
 }
+
+const Overlay = styled.div<{ display: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${({ display }) => (display ? 'block' : 'none')};
+  z-index: 10;
+`
+
+export default Overlay
 
 const Layout = styled.div`
   background: ${colors.lightestGrey1};
@@ -43,4 +65,9 @@ const Content = styled.div`
   overflow-y: auto;
   padding: 32px 80px;
   height: calc(100vh - 80px);
+
+  @media screen and ${breakpoints.tablet} {
+    padding: 16px 0;
+    height: calc(100vh - 62px);
+  }
 `

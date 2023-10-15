@@ -11,6 +11,7 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { EmptyPage } from '../../EmptyPage'
 import styled from 'styled-components'
 import { selectIsLoggedIn } from '../../../module/auth/auth.selectors'
+import { breakpoints } from '../../../assests/styles/adaptive'
 
 export const TeamsPage = () => {
   const { count, dataTeams, page, size } = useSelector(teamsSelector)
@@ -106,10 +107,19 @@ export const TeamsPage = () => {
   )
 }
 
-export const CardWrapper = styled.div`
+const CardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 24px), 1fr));
   gap: 24px;
   width: 100%;
   margin: 32px 0;
+
+  @media ${breakpoints.largeMobile} {
+    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 16px), 1fr));
+  }
+
+  @media ${breakpoints.tablet} {
+    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 16px), 1fr));
+    margin: 16px 0;
+  }
 `

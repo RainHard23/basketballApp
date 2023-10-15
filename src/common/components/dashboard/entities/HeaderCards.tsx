@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import Button from '../../ui/Button'
 import { Input } from '../../ui/controlledInput/Input'
 import styled from 'styled-components'
+import { breakpoints } from '../../../../assests/styles/adaptive'
 
 type Props = {
   linkPath: string
@@ -19,8 +20,8 @@ export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
     updateSearchQuery(value)
   }
   return (
-    <Wrapper>
-      <FilterContainer>
+    <Container>
+      <ContainerItems>
         <Input
           name={''}
           placeholder={'Search'}
@@ -28,26 +29,35 @@ export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
           value={searchValue}
           onChange={handleSearchChange}
         />
-      </FilterContainer>
-      <AddLink to={linkPath}>
+      </ContainerItems>
+      <AddButtonLink to={linkPath}>
         <Button isAdd>Add +</Button>
-      </AddLink>
-    </Wrapper>
+      </AddButtonLink>
+    </Container>
   )
 }
 
-const Wrapper = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media screen and ${breakpoints.tablet} {
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 
-const FilterContainer = styled.div`
+const ContainerItems = styled.div`
   width: 100%;
 `
 
-const AddLink = styled(NavLink)`
+const AddButtonLink = styled(NavLink)`
   max-width: 104px;
   width: 100%;
   text-decoration: none;
+
+  @media screen and ${breakpoints.tablet} {
+    margin-top: 16px;
+  }
 `

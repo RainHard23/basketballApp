@@ -3,6 +3,7 @@ import React, { FC, ReactNode } from 'react'
 import { CardsFooter } from '../components/dashboard/entities/FooterCards'
 import { CardsHeader } from '../components/dashboard/entities/HeaderCards'
 import styled from 'styled-components'
+import { breakpoints } from '../../assests/styles/adaptive'
 
 type PropsType = {
   children: ReactNode
@@ -24,7 +25,7 @@ export const CardsdLayouts: FC<PropsType> = ({
   return (
     <CardsContainer>
       <CardsHeader linkPath={linkPath} updateSearchQuery={updateSearchQuery} />
-      <ContentWrapper>{children}</ContentWrapper>
+      <CardsWrapper>{children}</CardsWrapper>
       <CardsFooter
         paginationPage={paginationPage}
         updatePageSelect={updatePageSelect}
@@ -37,9 +38,13 @@ export const CardsdLayouts: FC<PropsType> = ({
 const CardsContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 0 12px;
+
+  @media screen and ${breakpoints.tablet} {
+    padding: 0 12px;
+  }
 `
 
-const ContentWrapper = styled.div`
+const CardsWrapper = styled.div`
   margin: 0;
+  min-height: 706px;
 `

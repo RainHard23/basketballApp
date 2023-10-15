@@ -4,20 +4,24 @@ import iconEdit from '../../../../assests/icons/iconEdit.svg'
 import styled from 'styled-components'
 import { colors } from '../../../../assests/styles/colors'
 import { Breadcrumbs } from './Breadcrumbs'
+import { NavLink } from 'react-router-dom'
 
 type PropsType = {
   crumbs: Array<{ url: string; title?: string }>
+  onDeleteTeam: () => void
+  editPath: string
+  pathRedirect: string
 }
 
-export const HeaderDetails: FC<PropsType> = ({ crumbs }) => {
+export const HeaderDetails: FC<PropsType> = ({ crumbs, onDeleteTeam, editPath, pathRedirect }) => {
   return (
     <Container>
       <Breadcrumbs crumbs={crumbs} />
       <ContainerItem>
-        <Icon>
+        <Icon to={editPath}>
           <img src={iconEdit} alt="" />
         </Icon>
-        <Icon>
+        <Icon to={pathRedirect} onClick={onDeleteTeam}>
           <img src={iconDelete} alt="" />
         </Icon>
       </ContainerItem>
@@ -38,7 +42,7 @@ const ContainerItem = styled.div`
   display: flex;
   padding-right: 32px;
 `
-const Icon = styled('button')`
+const Icon = styled(NavLink)`
   margin-left: 16px;
   background-color: #fff;
 `

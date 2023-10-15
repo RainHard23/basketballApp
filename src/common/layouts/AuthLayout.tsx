@@ -6,6 +6,7 @@ import imgRegister from '../../assests/images/imgRegistr.png'
 import { colors } from '../../assests/styles/colors'
 import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
 import styled from 'styled-components'
+import { ErrorSnackbar } from '../components/ErorBar'
 
 const AuthLayout = () => {
   const location = useLocation()
@@ -19,6 +20,7 @@ const AuthLayout = () => {
   return (
     <AuthContainerLayout>
       <AuthLeftSide>
+        <ErrorSnackbar />
         <Outlet />
       </AuthLeftSide>
       <AuthRightSide>

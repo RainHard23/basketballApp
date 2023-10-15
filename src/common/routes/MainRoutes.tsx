@@ -11,6 +11,8 @@ import { TeamDetail } from '../../pages/dashboard/team/TeamDetailsPage'
 import { TeamsPage } from '../../pages/dashboard/team/TeamsPage'
 import AuthLayout from '../layouts/AuthLayout'
 import { DashboardLayout } from '../layouts/DashboardLayout'
+import { TeamFormEdit } from '../../pages/dashboard/team/TeamEdit'
+import { PlayerFormEdit } from '../../pages/dashboard/player/PlayerEdit'
 
 export const MainRoutes = () => {
   return (
@@ -21,9 +23,11 @@ export const MainRoutes = () => {
 
           <Route element={<TeamDetail />} path={'/team/:teamId'} />
           <Route element={<TeamFormAdd />} path={'/teams/create'} />
+          <Route element={<TeamFormEdit />} path={'/teams/edit/' + ':id'} />
 
           <Route element={<PlayersDetail />} path={'/team/:teamId/:playerId'} />
           <Route element={<PlayerFormAdd />} path={'/team/:teamId/players/create'} />
+          <Route element={<PlayerFormEdit />} path={'/players/edit/' + ':id'} />
           <Route element={<PlayersPage />} path={'/players'} />
         </Route>
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 import { useActions } from '../../../api/common/hooks/useActions'
 import playerImage from '../../../assests/images/playerInfoDetail.png'
@@ -15,9 +15,8 @@ import { HeaderDetails } from '../../../common/components/dashboard/entities/Hea
 export const PlayersDetail = () => {
   const { pathname } = useLocation()
   const { playerId, teamId } = useParams()
-
-  const { getPlayersIdTC } = useActions(playersThunks)
-
+  const { getPlayersIdTC, deletePlayerTC } = useActions(playersThunks)
+  const navigate = useNavigate()
   const { player } = useSelector(playersSelector)
 
   useEffect(() => {
@@ -28,9 +27,17 @@ export const PlayersDetail = () => {
     { title: 'Players', url: '/players' },
     { title: player?.name, url: pathname },
   ]
+  const handleDeleteTeam = () => {
+    deletePlayerTC(Number(playerId))
+  }
   return (
     <>
-      <HeaderDetails crumbs={crumbs} />
+      <HeaderDetails
+        crumbs={crumbs}
+        onDeleteTeam={handleDeleteTeam}
+        editPath={`/players/edit/${playerId}`}
+        pathRedirect={'/players'}
+      />
       <Container>
         <Logo>
           <Img alt={'ImagePlayer'} src={player?.avatarUrl || playerImage} />

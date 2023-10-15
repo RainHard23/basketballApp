@@ -1,8 +1,30 @@
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
-import { ParamsType, PlayerType, playersApi } from '../../api/players/api'
-import { TeamType, teamApi } from '../../api/teams/api'
-import { addTeamTC } from '../teams/teamsSlice'
+import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
+import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
+
+const updatePlayerTC = createAppAsyncThunk(
+  'teams/updateTeam',
+  async (arg: { model: PlayerType }, thunkAPI) => {
+    try {
+      await playersApi.updatePlayer(arg.model)
+      return arg
+    } catch (error) {
+      return thunkAPI.rejectWithValue(null)
+    }
+  }
+)
+export const deletePlayerTC = createAppAsyncThunk(
+  'players/deletePlayer',
+  async (deletePlayer: number) => {
+    try {
+      await playersApi.deletePlayer(deletePlayer)
+      return deletePlayer
+    } catch (error) {
+      throw error
+    }
+  }
+)
 
 export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
@@ -79,6 +101,9 @@ const initialState: dataPlayersType = {
   team: [],
 }
 const slice = createSlice({
+  initialState: initialState,
+  name: 'players',
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(getPlayersTC.fulfilled, (state, action) => {
@@ -94,13 +119,27 @@ const slice = createSlice({
       .addCase(addPlayerTC.fulfilled, (state, action) => {
         state.dataPlayers.push(action.payload)
       })
+      .addCase(deletePlayerTC.fulfilled, (state, action) => {
+        state.dataPlayers = state.dataPlayers.filter(player => player.id !== action.payload)
+      })
+      .addCase(updatePlayerTC.fulfilled, (state, action) => {
+        const updatedPlayerIndex = state.dataPlayers.findIndex(
+          team => String(team.id) === String(action.payload.model.id)
+        )
+        if (updatedPlayerIndex !== -1) {
+          state.dataPlayers[updatedPlayerIndex] = action.payload.model
+        }
+      })
   },
-  initialState: initialState,
-  name: 'players',
-  reducers: {},
 })
 
 export const playersReducer = slice.reducer
 
 export const playersAction = slice.actions
-export const playersThunks = { addPlayerTC, getPlayersIdTC, getPlayersTC }
+export const playersThunks = {
+  addPlayerTC,
+  getPlayersIdTC,
+  getPlayersTC,
+  deletePlayerTC,
+  updatePlayerTC,
+}

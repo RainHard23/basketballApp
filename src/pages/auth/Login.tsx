@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { useActions } from '../../api/common/hooks/useActions'
 import { colors } from '../../assests/styles/colors'
@@ -9,6 +9,8 @@ import { authThunks } from '../../module/auth/authSlice'
 import { yupResolver } from '@hookform/resolvers/yup'
 import styled from 'styled-components'
 import * as yup from 'yup'
+import { useSelector } from 'react-redux'
+import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
 
 type FormData = {
   login: string
@@ -49,7 +51,6 @@ export const Login = () => {
 
   return (
     <LoginFormContainer>
-      {/*<ErrorSnackbar />*/}
       <WrapperTitle>
         <Title>Sign In</Title>
       </WrapperTitle>

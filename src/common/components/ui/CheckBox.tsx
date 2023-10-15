@@ -25,7 +25,6 @@ export const CheckBox: FC<CheckboxProps> = ({
   errorMessage,
   label,
   name,
-  required,
 }) => {
   return (
     <>
@@ -56,7 +55,7 @@ export const CheckBox: FC<CheckboxProps> = ({
 
 const StyledInput = styled.input<{ error: boolean }>`
     border: ${({ error }) =>
-      error ? `1px solid ${colors.lightRed}` : `1px solid ${colors.lightGrey}`};
+      error ? `1px solid ${colors.lightestRed}` : `1px solid ${colors.lightGrey}`};
     appearance: none;
     width: 12px;
     height: 12px;

@@ -1,15 +1,10 @@
 import { instance } from '../common/api/commonApi'
 import { PlayerType } from '../players/api'
 
-const userJSON = localStorage.getItem('user')
-const user = userJSON ? JSON.parse(userJSON) : ''
-
 export const teamApi = {
   addTeam(newTeam: TeamType) {
     return instance
-      .post<TeamType>('api/Team/Add', newTeam, {
-        headers: { Authorization: 'Bearer ' + user.token },
-      })
+      .post<TeamType>('api/Team/Add', newTeam)
       .then(res => res.data)
       .catch(error => {
         console.error('Error fetching teams:', error)
@@ -19,9 +14,23 @@ export const teamApi = {
   getTeams(paramsQuery: any) {
     return instance
       .get<TeamsType>('api/Team/GetTeams', {
-        headers: { Authorization: 'Bearer ' + user.token },
         params: paramsQuery,
       })
+      .then(res => res.data)
+      .catch(error => {
+        console.error('Error fetching teams:', error)
+        throw error
+      })
+  },
+  deleteTeam(teamId: number) {
+    return instance.delete<TeamType>(`api/Team/Delete?id=${teamId}`)
+  },
+  updateTeam(model: TeamType) {
+    return instance.put<TeamType>('api/Team/Update', model)
+  },
+  getTeamId(id?: string) {
+    return instance
+      .get<TeamType>('api/Team/Get', { params: { id: id } })
       .then(res => res.data)
       .catch(error => {
         console.error('Error fetching teams:', error)

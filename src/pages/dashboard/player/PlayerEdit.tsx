@@ -17,6 +17,8 @@ import * as yup from 'yup'
 import { selectAppStatus } from '../../../module/app/appSelectors'
 import { Loader } from '../../../common/components/Loader'
 import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
+import { usePlayerPositions } from '../../../core/helpers/getPosition'
+import { playersPlayerSelector } from '../../../module/players/playersSelectors'
 
 type FormDataType = {
   avatarUrl: any
@@ -29,26 +31,25 @@ type FormDataType = {
   weight: number
 }
 
-const optionsPosition = [
-  { label: 'Center Forward', value: 'Center Forward' },
-  { label: 'Guard Forward', value: 'Guard Forward' },
-  { label: 'Forward', value: 'Forward' },
-  { label: 'Center', value: 'Center' },
-  { label: 'Guard', value: 'Guard' },
-]
-
 export const PlayerFormEdit = () => {
+  const { positionOptions } = usePlayerPositions()
   const { id } = useParams<{ id?: string }>()
   const { pathname } = useLocation()
   const status = useSelector(selectAppStatus)
   const { dataTeams } = useSelector(teamsSelector)
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
+  const { updatePlayerTC, getPlayersIdTC } = useActions(playersThunks)
+  const prevPlayerData = useSelector(playersPlayerSelector)
+
+  useEffect(() => {
+    getPlayersIdTC({ id: Number(id) })
+  }, [])
+
   const optionsTeams = dataTeams.map(team => ({
     label: team.name,
     value: team.id,
   }))
 
-  const { updatePlayerTC } = useActions(playersThunks)
   const navigate = useNavigate()
   const handleFileSelect = (file: File | null) => {
     if (file) {
@@ -106,7 +107,17 @@ export const PlayerFormEdit = () => {
   } = useForm<any>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
+    defaultValues: {
+      avatarUrl: prevPlayerData?.avatarUrl,
+      height: prevPlayerData?.height,
+      name: prevPlayerData?.name,
+      number: prevPlayerData?.number,
+      position: prevPlayerData?.position,
+      team: prevPlayerData?.team,
+      weight: prevPlayerData?.weight,
+    },
   })
+  console.log(prevPlayerData)
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
     const updatedTeamData = {
@@ -116,8 +127,6 @@ export const PlayerFormEdit = () => {
       },
     }
     updatePlayerTC(updatedTeamData)
-
-    reset()
     setIsImageVisible('')
     navigate('/players')
   }
@@ -160,7 +169,7 @@ export const PlayerFormEdit = () => {
                     isMulti={false}
                     label={'Position'}
                     name={'position'}
-                    options={optionsPosition}
+                    options={positionOptions}
                   />
                 </ContainerSelect>
                 <ContainerSelect>

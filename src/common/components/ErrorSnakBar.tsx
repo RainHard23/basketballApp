@@ -11,10 +11,10 @@ type AlertProps = {
 const AlertContainer = styled.div<{ severity: 'error' | 'success' }>`
   background-color: ${props => (props.severity === 'error' ? colors.lightestRed : 'green')};
   color: ${colors.white};
-  padding: 8px 16px;
+  padding: 8px 10px;
   border-radius: 4px;
   margin-bottom: 10px;
-  max-width: 470px;
+  max-width: 480px;
   width: 100%;
   font-size: 16px;
   font-weight: 500;
@@ -50,11 +50,17 @@ type ErrorSnackbarProps = {
 
 export const ErrorSnackbar2: FC<ErrorSnackbarProps> = ({ error, onClose }) => {
   const [isVisible, setIsVisible] = useState(false)
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   useEffect(() => {
     if (error) {
       setIsVisible(true)
-
+      if (error.includes('401')) {
+        setErrorMessage('Unauthorized: Please log in')
+      } else if (error.includes('409')) {
+        setErrorMessage('User already exists')
+      } else {
+        setErrorMessage(error)
+      }
       const timer = setTimeout(() => {
         setIsVisible(false)
         onClose()
@@ -72,7 +78,7 @@ export const ErrorSnackbar2: FC<ErrorSnackbarProps> = ({ error, onClose }) => {
   return isVisible ? (
     <Snackbar>
       <Alert severity="error" onClick={handleSnackbarClose}>
-        {error}
+        {errorMessage}
       </Alert>
     </Snackbar>
   ) : null

@@ -1,6 +1,8 @@
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
+import { playersApi, PlayerType } from '../../api/players/api'
+import { imageApi } from '../../api/imageApi'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   'players/getPlayerId',
@@ -35,13 +37,36 @@ export const deleteTeamTC = createAppAsyncThunk('teams/deleteTeam', async (teamI
   }
 })
 
-export const addTeamTC = createAppAsyncThunk('teams/addTeam', async (newTeam: TeamType) => {
+export const _addTeamTC = createAppAsyncThunk('teams/addTeam', async (newTeam: TeamType) => {
   try {
     return await teamApi.addTeam(newTeam)
   } catch (error) {
     throw error
   }
 })
+
+export const addTeamTC = createAppAsyncThunk(
+  'teams/addTeam',
+  async (newTeam: TeamType & { imageFile: File }) => {
+    try {
+      const { imageFile, ...teamData } = newTeam
+
+      // Загрузка изображения, если оно было передано
+      const imageUrl = newTeam.imageFile ? await imageApi.getUploadedImage(newTeam.imageFile) : ''
+
+      // Обновление данных нового игрока с учетом аватара
+      const teamWithAvatar: TeamType = {
+        ...teamData,
+        imageUrl,
+      }
+      const res = await teamApi.addTeam(teamWithAvatar)
+      return res
+    } catch (error) {
+      console.error('Error adding player:', error)
+      throw error
+    }
+  }
+)
 
 const getTeamsTC = createAppAsyncThunk<
   {

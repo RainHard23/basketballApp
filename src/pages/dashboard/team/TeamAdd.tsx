@@ -24,6 +24,7 @@ type FormData = {
   foundationYear: number
   imageUrl: any
   name: string
+  imageFile: File
 }
 
 export const TeamFormAdd = () => {
@@ -37,7 +38,8 @@ export const TeamFormAdd = () => {
 
       reader.onload = e => {
         if (e.target) {
-          setValue('imageUrl', e.target.result)
+          setValue('imageFile', file)
+          setValue('imageUrl', '13123')
         }
       }
       reader.readAsDataURL(file)
@@ -65,16 +67,15 @@ export const TeamFormAdd = () => {
     handleSubmit,
     reset,
     setValue,
-  } = useForm<FormData>({
+  } = useForm<any>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   })
 
   const onSubmit: SubmitHandler<FormData> = data => {
     addTeamTC(data)
-    reset()
+    console.log(data)
     setIsImageVisible('')
-    setValue('imageUrl', '')
     navigate('/')
   }
 
@@ -92,13 +93,13 @@ export const TeamFormAdd = () => {
           <Breadcrumbs crumbs={crumbs} />
           <Form onSubmit={handleFormSubmitted}>
             <AddImg>
-              {/*<ControlledInputFile*/}
-              {/*  control={control}*/}
-              {/*  errorMessage={errors?.imageUrl?.message}*/}
-              {/*  imagevisible={isImageVisible}*/}
-              {/*  name={'imageUrl'}*/}
-              {/*  selectFile={handleFileSelect}*/}
-              {/*/>*/}
+              <ControlledInputFile
+                control={control}
+                errorMessage={errors?.imageUrl?.message}
+                imagevisible={isImageVisible}
+                name={'avatarFile'}
+                selectFile={handleFileSelect}
+              />
             </AddImg>
             <ContainerInput>
               <WrapperItem>

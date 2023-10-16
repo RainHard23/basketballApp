@@ -38,21 +38,21 @@ export const deletePlayerTC = createAppAsyncThunk(
 
 export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
-  async (newPlayer: PlayerType & { imageFile: File | undefined }) => {
+  async (newPlayer: PlayerType & { imageFile: File }) => {
     try {
       const { imageFile, ...playerData } = newPlayer
 
       // Загрузка изображения, если оно было передано
-      const avatarUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
+      const avatarUrl = newPlayer.imageFile
+        ? await imageApi.getUploadedImage(newPlayer.imageFile)
+        : ''
 
       // Обновление данных нового игрока с учетом аватара
       const playerWithAvatar: PlayerType = {
         ...playerData,
-        avatarUrl, // Добавляем аватар в данные игрока
+        avatarUrl,
       }
-
       const res = await playersApi.addPlayer(playerWithAvatar)
-
       return res
     } catch (error) {
       console.error('Error adding player:', error)

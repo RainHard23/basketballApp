@@ -18,7 +18,10 @@ export const TeamCard: FC<TeamProps> = ({ foundationYear, id, imageUrl, name }) 
   return (
     <CardContainer onClick={() => navigate(`/team/${id}`)}>
       <LogoWrapper>
-        <CardLogo alt={'img'} src={imageUrl && imageUrl ? imageUrl : iconTeam} />
+        <CardLogo
+          alt={'img'}
+          src={imageUrl && imageUrl ? `http://dev.trainee.dex-it.ru${imageUrl}` : iconTeam}
+        />
       </LogoWrapper>
       <CardDescription>
         <CardTitle>{name}</CardTitle>

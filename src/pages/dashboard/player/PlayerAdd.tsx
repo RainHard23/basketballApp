@@ -29,15 +29,8 @@ type FormDataType = {
   position: string
   team: number
   weight: number
+  imageFile: File
 }
-
-const optionsPosition = [
-  { label: 'Center Forward', value: 'Center Forward' },
-  { label: 'Guard Forward', value: 'Guard Forward' },
-  { label: 'Forward', value: 'Forward' },
-  { label: 'Center', value: 'Center' },
-  { label: 'Guard', value: 'Guard' },
-]
 
 export const PlayerFormAdd = () => {
   const { pathname } = useLocation()
@@ -65,7 +58,8 @@ export const PlayerFormAdd = () => {
 
       reader.onload = e => {
         if (e.target) {
-          setValue('avatarUrl', e.target.result)
+          setValue('imageFile', file)
+          setValue('avatarUrl', '13123')
         }
       }
       reader.readAsDataURL(file)
@@ -118,7 +112,7 @@ export const PlayerFormAdd = () => {
   })
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
-    // addPlayerTC(data)
+    addPlayerTC(data)
     reset()
     setIsImageVisible('')
   }

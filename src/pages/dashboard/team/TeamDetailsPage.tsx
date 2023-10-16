@@ -55,7 +55,10 @@ export const TeamDetail = () => {
       {team && (
         <Container key={team.id}>
           <Logo>
-            <Img alt={`Image of ${team.name}`} src={team?.imageUrl || teamImg} />
+            <Img
+              alt={`Image of ${team.name}`}
+              src={`http://dev.trainee.dex-it.ru${team.imageUrl}`}
+            />
           </Logo>
           <TeamInfo>
             <Title>{team.name}</Title>

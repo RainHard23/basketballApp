@@ -15,7 +15,7 @@ import { Breadcrumbs } from '../../../common/components/dashboard/entities/Bread
 import { Loader } from '../../../common/components/Loader'
 import { useSelector } from 'react-redux'
 import { selectAppStatus } from '../../../module/app/appSelectors'
-import { teamsSelector } from '../../../module/teams/teamsSelectors'
+import { filteredTeamsSelector, teamsSelector } from '../../../module/teams/teamsSelectors'
 
 type FormData = {
   conference: string
@@ -24,21 +24,27 @@ type FormData = {
   imageUrl: any
   name: string
   id?: number
+  imageFile: File
 }
 
 export const TeamFormEdit = () => {
   const { id } = useParams<{ id?: string }>()
   const { team } = useSelector(teamsSelector)
   const status = useSelector(selectAppStatus)
-  const { updateTeamTC } = useActions(teamsThunks)
+  const { updateTeamTC, getTeamIdTC } = useActions(teamsThunks)
   const navigate = useNavigate()
   const { pathname } = useLocation()
-
+  const prevTeamData = useSelector(filteredTeamsSelector)
+  console.log(prevTeamData)
   const crumbs = [
     { title: 'Teams', url: '/' },
     { title: 'Edit team', url: pathname },
   ]
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
+
+  useEffect(() => {
+    getTeamIdTC({ id: id })
+  }, [])
 
   const handleFileSelect = (file: File | null) => {
     if (file) {
@@ -46,7 +52,8 @@ export const TeamFormEdit = () => {
 
       reader.onload = e => {
         if (e.target) {
-          setValue('imageUrl', e.target.result)
+          setValue('imageFile', file)
+          setValue('imageUrl', '13123')
         }
       }
       reader.readAsDataURL(file)
@@ -74,9 +81,16 @@ export const TeamFormEdit = () => {
     handleSubmit,
     reset,
     setValue,
-  } = useForm<FormData>({
+  } = useForm<any>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
+    defaultValues: {
+      conference: prevTeamData?.conference,
+      division: prevTeamData?.division,
+      foundationYear: prevTeamData?.foundationYear,
+      imageUrl: prevTeamData?.imageUrl,
+      name: prevTeamData?.name,
+    },
   })
 
   const onSubmit: SubmitHandler<FormData> = data => {
@@ -96,20 +110,20 @@ export const TeamFormEdit = () => {
 
   return (
     <Container>
-      {status === 'loading' ? (
+      {status === 'loading' && !prevTeamData ? (
         <Loader />
       ) : (
         <>
           <Breadcrumbs crumbs={crumbs} />
           <Form onSubmit={handleFormSubmitted}>
             <AddImg>
-              {/*<ControlledInputFile*/}
-              {/*  control={control}*/}
-              {/*  errorMessage={errors?.imageUrl?.message}*/}
-              {/*  imagevisible={isImageVisible}*/}
-              {/*  name={'imageUrl'}*/}
-              {/*  selectFile={handleFileSelect}*/}
-              {/*/>*/}
+              <ControlledInputFile
+                control={control}
+                errorMessage={errors?.imageUrl?.message}
+                imagevisible={isImageVisible}
+                name={'avatarFile'}
+                selectFile={handleFileSelect}
+              />
             </AddImg>
             <ContainerInput>
               <WrapperItem>

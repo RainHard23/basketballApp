@@ -9,6 +9,7 @@ import { ErrorSnackbar2 } from './ErrorSnakBar'
 export const ErrorSnackbar: FC = () => {
   const error = useSelector((state: AppRootStateType) => state.app.error)
   const { setAppError } = useActions(appActions)
+
   const handleClose = (event: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return

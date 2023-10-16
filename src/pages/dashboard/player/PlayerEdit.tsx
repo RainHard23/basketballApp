@@ -29,6 +29,7 @@ type FormDataType = {
   position: string
   team: number
   weight: number
+  imageFile: File
 }
 
 export const PlayerFormEdit = () => {
@@ -57,7 +58,8 @@ export const PlayerFormEdit = () => {
 
       reader.onload = e => {
         if (e.target) {
-          setValue('avatarUrl', e.target.result)
+          setValue('imageFile', file)
+          setValue('avatarUrl', '13123')
         }
       }
       reader.readAsDataURL(file)
@@ -145,13 +147,13 @@ export const PlayerFormEdit = () => {
           <Breadcrumbs crumbs={crumbs} />
           <Form onSubmit={handleFormSubmitted}>
             <AddImg>
-              {/*<ControlledInputFile*/}
-              {/*  control={control}*/}
-              {/*  errorMessage={errors?.avatarUrl?.message}*/}
-              {/*  imagevisible={isImageVisible}*/}
-              {/*  name={'avatarUrl'}*/}
-              {/*  selectFile={handleFileSelect}*/}
-              {/*/>*/}
+              <ControlledInputFile
+                control={control}
+                errorMessage={errors?.avatarUrl?.message}
+                imagevisible={isImageVisible}
+                name={'avatarFile'}
+                selectFile={handleFileSelect}
+              />
             </AddImg>
             <ContainerInput>
               <WrapperItem>

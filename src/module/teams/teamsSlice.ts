@@ -17,33 +17,29 @@ const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   }
 )
 
-const updateTeamTC = createAppAsyncThunk(
+export const updateTeamTC = createAppAsyncThunk(
   'teams/updateTeam',
-  async (arg: { model: TeamType }, thunkAPI) => {
+  async (arg: { model: TeamType & { imageFile: File } }, thunkAPI) => {
     try {
-      await teamApi.updateTeam(arg.model)
+      const { imageFile, ...teamData } = arg.model
+
+      // Загрузка изображения, если оно было передано
+      const imageUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
+
+      // Обновление данных команды с учетом изображения
+      const updatedTeam: TeamType = {
+        ...teamData,
+        imageUrl,
+      }
+
+      await teamApi.updateTeam(updatedTeam)
       return arg
     } catch (error) {
-      return thunkAPI.rejectWithValue(null)
+      console.error('Error updating team:', error)
+      throw error
     }
   }
 )
-export const deleteTeamTC = createAppAsyncThunk('teams/deleteTeam', async (teamId: number) => {
-  try {
-    await teamApi.deleteTeam(teamId)
-    return teamId
-  } catch (error) {
-    throw error
-  }
-})
-
-export const _addTeamTC = createAppAsyncThunk('teams/addTeam', async (newTeam: TeamType) => {
-  try {
-    return await teamApi.addTeam(newTeam)
-  } catch (error) {
-    throw error
-  }
-})
 
 export const addTeamTC = createAppAsyncThunk(
   'teams/addTeam',
@@ -67,6 +63,14 @@ export const addTeamTC = createAppAsyncThunk(
     }
   }
 )
+export const deleteTeamTC = createAppAsyncThunk('teams/deleteTeam', async (teamId: number) => {
+  try {
+    await teamApi.deleteTeam(teamId)
+    return teamId
+  } catch (error) {
+    throw error
+  }
+})
 
 const getTeamsTC = createAppAsyncThunk<
   {

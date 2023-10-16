@@ -13,24 +13,25 @@ const getPositionPlayerTC = createAppAsyncThunk('players/getPositionPlayer', asy
   }
 })
 
-const updatePlayerTC = createAppAsyncThunk(
+export const updatePlayerTC = createAppAsyncThunk(
   'players/updatePlayer',
-  async (arg: { model: PlayerType }, thunkAPI) => {
+  async (arg: { model: PlayerType & { imageFile: File } }, thunkAPI) => {
     try {
-      await playersApi.updatePlayer(arg.model)
+      const { imageFile, ...playerData } = arg.model
+
+      // Загрузка изображения, если оно было передано
+      const avatarUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
+
+      // Обновление данных игрока с учетом изображения
+      const updatedPlayer: PlayerType = {
+        ...playerData,
+        avatarUrl,
+      }
+
+      await playersApi.updatePlayer(updatedPlayer)
       return arg
     } catch (error) {
-      return thunkAPI.rejectWithValue(null)
-    }
-  }
-)
-export const deletePlayerTC = createAppAsyncThunk(
-  'players/deletePlayer',
-  async (deletePlayer: number) => {
-    try {
-      await playersApi.deletePlayer(deletePlayer)
-      return deletePlayer
-    } catch (error) {
+      console.error('Error updating player:', error)
       throw error
     }
   }
@@ -56,6 +57,18 @@ export const addPlayerTC = createAppAsyncThunk(
       return res
     } catch (error) {
       console.error('Error adding player:', error)
+      throw error
+    }
+  }
+)
+
+export const deletePlayerTC = createAppAsyncThunk(
+  'players/deletePlayer',
+  async (deletePlayer: number) => {
+    try {
+      await playersApi.deletePlayer(deletePlayer)
+      return deletePlayer
+    } catch (error) {
       throw error
     }
   }

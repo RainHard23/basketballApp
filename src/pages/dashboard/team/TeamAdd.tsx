@@ -7,8 +7,6 @@ import { colors } from '../../../assests/styles/colors'
 import Button from '../../../common/components/ui/Button'
 import { ControlledInputFile } from '../../../common/components/ui/CustomInputFile'
 import { ControlledTextField } from '../../../common/components/ui/controlledInput/ControlledInput'
-import { Input } from '../../../common/components/ui/controlledInput/Input'
-import { authThunks } from '../../../module/auth/authSlice'
 import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { yupResolver } from '@hookform/resolvers/yup'
 import styled from 'styled-components'
@@ -74,7 +72,6 @@ export const TeamFormAdd = () => {
 
   const onSubmit: SubmitHandler<FormData> = data => {
     addTeamTC(data)
-    console.log(data)
     setIsImageVisible('')
     navigate('/')
   }

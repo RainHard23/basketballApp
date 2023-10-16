@@ -19,6 +19,7 @@ import { Breadcrumbs } from '../../../common/components/dashboard/entities/Bread
 import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { playersPositionSelector } from '../../../module/players/playersSelectors'
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
+import { ErrorSnackbar } from '../../../common/components/ErorBar'
 
 type FormDataType = {
   avatarUrl: any
@@ -113,6 +114,7 @@ export const PlayerFormAdd = () => {
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
     addPlayerTC(data)
+    navigate('/players')
     reset()
     setIsImageVisible('')
   }

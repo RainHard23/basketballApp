@@ -7,7 +7,8 @@ import { Header } from '../components/dashboard/header/Header'
 import { MenuNavBar } from '../components/dashboard/header/MenuNavBar'
 import styled from 'styled-components'
 import { breakpoints } from '../../assests/styles/adaptive'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { ErrorSnackbar } from '../components/ErorBar'
 
 export const DashboardLayout = () => {
   const [onSidebar, setOnSidebar] = useState(false)
@@ -23,6 +24,7 @@ export const DashboardLayout = () => {
 
   return (
     <Layout>
+      <ErrorSnackbar />
       <Header onSidebar={onSidebar} onOpenSideBar={handleOnSidebar} />
       <ContentWrapper>
         <MenuNavBar onSidebar={onSidebar} />

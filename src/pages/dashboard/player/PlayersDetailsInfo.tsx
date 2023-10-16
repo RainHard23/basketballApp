@@ -40,7 +40,7 @@ export const PlayersDetail = () => {
       />
       <Container>
         <Logo>
-          <Img alt={'ImagePlayer'} src={player?.avatarUrl || playerImage} />
+          <Img alt={'ImagePlayer'} src={`http://dev.trainee.dex-it.ru${player?.avatarUrl}`} />
         </Logo>
         <InfoContainer>
           <Title>
@@ -84,19 +84,16 @@ const TitleNumber = styled.span`
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   background: linear-gradient(to right, rgba(112, 112, 112, 1), rgba(57, 57, 57, 1));
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  padding: 20px;
 `
 
 const Logo = styled.div`
-  margin-bottom: -55px;
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 `
 
 const Img = styled.img`
@@ -106,11 +103,13 @@ const Img = styled.img`
 
 const InfoContainer = styled.div`
   width: 110%;
+  padding-top: 65px;
 `
 
 const InfoItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  align-items: center;
 `
 
 const Title = styled.h1`

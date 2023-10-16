@@ -21,6 +21,7 @@ import {
 import { instance } from '../../../api/common/api/commonApi'
 import { TeamType } from '../../../api/teams/api'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { ErrorSnackbar } from '../../../common/components/ErorBar'
 
 export const PlayersPage = () => {
   const { count, dataPlayers, size } = useSelector(playersSelector)

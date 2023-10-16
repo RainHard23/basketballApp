@@ -36,7 +36,7 @@ export const PlayerRosterCard: FC<PlayerInfoProps> = ({
         <TableLeft>
           <TableItem onClick={() => navigate(`/team/${teamId}/${id}`)}>
             <PlayerLogo>
-              <Img alt={'Logo'} src={imgSrc} />
+              <Img alt={'Logo'} src={`http://dev.trainee.dex-it.ru${imgSrc}`} />
             </PlayerLogo>
             <PlayerDescription>
               <NamePlayer>{playerName}</NamePlayer>
@@ -69,13 +69,17 @@ const TableItem = styled.div`
 const Img = styled.img`
   margin-right: 10px;
   border-radius: 50px;
+  width: 40px;
+  height: 38px;
 `
 
 const PlayerDescription = styled.div`
   line-height: 24px;
 `
 
-const PlayerLogo = styled.div``
+const PlayerLogo = styled.div`
+  max-width: 50px;
+`
 
 export const TableRight = styled.div`
   display: flex;

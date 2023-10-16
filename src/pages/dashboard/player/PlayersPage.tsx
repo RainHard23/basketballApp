@@ -20,6 +20,7 @@ import {
 } from '../../../module/teams/teamsSelectors'
 import { instance } from '../../../api/common/api/commonApi'
 import { TeamType } from '../../../api/teams/api'
+import { breakpoints } from '../../../assests/styles/adaptive'
 
 export const PlayersPage = () => {
   const { count, dataPlayers, size } = useSelector(playersSelector)
@@ -129,10 +130,21 @@ export const PlayersPage = () => {
   )
 }
 
-export const CardsContainer = styled.div`
+const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 24px), 1fr));
   gap: 24px;
   width: 100%;
   margin: 32px 0;
+
+  @media ${breakpoints.laptop} {
+    grid-template-columns: repeat(2, calc((100% - 12px) / 2));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media ${breakpoints.tablet} {
+    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 16px), 1fr));
+    margin: 16px 0;
+  }
 `

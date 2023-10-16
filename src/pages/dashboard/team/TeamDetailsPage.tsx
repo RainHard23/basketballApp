@@ -11,6 +11,7 @@ import teamImg from './/../../../assests/images/fullIconTeam.png'
 import styled from 'styled-components'
 import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
 import { deleteTeamTC, teamsThunks } from '../../../module/teams/teamsSlice'
+import { breakpoints } from '../../../assests/styles/adaptive'
 
 export const TeamDetail = () => {
   const { pathname } = useLocation()
@@ -95,6 +96,10 @@ const Container = styled.div`
   background: linear-gradient(to right, rgba(112, 112, 112, 1), rgba(57, 57, 57, 1));
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+
+  @media screen and ${breakpoints.laptop} {
+    flex-direction: column;
+  }
 `
 
 const Logo = styled.div`
@@ -110,6 +115,12 @@ const TeamInfo = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 65px 0;
+
+  @media screen and ${breakpoints.laptop} {
+    padding: 0 10px;
+    width: 100%;
+    align-items: center;
+  }
 `
 
 const Title = styled.h1`

@@ -24,7 +24,7 @@ export const CardsFooter: FC<PropsType> = ({
   updatePageSize,
 }) => {
   return (
-    <ContentWrapper>
+    <Container>
       <Pagination paginationPage={paginationPage} updatePageSelect={updatePageSelect} />
       <SelectStyles>
         <Select
@@ -37,11 +37,12 @@ export const CardsFooter: FC<PropsType> = ({
           options={options}
         />
       </SelectStyles>
-    </ContentWrapper>
+    </Container>
   )
 }
 
-const ContentWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `

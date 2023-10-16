@@ -31,7 +31,7 @@ export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
         />
       </ContainerItems>
       <AddButtonLink to={linkPath}>
-        <Button isAdd>Add +</Button>
+        <Button>Add +</Button>
       </AddButtonLink>
     </Container>
   )
@@ -41,6 +41,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
   @media screen and ${breakpoints.tablet} {
     flex-direction: column;
@@ -53,11 +54,14 @@ const ContainerItems = styled.div`
 `
 
 const AddButtonLink = styled(NavLink)`
-  max-width: 104px;
-  width: 100%;
+  margin-left: 12px;
+  margin-right: 12px;
+  width: 104px;
   text-decoration: none;
 
   @media screen and ${breakpoints.tablet} {
     margin-top: 16px;
+    max-width: 364px;
+    width: 100%;
   }
 `

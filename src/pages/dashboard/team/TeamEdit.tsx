@@ -103,13 +103,13 @@ export const TeamFormEdit = () => {
           <Breadcrumbs crumbs={crumbs} />
           <Form onSubmit={handleFormSubmitted}>
             <AddImg>
-              <ControlledInputFile
-                control={control}
-                errorMessage={errors?.imageUrl?.message}
-                imagevisible={isImageVisible}
-                name={'imageUrl'}
-                selectFile={handleFileSelect}
-              />
+              {/*<ControlledInputFile*/}
+              {/*  control={control}*/}
+              {/*  errorMessage={errors?.imageUrl?.message}*/}
+              {/*  imagevisible={isImageVisible}*/}
+              {/*  name={'imageUrl'}*/}
+              {/*  selectFile={handleFileSelect}*/}
+              {/*/>*/}
             </AddImg>
             <ContainerInput>
               <WrapperItem>

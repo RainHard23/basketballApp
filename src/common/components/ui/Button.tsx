@@ -2,12 +2,11 @@ import { fonts } from '../../../assests/fonts/fonts'
 import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'
 
-const Button = styled.button<{ isAdd?: boolean; isAuth?: boolean; isCancel?: boolean }>`
+const Button = styled.button<{ isAuth?: boolean; isCancel?: boolean }>`
   margin: ${({ isAuth }) => (isAuth ? '24px 0' : '0')};
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: ${({ isAdd }) => (isAdd ? '104px' : '364px')};
   width: 100%;
   background-color: ${({ isCancel }) => (isCancel ? colors.white : colors.red)};
   border-radius: 3px;
@@ -34,10 +33,6 @@ const Button = styled.button<{ isAdd?: boolean; isAuth?: boolean; isCancel?: boo
     color: ${colors.lightestGrey};
     background-color: ${colors.lightestGrey1};
     border: ${({ isCancel }) => (isCancel ? `1px solid ${colors.lightGrey}` : 'none')};
-  }
-
-  & img {
-    margin-left: ${({ isAdd }) => (isAdd ? '10px' : '0')};
   }
 `
 

@@ -44,15 +44,19 @@ export const PlayerFormAdd = () => {
   const { getTeamsTC } = useActions(teamsThunks)
   const status = useSelector(selectAppStatus)
   const { dataTeams } = useSelector(teamsSelector)
+  const { getPositionPlayerTC } = useActions(playersThunks)
   const { positionOptions } = usePlayerPositions()
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
   const optionsTeams = dataTeams.map(team => ({
     label: team.name,
     value: team.id,
   }))
+
   useEffect(() => {
     getTeamsTC({ paramsQuery: { name: '', page: 1, pageSize: 24 } })
+    getPositionPlayerTC()
   }, [])
+
   const { addPlayerTC } = useActions(playersThunks)
   const navigate = useNavigate()
   const handleFileSelect = (file: File | null) => {
@@ -114,7 +118,7 @@ export const PlayerFormAdd = () => {
   })
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
-    addPlayerTC(data)
+    // addPlayerTC(data)
     reset()
     setIsImageVisible('')
   }

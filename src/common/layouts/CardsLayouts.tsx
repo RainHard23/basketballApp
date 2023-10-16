@@ -46,5 +46,5 @@ const CardsContainer = styled.section`
 
 const CardsWrapper = styled.div`
   margin: 0;
-  min-height: 706px;
+  min-height: 700px;
 `

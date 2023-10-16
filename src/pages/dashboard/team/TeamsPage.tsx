@@ -85,7 +85,7 @@ export const TeamsPage = () => {
       ) : (
         <>
           {dataTeams && dataTeams.length > 0 ? (
-            <CardWrapper>
+            <CardsContainer>
               {dataTeams.map(el => (
                 <TeamCard
                   foundationYear={el.foundationYear}
@@ -95,7 +95,7 @@ export const TeamsPage = () => {
                   name={el.name}
                 />
               ))}
-            </CardWrapper>
+            </CardsContainer>
           ) : (
             <EmptyPage Image={emptyTeams} Label={'Add new teams to continue'} />
           )}
@@ -105,15 +105,17 @@ export const TeamsPage = () => {
   )
 }
 
-const CardWrapper = styled.div`
+const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 24px), 1fr));
   gap: 24px;
   width: 100%;
   margin: 32px 0;
 
-  @media ${breakpoints.largeMobile} {
-    grid-template-columns: repeat(auto-fill, minmax(calc(50% - 16px), 1fr));
+  @media ${breakpoints.laptop} {
+    grid-template-columns: repeat(2, calc((100% - 12px) / 2));
+    gap: 12px;
+    margin: 16px 0;
   }
 
   @media ${breakpoints.tablet} {

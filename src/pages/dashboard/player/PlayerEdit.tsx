@@ -145,13 +145,13 @@ export const PlayerFormEdit = () => {
           <Breadcrumbs crumbs={crumbs} />
           <Form onSubmit={handleFormSubmitted}>
             <AddImg>
-              <ControlledInputFile
-                control={control}
-                errorMessage={errors?.avatarUrl?.message}
-                imagevisible={isImageVisible}
-                name={'avatarUrl'}
-                selectFile={handleFileSelect}
-              />
+              {/*<ControlledInputFile*/}
+              {/*  control={control}*/}
+              {/*  errorMessage={errors?.avatarUrl?.message}*/}
+              {/*  imagevisible={isImageVisible}*/}
+              {/*  name={'avatarUrl'}*/}
+              {/*  selectFile={handleFileSelect}*/}
+              {/*/>*/}
             </AddImg>
             <ContainerInput>
               <WrapperItem>

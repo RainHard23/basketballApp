@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thu
 import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
+import { imageApi } from '../../api/imageApi'
 
 const getPositionPlayerTC = createAppAsyncThunk('players/getPositionPlayer', async thunkAPI => {
   try {
@@ -37,15 +38,24 @@ export const deletePlayerTC = createAppAsyncThunk(
 
 export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
-  async (newPlayer: PlayerType) => {
+  async (newPlayer: PlayerType & { imageFile: File | undefined }) => {
     try {
-      // newPlayer.avatarUrl = avatarFile
+      const { imageFile, ...playerData } = newPlayer
 
-      const res = await playersApi.addPlayer(newPlayer)
+      // Загрузка изображения, если оно было передано
+      const avatarUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
+
+      // Обновление данных нового игрока с учетом аватара
+      const playerWithAvatar: PlayerType = {
+        ...playerData,
+        avatarUrl, // Добавляем аватар в данные игрока
+      }
+
+      const res = await playersApi.addPlayer(playerWithAvatar)
 
       return res
     } catch (error) {
-      console.error('Error adding team:', error)
+      console.error('Error adding player:', error)
       throw error
     }
   }

@@ -1,37 +1,38 @@
-import { useSelector } from 'react-redux'
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {Outlet, useLocation} from 'react-router-dom'
 
 import imgLogin from '../../assests/images/imgLogin.png'
 import imgRegister from '../../assests/images/imgRegistr.png'
-import { colors } from '../../assests/styles/colors'
-import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
+import {colors} from '../../assests/styles/colors'
+import {selectIsLoggedIn} from '../../module/auth/auth.selectors'
 import styled from 'styled-components'
-import { ErrorSnackbar } from '../components/ErorBar'
+import {ErrorSnackbar} from '../components/ErorBar'
 
 const AuthLayout = () => {
-  const location = useLocation()
+    const location = useLocation()
 
-  const isLoggedIn = useSelector(selectIsLoggedIn)
 
-  if (isLoggedIn) {
-    return <Navigate to={'/'} />
-  }
+    const isLoggedIn = useSelector(selectIsLoggedIn)
 
-  return (
-    <AuthContainerLayout>
-      <AuthLeftSide>
-        <ErrorSnackbar />
-        <Outlet />
-      </AuthLeftSide>
-      <AuthRightSide>
-        {location && location.pathname == '/login' ? (
-          <Img src={imgRegister} />
-        ) : (
-          <Img src={imgLogin} />
-        )}
-      </AuthRightSide>
-    </AuthContainerLayout>
-  )
+    if (isLoggedIn) {
+        window.location.href = '/';
+    }
+
+    return (
+        <AuthContainerLayout>
+            <AuthLeftSide>
+                <ErrorSnackbar/>
+                <Outlet/>
+            </AuthLeftSide>
+            <AuthRightSide>
+                {location && location.pathname == '/login' ? (
+                    <Img src={imgRegister}/>
+                ) : (
+                    <Img src={imgLogin}/>
+                )}
+            </AuthRightSide>
+        </AuthContainerLayout>
+    )
 }
 
 const AuthContainerLayout = styled.div`

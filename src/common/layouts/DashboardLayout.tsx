@@ -10,13 +10,12 @@ import { breakpoints } from '../../assests/styles/adaptive'
 import { useState } from 'react'
 
 export const DashboardLayout = () => {
+  const [onSidebar, setOnSidebar] = useState(false)
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
   }
-
-  const [onSidebar, setOnSidebar] = useState(false)
 
   const handleOnSidebar = () => {
     setOnSidebar(prevState => !prevState)

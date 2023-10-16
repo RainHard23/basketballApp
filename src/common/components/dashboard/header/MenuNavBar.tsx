@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import { ReactComponent as IconTeams } from '../../../../assests/icons//iconTeams.svg'
@@ -10,11 +10,13 @@ import { colors } from '../../../../assests/styles/colors'
 import { logout } from '../../../../module/auth/authSlice'
 import styled from 'styled-components'
 import { breakpoints } from '../../../../assests/styles/adaptive'
+import { userSelector } from '../../../../module/auth/auth.selectors'
 
 type PropsType = {
   onSidebar: boolean
 }
 export const MenuNavBar: FC<PropsType> = ({ onSidebar }) => {
+  const userName = useSelector(userSelector)
   const dispatch = useDispatch()
 
   const location = useLocation()
@@ -35,7 +37,7 @@ export const MenuNavBar: FC<PropsType> = ({ onSidebar }) => {
       <Nav>
         <UserAccount>
           <UserImg />
-          <UserName>John Smith</UserName>
+          <UserName>{userName.name}</UserName>
         </UserAccount>
         <NavItem active={isTeamsActive} to={'/'}>
           <IconTeams />

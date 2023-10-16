@@ -1,14 +1,12 @@
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
-import { TeamType, teamApi } from '../../api/teams/api'
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { playersApi, PlayerType } from '../../api/players/api'
+import { teamApi, TeamType } from '../../api/teams/api'
+import { createSlice } from '@reduxjs/toolkit'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   'players/getPlayerId',
   async ({ id }, { rejectWithValue }) => {
     try {
-      const res = await teamApi.getTeamId(id)
-      return res
+      return await teamApi.getTeamId(id)
     } catch (error) {
       console.error('Error fetching teams:', error)
 
@@ -39,8 +37,7 @@ export const deleteTeamTC = createAppAsyncThunk('teams/deleteTeam', async (teamI
 
 export const addTeamTC = createAppAsyncThunk('teams/addTeam', async (newTeam: TeamType) => {
   try {
-    const res = await teamApi.addTeam(newTeam)
-    return res
+    return await teamApi.addTeam(newTeam)
   } catch (error) {
     throw error
   }
@@ -53,11 +50,10 @@ const getTeamsTC = createAppAsyncThunk<
     page: number
     size: number
   },
-  { paramsQuery: any }
+  { paramsQuery?: any }
 >('teams/getTeams', async ({ paramsQuery }) => {
   try {
     const res = await teamApi.getTeams(paramsQuery)
-    console.log(res)
     return {
       count: res.count,
       dataTeams: res.data,
@@ -76,6 +72,7 @@ type dataTeamsType = {
   page: number
   size: number
   team?: TeamType
+  filteredTeam?: TeamType
 }
 
 const initialState: dataTeamsType = {
@@ -112,7 +109,7 @@ const slice = createSlice({
         }
       })
       .addCase(getTeamIdTC.fulfilled, (state, action) => {
-        state.team = action.payload
+        state.filteredTeam = action.payload
       })
   },
 })

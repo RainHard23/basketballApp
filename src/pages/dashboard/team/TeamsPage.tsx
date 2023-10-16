@@ -12,6 +12,7 @@ import { EmptyPage } from '../../EmptyPage'
 import styled from 'styled-components'
 import { selectIsLoggedIn } from '../../../module/auth/auth.selectors'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { Navigate } from 'react-router-dom'
 
 export const TeamsPage = () => {
   const { count, dataTeams, page, size } = useSelector(teamsSelector)
@@ -25,6 +26,9 @@ export const TeamsPage = () => {
       pageSize: 6,
     },
   })
+  useEffect(() => {
+    getTeamsTC(parramsQuery)
+  }, [parramsQuery, isLoggedIn, getTeamsTC])
 
   const updateSearchQuery = (value: string) => {
     setParramsQuery(prevParamsQuery => ({
@@ -61,12 +65,6 @@ export const TeamsPage = () => {
     },
     [setParramsQuery]
   )
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      getTeamsTC(parramsQuery)
-    }
-  }, [parramsQuery, isLoggedIn, getTeamsTC])
 
   const paginationPage = useMemo(() => {
     if (count && size) {

@@ -1,85 +1,83 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { NavLink, useNavigate } from 'react-router-dom'
+import {SubmitHandler, useForm} from 'react-hook-form'
+import {NavLink, useNavigate} from 'react-router-dom'
 
-import { useActions } from '../../api/common/hooks/useActions'
-import { colors } from '../../assests/styles/colors'
+import {useActions} from '../../api/common/hooks/useActions'
+import {colors} from '../../assests/styles/colors'
 import Button from '../../common/components/ui/Button'
-import { ControlledTextField } from '../../common/components/ui/controlledInput/ControlledInput'
-import { authThunks } from '../../module/auth/authSlice'
-import { yupResolver } from '@hookform/resolvers/yup'
+import {ControlledTextField} from '../../common/components/ui/controlledInput/ControlledInput'
+import {authThunks} from '../../module/auth/authSlice'
+import {yupResolver} from '@hookform/resolvers/yup'
 import styled from 'styled-components'
 import * as yup from 'yup'
-import { useSelector } from 'react-redux'
-import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
 
 type FormData = {
-  login: string
-  password: string
+    login: string
+    password: string
 }
 export const Login = () => {
-  const { loginTC } = useActions(authThunks)
+    const {loginTC} = useActions(authThunks)
 
-  const schema = yup.object().shape({
-    login: yup.string().required('Login is required.'),
-    password: yup
-      .string()
-      .min(4, 'Password must be at least 4 characters long.')
-      .max(10, 'Password must be at most 10 characters long.')
-      .required('Password is required.'),
-  })
+    const schema = yup.object().shape({
+        login: yup.string().required('Login is required.'),
+        password: yup
+            .string()
+            .min(4, 'Password must be at least 4 characters long.')
+            .max(10, 'Password must be at most 10 characters long.')
+            .required('Password is required.'),
+    })
 
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<FormData>({
-    defaultValues: {
-      login: '',
-      password: '',
-    },
-    mode: 'onBlur',
-    resolver: yupResolver(schema),
-  })
+    const {
+        control,
+        formState: {errors},
+        handleSubmit,
+    } = useForm<FormData>({
+        defaultValues: {
+            login: '',
+            password: '',
+        },
+        mode: 'onBlur',
+        resolver: yupResolver(schema),
+    })
 
-  const onSubmit: SubmitHandler<FormData> = data => {
-    const { login, password } = data
+    const onSubmit: SubmitHandler<FormData> = data => {
+        const {login, password} = data
 
-    loginTC({ login, password })
-  }
+        loginTC({login, password})
+    }
 
-  const handleFormSubmitted = handleSubmit(onSubmit)
+    const handleFormSubmitted = handleSubmit(onSubmit)
 
-  return (
-    <LoginFormContainer>
-      <WrapperTitle>
-        <Title>Sign In</Title>
-      </WrapperTitle>
-      <Form onSubmit={handleFormSubmitted}>
-        <ControlledTextField
-          control={control}
-          errorMessage={errors.login}
-          label={'Login'}
-          name={'login'}
-          type={'text'}
-        />
-        <ControlledTextField
-          control={control}
-          errorMessage={errors.password}
-          label={'Password'}
-          name={'password'}
-          type={'password'}
-        />
-        <Button isAuth type={'submit'}>
-          Sign In
-        </Button>
-      </Form>
+    return (
+        <LoginFormContainer>
+            <WrapperTitle>
+                <Title>Sign In</Title>
+            </WrapperTitle>
+            <Form onSubmit={handleFormSubmitted}>
+                <ControlledTextField
+                    control={control}
+                    errorMessage={errors.login}
+                    label={'Login'}
+                    name={'login'}
+                    type={'text'}
+                />
+                <ControlledTextField
+                    control={control}
+                    errorMessage={errors.password}
+                    label={'Password'}
+                    name={'password'}
+                    type={'password'}
+                />
+                <Button isAuth type={'submit'}>
+                    Sign In
+                </Button>
+            </Form>
 
-      <MemberContainer>
-        <span>Not a member yet?</span>
-        <MemberLink to={'/register'}>Sign Up</MemberLink>
-      </MemberContainer>
-    </LoginFormContainer>
-  )
+            <MemberContainer>
+                <span>Not a member yet?</span>
+                <MemberLink to={'/register'}>Sign Up</MemberLink>
+            </MemberContainer>
+        </LoginFormContainer>
+    )
 }
 
 const MemberContainer = styled.div`

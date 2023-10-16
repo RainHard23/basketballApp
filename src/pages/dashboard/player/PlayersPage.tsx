@@ -11,13 +11,22 @@ import { playersSelector } from '../../../module/players/playersSelectors'
 import { playersThunks } from '../../../module/players/playersSlice'
 import { EmptyPage } from '../../EmptyPage'
 import styled from 'styled-components'
+import { teamsThunks } from '../../../module/teams/teamsSlice'
+import { type } from 'os'
+import {
+  filteredTeamsSelector,
+  teamsDataSelector,
+  teamsSelector,
+} from '../../../module/teams/teamsSelectors'
+import { instance } from '../../../api/common/api/commonApi'
+import { TeamType } from '../../../api/teams/api'
 
 export const PlayersPage = () => {
   const { count, dataPlayers, size } = useSelector(playersSelector)
-  const { getPlayersIdTC, getPlayersTC } = useActions(playersThunks)
-
+  const { getPlayersTC } = useActions(playersThunks)
+  const dataTeams = useSelector(teamsDataSelector)
   const status = useSelector(selectAppStatus)
-
+  const { getTeamsTC } = useActions(teamsThunks)
   const [parramsQuery, setParramsQuery] = useState({
     paramsQuery: {
       name: '',
@@ -64,13 +73,24 @@ export const PlayersPage = () => {
 
   useEffect(() => {
     getPlayersTC(parramsQuery)
-  }, [parramsQuery])
+    getTeamsTC({ paramsQuery: { name: '', page: 1, pageSize: 24 } })
+  }, [parramsQuery, getTeamsTC])
+  useEffect(() => {}, [])
 
   const paginationPage = useMemo(() => {
     if (count && size) {
       return Math.ceil(count / size)
     }
   }, [count, size])
+
+  const uniquePlayerIds = new Set()
+  const uniquePlayers = dataPlayers.filter(player => {
+    if (uniquePlayerIds.has(player.id)) {
+      return false
+    }
+    uniquePlayerIds.add(player.id)
+    return true
+  })
 
   return (
     <CardsdLayouts
@@ -80,22 +100,25 @@ export const PlayersPage = () => {
       updatePageSelect={updatePageSelect}
       updatePageSize={updatePageSize}
     >
-      {status === 'loading' ? (
+      {status === 'loading' || !dataTeams ? (
         <Loader />
       ) : (
         <>
-          {dataPlayers && dataPlayers.length > 0 ? (
+          {uniquePlayers.length > 0 ? (
             <CardsContainer>
-              {dataPlayers &&
-                dataPlayers.map(el => (
+              {uniquePlayers.map(el => {
+                const playerTeam = dataTeams.find(team => team.id === el.team)
+                const teamName = playerTeam?.name
+                return (
                   <PlayerCard
                     avatarUrl={el.avatarUrl}
                     id={el.id}
                     key={el.id}
                     name={el.name}
-                    teamName={'kek'}
+                    teamName={teamName}
                   />
-                ))}
+                )
+              })}
             </CardsContainer>
           ) : (
             <EmptyPage Image={emptyPlayers} Label={'Add new players to continue'} />

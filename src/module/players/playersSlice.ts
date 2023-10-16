@@ -3,8 +3,17 @@ import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
 
+const getPositionPlayerTC = createAppAsyncThunk('players/getPositionPlayer', async thunkAPI => {
+  try {
+    const response = await playersApi.getPositionPlayer()
+    return response.data
+  } catch (error) {
+    // return thunkAPI.rejectWithValue(null);
+  }
+})
+
 const updatePlayerTC = createAppAsyncThunk(
-  'teams/updateTeam',
+  'players/updatePlayer',
   async (arg: { model: PlayerType }, thunkAPI) => {
     try {
       await playersApi.updatePlayer(arg.model)
@@ -30,6 +39,8 @@ export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
   async (newPlayer: PlayerType) => {
     try {
+      // newPlayer.avatarUrl = avatarFile
+
       const res = await playersApi.addPlayer(newPlayer)
 
       return res
@@ -44,11 +55,7 @@ const getPlayersIdTC = createAppAsyncThunk<PlayerType, { id: number }>(
   'players/getPlayerId',
   async ({ id }, { rejectWithValue }) => {
     try {
-      const res = await playersApi.getPlayerId(id)
-
-      console.log(res)
-
-      return res
+      return await playersApi.getPlayerId(id)
     } catch (error) {
       console.error('Error fetching teams:', error)
 
@@ -91,6 +98,7 @@ type dataPlayersType = {
   player?: PlayerType
   size: number
   team: any
+  position?: string[]
 }
 
 const initialState: dataPlayersType = {
@@ -130,6 +138,9 @@ const slice = createSlice({
           state.dataPlayers[updatedPlayerIndex] = action.payload.model
         }
       })
+      .addCase(getPositionPlayerTC.fulfilled, (state, action) => {
+        state.position = action.payload
+      })
   },
 })
 
@@ -142,4 +153,5 @@ export const playersThunks = {
   getPlayersTC,
   deletePlayerTC,
   updatePlayerTC,
+  getPositionPlayerTC,
 }

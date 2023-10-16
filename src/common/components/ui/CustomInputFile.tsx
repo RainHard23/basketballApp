@@ -32,7 +32,6 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
 
   useEffect(() => {
     setSelectedImage(imagevisible)
-    console.log(selectedImage)
   }, [imagevisible])
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0]

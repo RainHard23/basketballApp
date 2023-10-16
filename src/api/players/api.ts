@@ -49,6 +49,9 @@ export const playersApi = {
   updatePlayer(model: PlayerType) {
     return instance.put<PlayerType>('api/Player/Update', model)
   },
+  getPositionPlayer() {
+    return instance.get<string[]>('api/Player/GetPositions')
+  },
 }
 
 export type ParamsType = {

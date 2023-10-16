@@ -9,12 +9,15 @@ import { colors } from '../../../../assests/styles/colors'
 import styled from 'styled-components'
 import { FC } from 'react'
 import { breakpoints } from '../../../../assests/styles/adaptive'
+import { userSelector } from '../../../../module/auth/auth.selectors'
 
 type PropsType = {
   onSidebar: boolean
   onOpenSideBar: () => void
 }
+
 export const Header: FC<PropsType> = ({ onSidebar, onOpenSideBar }) => {
+  const userName = useSelector(userSelector)
   return (
     <HeaderContainer>
       <IconSideBar onClick={onOpenSideBar}>
@@ -24,7 +27,7 @@ export const Header: FC<PropsType> = ({ onSidebar, onOpenSideBar }) => {
         <LogoLink alt={'logo'} src={iconLogo} />
       </HeaderLogo>
       <UserProfile>
-        <UserName>John Smith</UserName>
+        <UserName>{userName.name}</UserName>
         <UserImg alt={''} src={iconUser} />
       </UserProfile>
     </HeaderContainer>

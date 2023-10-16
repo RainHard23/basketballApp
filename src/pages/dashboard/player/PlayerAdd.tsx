@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-
 import { useActions } from '../../../api/common/hooks/useActions'
-import { PlayerType } from '../../../api/players/api'
 import { colors } from '../../../assests/styles/colors'
 import Button from '../../../common/components/ui/Button'
 import { ControlledInputFile } from '../../../common/components/ui/CustomInputFile'
 import { ControlledTextField } from '../../../common/components/ui/controlledInput/ControlledInput'
-import { Input } from '../../../common/components/ui/controlledInput/Input'
 import { Select1 } from '../../../common/components/ui/select/Select'
 import { playersThunks } from '../../../module/players/playersSlice'
 import { teamsSelector } from '../../../module/teams/teamsSelectors'
@@ -18,8 +15,10 @@ import styled from 'styled-components'
 import * as yup from 'yup'
 import { selectAppStatus } from '../../../module/app/appSelectors'
 import { Loader } from '../../../common/components/Loader'
-import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
+import { teamsThunks } from '../../../module/teams/teamsSlice'
+import { playersPositionSelector } from '../../../module/players/playersSelectors'
+import { usePlayerPositions } from '../../../core/helpers/getPosition'
 
 type FormDataType = {
   avatarUrl: any
@@ -42,14 +41,18 @@ const optionsPosition = [
 
 export const PlayerFormAdd = () => {
   const { pathname } = useLocation()
+  const { getTeamsTC } = useActions(teamsThunks)
   const status = useSelector(selectAppStatus)
   const { dataTeams } = useSelector(teamsSelector)
+  const { positionOptions } = usePlayerPositions()
   const [isImageVisible, setIsImageVisible] = useState<null | string>(null)
   const optionsTeams = dataTeams.map(team => ({
     label: team.name,
     value: team.id,
   }))
-
+  useEffect(() => {
+    getTeamsTC({ paramsQuery: { name: '', page: 1, pageSize: 24 } })
+  }, [])
   const { addPlayerTC } = useActions(playersThunks)
   const navigate = useNavigate()
   const handleFileSelect = (file: File | null) => {
@@ -134,7 +137,7 @@ export const PlayerFormAdd = () => {
                 control={control}
                 errorMessage={errors?.avatarUrl?.message}
                 imagevisible={isImageVisible}
-                name={'avatarUrl'}
+                name={'avatarFile'}
                 selectFile={handleFileSelect}
               />
             </AddImg>
@@ -154,7 +157,7 @@ export const PlayerFormAdd = () => {
                     isMulti={false}
                     label={'Position'}
                     name={'position'}
-                    options={optionsPosition}
+                    options={positionOptions}
                   />
                 </ContainerSelect>
                 <ContainerSelect>

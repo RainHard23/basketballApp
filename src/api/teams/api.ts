@@ -11,7 +11,7 @@ export const teamApi = {
         throw error
       })
   },
-  getTeams(paramsQuery: any) {
+  getTeams(paramsQuery?: any) {
     return instance
       .get<TeamsType>('api/Team/GetTeams', {
         params: paramsQuery,
@@ -28,7 +28,7 @@ export const teamApi = {
   updateTeam(model: TeamType) {
     return instance.put<TeamType>('api/Team/Update', model)
   },
-  getTeamId(id?: string) {
+  getTeamId(id?: string | number) {
     return instance
       .get<TeamType>('api/Team/Get', { params: { id: id } })
       .then(res => res.data)

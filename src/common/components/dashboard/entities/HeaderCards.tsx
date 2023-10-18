@@ -19,12 +19,10 @@ export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
     const { value } = event.target
     setSearchValue(value)
 
-    // Очищаем предыдущий таймер
     if (timerId) {
       clearTimeout(timerId)
     }
 
-    // Устанавливаем новый таймер
     const newTimerId = setTimeout(() => {
       updateSearchQuery(value)
     }, 1000)

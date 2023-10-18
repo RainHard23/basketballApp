@@ -35,7 +35,7 @@ export const TeamFormEdit = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const prevTeamData = useSelector(filteredTeamsSelector)
-  console.log(prevTeamData)
+
   const crumbs = [
     { title: 'Teams', url: '/' },
     { title: 'Edit team', url: pathname },

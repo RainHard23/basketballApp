@@ -119,7 +119,6 @@ export const PlayerFormEdit = () => {
       weight: prevPlayerData?.weight,
     },
   })
-  console.log(prevPlayerData)
 
   const onSubmit: SubmitHandler<FormDataType> = data => {
     const updatedTeamData = {

@@ -13,11 +13,23 @@ type Props = {
 
 export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null)
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     setSearchValue(value)
-    updateSearchQuery(value)
+
+    // Очищаем предыдущий таймер
+    if (timerId) {
+      clearTimeout(timerId)
+    }
+
+    // Устанавливаем новый таймер
+    const newTimerId = setTimeout(() => {
+      updateSearchQuery(value)
+    }, 1000)
+
+    setTimerId(newTimerId)
   }
   return (
     <Container>

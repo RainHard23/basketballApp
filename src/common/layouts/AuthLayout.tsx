@@ -1,38 +1,38 @@
-import {useSelector} from 'react-redux'
-import {Outlet, useLocation} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import imgLogin from '../../assests/images/imgLogin.png'
 import imgRegister from '../../assests/images/imgRegistr.png'
-import {colors} from '../../assests/styles/colors'
-import {selectIsLoggedIn} from '../../module/auth/auth.selectors'
+import { colors } from '../../assests/styles/colors'
+import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
 import styled from 'styled-components'
-import {ErrorSnackbar} from '../components/ErorBar'
+import { ErrorSnackbar } from '../components/ErorBar'
+import { breakpoints } from '../../assests/styles/adaptive'
 
 const AuthLayout = () => {
-    const location = useLocation()
+  const location = useLocation()
 
+  const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    const isLoggedIn = useSelector(selectIsLoggedIn)
+  if (isLoggedIn) {
+    window.location.href = '/'
+  }
 
-    if (isLoggedIn) {
-        window.location.href = '/';
-    }
-
-    return (
-        <AuthContainerLayout>
-            <AuthLeftSide>
-                <ErrorSnackbar/>
-                <Outlet/>
-            </AuthLeftSide>
-            <AuthRightSide>
-                {location && location.pathname == '/login' ? (
-                    <Img src={imgRegister}/>
-                ) : (
-                    <Img src={imgLogin}/>
-                )}
-            </AuthRightSide>
-        </AuthContainerLayout>
-    )
+  return (
+    <AuthContainerLayout>
+      <AuthLeftSide>
+        <ErrorSnackbar />
+        <Outlet />
+      </AuthLeftSide>
+      <AuthRightSide>
+        {location && location.pathname == '/login' ? (
+          <Img src={imgRegister} />
+        ) : (
+          <Img src={imgLogin} />
+        )}
+      </AuthRightSide>
+    </AuthContainerLayout>
+  )
 }
 
 const AuthContainerLayout = styled.div`
@@ -51,18 +51,6 @@ const AuthLeftSide = styled.div`
   height: 100%;
 `
 
-const WrapperTitle = styled.div`
-  max-width: 366px;
-  width: 100%;
-  margin: 0 auto 32px auto;
-`
-
-const Title = styled.h1`
-  font-size: 36px;
-  font-weight: 400;
-  color: ${colors.blue};
-`
-
 const AuthRightSide = styled.div`
   display: flex;
   align-items: center;
@@ -70,6 +58,10 @@ const AuthRightSide = styled.div`
   width: 130%;
   height: 100%;
   background-color: #f5fbff;
+
+  @media ${breakpoints.laptop} {
+    display: none;
+  }
 `
 
 const Img = styled.img`

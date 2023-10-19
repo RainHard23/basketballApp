@@ -1,6 +1,5 @@
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
 import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
-import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
 import { handleServerAppError } from '../../api/common/utils/handle-server-app-error'

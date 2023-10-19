@@ -150,6 +150,7 @@ const NavItem = styled(NavLink)<{ active?: boolean }>`
       color: ${colors.red};
     }
   }
+
   @media screen and ${breakpoints.tablet} {
     flex-direction: row;
     margin-bottom: 20px;
@@ -187,6 +188,7 @@ const LogOut = styled.div`
       color: ${colors.red};
     }
   }
+
   @media screen and ${breakpoints.tablet} {
     flex-direction: row;
     margin-bottom: 20px;
@@ -202,6 +204,7 @@ const LinkText = styled.p`
   & span {
     color: ${colors.lightestRed};
   }
+
   @media screen and ${breakpoints.tablet} {
     display: flex;
     margin-left: 8px;

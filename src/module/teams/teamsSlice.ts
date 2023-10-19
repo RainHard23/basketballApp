@@ -1,7 +1,6 @@
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
-import { playersApi, PlayerType } from '../../api/players/api'
 import { imageApi } from '../../api/imageApi'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(

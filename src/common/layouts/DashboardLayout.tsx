@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { Navigate, Outlet, redirect, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 import { colors } from '../../assests/styles/colors'
 import { selectIsLoggedIn } from '../../module/auth/auth.selectors'
@@ -8,7 +8,6 @@ import { MenuNavBar } from '../components/dashboard/header/MenuNavBar'
 import styled from 'styled-components'
 import { breakpoints } from '../../assests/styles/adaptive'
 import React, { useState } from 'react'
-import { ErrorSnackbar } from '../components/ErorBar'
 
 export const DashboardLayout = () => {
   const [onSidebar, setOnSidebar] = useState(false)

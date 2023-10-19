@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate'
 
 import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'
+
 type PropsType = {
   paginationPage?: number
   updatePageSelect: any

@@ -1,7 +1,5 @@
 import React, { FC } from 'react'
 import Select from 'react-select'
-
-import { colors } from '../../../../assests/styles/colors'
 import { Pagination } from '../../ui/Pagination'
 import { SelectStyles } from '../../ui/select/Selectstyle'
 import styled from 'styled-components'

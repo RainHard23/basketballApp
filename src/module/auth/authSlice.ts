@@ -1,4 +1,4 @@
-import { LoginParamsType, RegisterParamsType, authAPI } from '../../api/auth/api/api'
+import { authAPI, LoginParamsType, RegisterParamsType } from '../../api/auth/api/api'
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
 import { createSlice } from '@reduxjs/toolkit'
 

@@ -1,4 +1,4 @@
-import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
   error: null as null | string,

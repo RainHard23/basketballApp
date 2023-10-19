@@ -17,7 +17,6 @@ import { selectAppStatus } from '../../../module/app/appSelectors'
 import { Loader } from '../../../common/components/Loader'
 import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
 import { teamsThunks } from '../../../module/teams/teamsSlice'
-import { playersPositionSelector } from '../../../module/players/playersSelectors'
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
 import { breakpoints } from '../../../assests/styles/adaptive'
@@ -127,6 +126,7 @@ export const PlayerFormAdd = () => {
   ]
   return (
     <Container>
+      <ErrorSnackbar />
       {status === 'loading' ? (
         <Loader />
       ) : (
@@ -211,7 +211,6 @@ export const PlayerFormAdd = () => {
               </WrapperItem>
             </ContainerInput>
           </Form>
-          <ErrorSnackbar />
         </>
       )}
     </Container>

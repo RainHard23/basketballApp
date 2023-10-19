@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
-
+import { Controller } from 'react-hook-form'
 import { fonts } from '../../../assests/fonts/fonts'
-// @ts-ignore
 import iconCheck from '../../../assests/icons/iconCheck.svg'
 import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'

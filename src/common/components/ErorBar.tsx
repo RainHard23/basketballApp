@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from '../../core/redux/store'
+import { useSelector } from 'react-redux'
 import { appActions } from '../../module/app/appSlice'
 import { useActions } from '../../api/common/hooks/useActions'
-import { teamsAction } from '../../module/teams/teamsSlice'
 import { ErrorSnackbar2 } from './ErrorSnakBar'
+import { selectAppError } from '../../module/app/appSelectors'
 
 export const ErrorSnackbar: FC = () => {
-  const error = useSelector((state: AppRootStateType) => state.app.error)
+  const error = useSelector(selectAppError)
   const { setAppError } = useActions(appActions)
 
   const handleClose = (event: React.SyntheticEvent, reason?: string) => {

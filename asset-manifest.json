@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/basketballApp/static/js/main.00bd9f40.js",
+    "main.js": "/basketballApp/static/js/main.1d9349c1.js",
     "static/js/787.c0ac9fea.chunk.js": "/basketballApp/static/js/787.c0ac9fea.chunk.js",
     "static/media/imgLogin.png": "/basketballApp/static/media/imgLogin.6300cffe890380fbf5da.png",
     "static/media/IconPlayerPage.png": "/basketballApp/static/media/IconPlayerPage.6a32c07b85b7373c03bd.png",
@@ -21,10 +21,10 @@
     "static/media/iconPlayers.svg": "/basketballApp/static/media/iconPlayers.d09f3117f059891d1b6d9aeb05571286.svg",
     "static/media/iconCheck.svg": "/basketballApp/static/media/iconCheck.5f33962fff0ef71fb939a9a0a421427b.svg",
     "static/media/iconBurgerMenu.svg": "/basketballApp/static/media/iconBurgerMenu.65a155a70eb42e28238397c696d79b54.svg",
-    "main.00bd9f40.js.map": "/basketballApp/static/js/main.00bd9f40.js.map",
+    "main.1d9349c1.js.map": "/basketballApp/static/js/main.1d9349c1.js.map",
     "787.c0ac9fea.chunk.js.map": "/basketballApp/static/js/787.c0ac9fea.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.00bd9f40.js"
+    "static/js/main.1d9349c1.js"
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.js": "/basketballApp/static/js/main.00bd9f40.js",
+    "static/js/787.c0ac9fea.chunk.js": "/basketballApp/static/js/787.c0ac9fea.chunk.js",
+    "static/media/imgLogin.png": "/basketballApp/static/media/imgLogin.6300cffe890380fbf5da.png",
+    "static/media/IconPlayerPage.png": "/basketballApp/static/media/IconPlayerPage.6a32c07b85b7373c03bd.png",
+    "static/media/imgRegistr.png": "/basketballApp/static/media/imgRegistr.c8d9edaf06e6d6fe700b.png",
+    "static/media/emptyPlayers.png": "/basketballApp/static/media/emptyPlayers.57023fcc06c1dd58adc6.png",
+    "static/media/emptyTeams.png": "/basketballApp/static/media/emptyTeams.f966d1cdc43aa78c1bbc.png",
+    "static/media/iconTeam.png": "/basketballApp/static/media/iconTeam.8089021da3a00992ee9f.png",
+    "static/media/iconAddPhoto.svg": "/basketballApp/static/media/iconAddPhoto.1469eb321f252be9da637aac33013196.svg",
+    "static/media/iconCloseEye.svg": "/basketballApp/static/media/iconCloseEye.648bae0d287a1ed630262e7847a69c3a.svg",
+    "index.html": "/basketballApp/index.html",
+    "static/media/iconTeams.svg": "/basketballApp/static/media/iconTeams.3bcfddb0c265be0c885c78c153b4417e.svg",
+    "static/media/iconSignOut.svg": "/basketballApp/static/media/iconSignOut.c59e75c11e51b423a8c0edcacb3444cc.svg",
+    "static/media/iconSearch.svg": "/basketballApp/static/media/iconSearch.d4849d46cc734f136836d63f9fb34a4c.svg",
+    "static/media/iconEye.svg": "/basketballApp/static/media/iconEye.44f09dc9c8b21d38155c6ac4563f5801.svg",
+    "static/media/iconUser.svg": "/basketballApp/static/media/iconUser.008377ce1825b486eaf30699f1435bd5.svg",
+    "static/media/iconEdit.svg": "/basketballApp/static/media/iconEdit.0e64873736bea2eeb34824d04ace93d6.svg",
+    "static/media/iconDelete.svg": "/basketballApp/static/media/iconDelete.7c0adb809832223d0030cbb5e326ba43.svg",
+    "static/media/iconPlayers.svg": "/basketballApp/static/media/iconPlayers.d09f3117f059891d1b6d9aeb05571286.svg",
+    "static/media/iconCheck.svg": "/basketballApp/static/media/iconCheck.5f33962fff0ef71fb939a9a0a421427b.svg",
+    "static/media/iconBurgerMenu.svg": "/basketballApp/static/media/iconBurgerMenu.65a155a70eb42e28238397c696d79b54.svg",
+    "main.00bd9f40.js.map": "/basketballApp/static/js/main.00bd9f40.js.map",
+    "787.c0ac9fea.chunk.js.map": "/basketballApp/static/js/787.c0ac9fea.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.00bd9f40.js"
+  ]
+}

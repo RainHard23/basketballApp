@@ -20,6 +20,7 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { playersPositionSelector } from '../../../module/players/playersSelectors'
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
+import { breakpoints } from '../../../assests/styles/adaptive'
 
 type FormDataType = {
   avatarUrl: any
@@ -210,6 +211,7 @@ export const PlayerFormAdd = () => {
               </WrapperItem>
             </ContainerInput>
           </Form>
+          <ErrorSnackbar />
         </>
       )}
     </Container>
@@ -238,11 +240,31 @@ const Container = styled.div`
 const ContainerInput = styled.div`
   display: flex;
   width: 130%;
+
+  @media screen and ${breakpoints.desktop} {
+    width: 100%;
+  }
+
+  @media screen and ${breakpoints.nextHub} {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 `
 const Form = styled.form`
   display: flex;
   padding: 48px 24px 48px 74px;
   height: 100%;
+
+  @media screen and ${breakpoints.nextHub} {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 48px 24px;
+  }
+  @media screen and ${breakpoints.nextHub} {
+    padding: 48px 24px 48px 24px;
+  }
 `
 
 const AddImg = styled.div`
@@ -252,6 +274,20 @@ const AddImg = styled.div`
   max-width: 100%;
   width: 100%;
   height: 100%;
+
+  @media screen and ${breakpoints.nextHub} {
+    align-items: center;
+  }
+
+  @media screen and ${breakpoints.tablet} {
+    max-width: 250px;
+    max-height: 200px;
+  }
+
+  @media screen and ${breakpoints.mediumMobile} {
+    max-width: 185px;
+    max-height: 144px;
+  }
 `
 
 const WrapperItem = styled.div`

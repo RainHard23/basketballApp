@@ -4,6 +4,7 @@ import { CardsFooter } from '../components/dashboard/entities/FooterCards'
 import { CardsHeader } from '../components/dashboard/entities/HeaderCards'
 import styled from 'styled-components'
 import { breakpoints } from '../../assests/styles/adaptive'
+import { ErrorSnackbar } from '../components/ErorBar'
 
 type PropsType = {
   children: ReactNode
@@ -24,6 +25,7 @@ export const CardsdLayouts: FC<PropsType> = ({
 }) => {
   return (
     <CardsContainer>
+      <ErrorSnackbar />
       <CardsHeader linkPath={linkPath} updateSearchQuery={updateSearchQuery} />
       <CardsWrapper>{children}</CardsWrapper>
       <CardsFooter

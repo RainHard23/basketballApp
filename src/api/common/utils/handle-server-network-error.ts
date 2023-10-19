@@ -1,5 +1,6 @@
-import { AppDispatch } from '../../../core/redux/store'
 import axios from 'axios'
+import { AppDispatch } from '../../../core/redux/store'
+import { appActions } from '../../../module/app/appSlice'
 
 /**
  * Обрабатывает ошибки сети, возникающие при отправке запросов на сервер
@@ -9,7 +10,6 @@ import axios from 'axios'
  */
 export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): void => {
   let errorMessage = 'Some error occurred'
-
   // ❗Проверка на наличие axios ошибки
   if (axios.isAxiosError(err)) {
     // ⏺️ err.response?.data?.message - например получение тасок с невалидной todolistId
@@ -21,6 +21,7 @@ export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): v
     // ❗Какой-то непонятный кейс
   } else {
     errorMessage = JSON.stringify(err)
-  } // @ts-ignore
+  }
+
   dispatch(appActions.setAppError({ error: errorMessage }))
 }

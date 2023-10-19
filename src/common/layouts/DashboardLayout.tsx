@@ -24,7 +24,6 @@ export const DashboardLayout = () => {
 
   return (
     <Layout>
-      <ErrorSnackbar />
       <Header onSidebar={onSidebar} onOpenSideBar={handleOnSidebar} />
       <ContentWrapper>
         <MenuNavBar onSidebar={onSidebar} />

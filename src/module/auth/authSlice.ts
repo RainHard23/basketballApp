@@ -56,7 +56,7 @@ const slice = createSlice({
       localStorage.removeItem('user')
       state.user = null
       state.isLoggedIn = false
-      // window.location.href = '/';
+      window.location.href = '/'
     },
   },
   extraReducers: builder => {

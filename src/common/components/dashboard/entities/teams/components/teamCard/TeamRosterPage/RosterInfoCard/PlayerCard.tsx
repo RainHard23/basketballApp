@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { colors } from '../../../../../../../../../assests/styles/colors'
 import styled from 'styled-components'
+import { breakpoints } from '../../../../../../../../../assests/styles/adaptive'
 
 type PlayerInfoProps = {
   age: number
@@ -59,6 +60,10 @@ export const TableLeft = styled.div`
   font-size: 14px;
   line-height: 24px;
   color: ${colors.grey};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    padding-right: 32px;
+  }
 `
 
 const TableItem = styled.div`
@@ -89,6 +94,10 @@ export const TableRight = styled.div`
   font-size: 14px;
   line-height: 19px;
   color: ${colors.grey};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    display: none;
+  }
 `
 
 export const ContainerPlayer = styled.div``
@@ -98,6 +107,10 @@ const TableRow = styled.div`
   display: grid;
   padding: 10px 0 10px 32px;
   grid-template-columns: 0.1fr 1fr 0.3fr 0.3fr 0.3fr;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    padding: 10px 0 10px 16px;
+  }
 `
 
 const NamePlayer = styled.p`

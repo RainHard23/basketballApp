@@ -6,6 +6,7 @@ import { colors } from '../../../../../../../../assests/styles/colors'
 import { getAge } from '../../../../../../../../core/helpers/getAgeFunc'
 import { PlayerRosterCard, TableLeft, TableRight } from './RosterInfoCard/PlayerCard'
 import styled from 'styled-components'
+import { breakpoints } from '../../../../../../../../assests/styles/adaptive'
 
 type Player = {
   age: string
@@ -64,17 +65,30 @@ const PlayerInfoContainer = styled.div`
   border-top: 0.5px solid ${colors.lightGrey};
   padding: 10px 0 10px 32px;
   grid-template-columns: 0.1fr 1fr 0.3fr 0.3fr 0.3fr;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    padding: 10px 0 10px 16px;
+  }
 `
 
 const Container = styled.div`
   padding: 24px 0;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    padding: 16px 0;
+  }
 `
 
 const TeamRosterContainer = styled.div`
   border: 0.5px solid rgba(156, 156, 156, 1);
   border-radius: 15px;
-  margin-top: 20px;
+
   background-color: ${colors.white};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    margin-top: 0;
+    border-radius: 0;
+  }
 `
 
 const Title = styled.h2`
@@ -82,6 +96,10 @@ const Title = styled.h2`
   font-weight: bold;
   color: ${colors.grey};
   padding: 14px 0 14px 32px;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    padding: 10px 0 10px 16px;
+  }
 `
 
 const RosterGrid = styled.div`

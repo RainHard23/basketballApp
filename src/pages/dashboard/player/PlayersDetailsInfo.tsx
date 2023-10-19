@@ -11,12 +11,13 @@ import { playersThunks } from '../../../module/players/playersSlice'
 import styled from 'styled-components'
 import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
 import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
+import { breakpoints } from '../../../assests/styles/adaptive'
 
 export const PlayersDetail = () => {
   const { pathname } = useLocation()
   const { playerId, teamId } = useParams()
   const { getPlayersIdTC, deletePlayerTC } = useActions(playersThunks)
-  const navigate = useNavigate()
+
   const { player } = useSelector(playersSelector)
 
   useEffect(() => {
@@ -87,6 +88,15 @@ const Container = styled.div`
   background: linear-gradient(to right, rgba(112, 112, 112, 1), rgba(57, 57, 57, 1));
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+
+  @media screen and ${breakpoints.laptop} {
+    flex-direction: column;
+  }
+
+  @media screen and ${breakpoints.samsungMobile} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 `
 
 const Logo = styled.div`
@@ -94,16 +104,37 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+
+  @media screen and ${breakpoints.laptop} {
+    margin: 48px 0;
+  }
 `
 
 const Img = styled.img`
   max-width: 531px;
   max-height: 531px;
+
+  @media screen and ${breakpoints.laptop} {
+    max-width: 300px;
+    max-height: 300px;
+  }
+  @media screen and ${breakpoints.samsungMobile} {
+    max-width: 143px;
+    max-height: 112px;
+  }
 `
 
 const InfoContainer = styled.div`
   width: 110%;
   padding-top: 65px;
+
+  @media screen and ${breakpoints.laptop} {
+    padding: 0 10px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const InfoItemContainer = styled.div`
@@ -118,12 +149,26 @@ const Title = styled.h1`
   font-weight: 800;
   color: ${colors.white};
   margin-bottom: 60px;
+
+  @media screen and ${breakpoints.laptop} {
+    margin-bottom: 48px;
+    line-height: 25px;
+  }
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `
 
 const InfoRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+
+  @media screen and ${breakpoints.laptop} {
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
 `
 
 const ItemWrapper = styled.div`
@@ -131,6 +176,13 @@ const ItemWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 54px;
   flex-basis: calc(35% - 10px);
+
+  @media screen and ${breakpoints.laptop} {
+    align-items: center;
+    &:first-child {
+      margin-bottom: 32px;
+      margin-right: 0;
+    }
 `
 
 const ItemTitle = styled.span`
@@ -139,6 +191,10 @@ const ItemTitle = styled.span`
   line-height: 33px;
   color: ${colors.white};
   margin-bottom: 10px;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `
 
 const ItemSubtitle = styled.span`
@@ -146,4 +202,8 @@ const ItemSubtitle = styled.span`
   font-weight: 500;
   line-height: 25px;
   color: ${colors.white};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `

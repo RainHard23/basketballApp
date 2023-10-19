@@ -56,6 +56,7 @@ const Container = styled.div`
   @media screen and ${breakpoints.tablet} {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 `
 

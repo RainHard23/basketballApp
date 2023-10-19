@@ -5,6 +5,7 @@ import eyeIcon from '../../../../assests/icons/iconEye.svg'
 import searchIcon from '../../../../assests/icons/iconSearch.svg'
 import { colors } from '../../../../assests/styles/colors'
 import styled from 'styled-components'
+import { breakpoints } from '../../../../assests/styles/adaptive'
 
 export type InputProps = {
   disabled?: boolean
@@ -73,8 +74,10 @@ const InputWrapper = styled.div<{ error?: boolean; type?: InputProps['type'] }>`
   border: ${({ error, type }) =>
     error ? '1px solid #FF768E' : type === 'search' ? `1px solid ${colors.lightestGrey}` : 'none'};
   border-radius: 4px;
-  
 
+  @media screen and ${breakpoints.tablet} {
+    margin: 0 auto;
+  }
 
   &:hover {
     background: ${({ type }) => (type !== 'search' ? colors.lightestGrey : colors.lightestGrey1)}
@@ -126,6 +129,10 @@ const InputContainer = styled.div`
     margin-bottom: 8px;
     font-size: 14px;
     font-weight: 500;
+  }
+
+  @media screen and ${breakpoints.tablet} {
+    margin: 0 auto;
   }
 `
 

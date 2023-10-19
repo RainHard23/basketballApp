@@ -44,7 +44,7 @@ const LogoWrapper = styled.div`
   border-radius: 4px 4px 0 0;
   background: linear-gradient(121.57deg, ${colors.grey} 1.62%, #393939 81.02%);
 
-  @media screen and ${breakpoints.mediumMobile} {
+  @media screen and ${breakpoints.samsungMobile} {
     min-height: 128px;
   }
 `
@@ -54,7 +54,7 @@ const CardLogo = styled.img`
   width: 100%;
   object-fit: cover;
 
-  @media screen and ${breakpoints.mediumMobile} {
+  @media screen and ${breakpoints.samsungMobile} {
     height: 50px;
     max-width: 60px;
   }
@@ -66,7 +66,7 @@ const CardDescription = styled.div`
   background: ${colors.darkGrey};
   color: ${colors.white};
 
-  @media screen and ${breakpoints.mediumMobile} {
+  @media screen and ${breakpoints.samsungMobile} {
     padding: 5px 5px;
   }
 `
@@ -77,7 +77,7 @@ const CardTitle = styled.p`
   margin-bottom: 10px;
   color: ${colors.white};
 
-  @media screen and ${breakpoints.mediumMobile} {
+  @media screen and ${breakpoints.samsungMobile} {
     font-size: 15px;
   }
 `

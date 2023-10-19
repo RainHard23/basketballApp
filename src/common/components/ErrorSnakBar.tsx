@@ -55,7 +55,7 @@ export const ErrorSnackbar2: FC<ErrorSnackbarProps> = ({ error, onClose }) => {
     if (error) {
       setIsVisible(true)
       if (error.includes('401')) {
-        setErrorMessage('Unauthorized: Please log in')
+        setErrorMessage('User with the specified username / password was not found.')
       } else if (error.includes('409')) {
         setErrorMessage('User already exists')
       } else {

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { colors } from '../../../../assests/styles/colors'
 import { Breadcrumbs } from './Breadcrumbs'
 import { NavLink } from 'react-router-dom'
+import { breakpoints } from '../../../../assests/styles/adaptive'
 
 type PropsType = {
   crumbs: Array<{ url: string; title?: string }>
@@ -37,6 +38,11 @@ const Container = styled.div`
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border: 1px solid ${colors.lightGrey};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 `
 const ContainerItem = styled.div`
   display: flex;

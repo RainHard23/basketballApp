@@ -91,6 +91,10 @@ export const TeamDetail = () => {
 const Img = styled.img`
   max-height: 210px;
   max-width: 210px;
+  @media screen and ${breakpoints.samsungMobile} {
+    max-width: 90px;
+    max-height: 90px;
+  }
 `
 const Container = styled.div`
   display: flex;
@@ -103,6 +107,11 @@ const Container = styled.div`
   @media screen and ${breakpoints.laptop} {
     flex-direction: column;
   }
+
+  @media screen and ${breakpoints.samsungMobile} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 `
 
 const Logo = styled.div`
@@ -110,6 +119,10 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and ${breakpoints.laptop} {
+    margin: 48px 0;
+  }
 `
 
 const TeamInfo = styled.div`
@@ -132,6 +145,14 @@ const Title = styled.h1`
   font-weight: 800;
   color: ${colors.white};
   margin-bottom: 60px;
+
+  @media screen and ${breakpoints.laptop} {
+    margin-bottom: 48px;
+  }
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `
 
 const InfoContainer = styled.div`
@@ -145,6 +166,11 @@ const InfoRow = styled.div`
   justify-content: space-between;
   margin-bottom: 54px;
   width: 100%;
+
+  @media screen and ${breakpoints.laptop} {
+    flex-direction: column;
+    margin-bottom: 32px;
+  }
 `
 
 const InfoWrapper = styled.div`
@@ -154,6 +180,14 @@ const InfoWrapper = styled.div`
   &:first-child {
     margin-right: 84px;
   }
+
+  @media screen and ${breakpoints.laptop} {
+    align-items: center;
+    &:first-child {
+      margin-bottom: 32px;
+      margin-right: 0;
+    }
+  }
 `
 
 const ItemTitle = styled.span`
@@ -162,6 +196,10 @@ const ItemTitle = styled.span`
   line-height: 33px;
   color: ${colors.white};
   margin-bottom: 10px;
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `
 
 const ItemSubtitle = styled.span`
@@ -169,4 +207,8 @@ const ItemSubtitle = styled.span`
   font-weight: 500;
   line-height: 25px;
   color: ${colors.white};
+
+  @media screen and ${breakpoints.samsungMobile} {
+    font-size: 17px;
+  }
 `

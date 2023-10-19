@@ -3,16 +3,22 @@ import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
+import { handleServerAppError } from '../../api/common/utils/handle-server-app-error'
+import { appActions } from '../app/appSlice'
 
-const getPositionPlayerTC = createAppAsyncThunk('players/getPositionPlayer', async thunkAPI => {
-  try {
-    const response = await playersApi.getPositionPlayer()
-    return response.data
-  } catch (error) {
-    // return thunkAPI.rejectWithValue(null);
+const getPositionPlayerTC = createAppAsyncThunk(
+  'players/getPositionPlayer',
+  async (_, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI
+    try {
+      const response = await playersApi.getPositionPlayer()
+      return response.data
+    } catch (error: any) {
+      handleServerAppError(error.data, dispatch)
+      return rejectWithValue(null)
+    }
   }
-})
-
+)
 export const updatePlayerTC = createAppAsyncThunk(
   'players/updatePlayer',
   async (arg: { model: PlayerType & { imageFile: File } }, thunkAPI) => {
@@ -39,7 +45,8 @@ export const updatePlayerTC = createAppAsyncThunk(
 
 export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
-  async (newPlayer: PlayerType & { imageFile: File }) => {
+  async (newPlayer: PlayerType & { imageFile: File }, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI
     try {
       const { imageFile, ...playerData } = newPlayer
 
@@ -53,11 +60,10 @@ export const addPlayerTC = createAppAsyncThunk(
         ...playerData,
         avatarUrl,
       }
-      const res = await playersApi.addPlayer(playerWithAvatar)
-      return res
-    } catch (error) {
-      console.error('Error adding player:', error)
-      throw error
+      return await playersApi.addPlayer(playerWithAvatar)
+    } catch (error: any) {
+      dispatch(appActions.setAppError({ error: 'Such player already exists' }))
+      return rejectWithValue(null)
     }
   }
 )

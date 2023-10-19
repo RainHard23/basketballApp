@@ -36,7 +36,7 @@ export const MainRoutes = () => {
           <Route element={<Register />} path={'/register'} />
         </Route>
 
-        <Route element={<NotFound />} path={'/404'} />
+        <Route element={<NotFound />} path={'*'} />
       </Routes>
     </BrowserRouter>
   )

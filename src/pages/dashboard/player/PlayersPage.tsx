@@ -12,14 +12,7 @@ import { playersThunks } from '../../../module/players/playersSlice'
 import { EmptyPage } from '../../EmptyPage'
 import styled from 'styled-components'
 import { teamsThunks } from '../../../module/teams/teamsSlice'
-import { type } from 'os'
-import {
-  filteredTeamsSelector,
-  teamsDataSelector,
-  teamsSelector,
-} from '../../../module/teams/teamsSelectors'
-import { instance } from '../../../api/common/api/commonApi'
-import { TeamType } from '../../../api/teams/api'
+import { teamsDataSelector } from '../../../module/teams/teamsSelectors'
 import { breakpoints } from '../../../assests/styles/adaptive'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
 
@@ -108,6 +101,7 @@ export const PlayersPage = () => {
         <>
           {uniquePlayers.length > 0 ? (
             <CardsContainer>
+              <ErrorSnackbar />
               {uniquePlayers.map(el => {
                 const playerTeam = dataTeams.find(team => team.id === el.team)
                 const teamName = playerTeam?.name

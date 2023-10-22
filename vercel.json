@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://dev.trainee.dex-it.ru/api/:path*"
+    }
+  ]
+}

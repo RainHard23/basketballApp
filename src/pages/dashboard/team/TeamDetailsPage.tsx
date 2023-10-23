@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useActions } from '../../../api/common/hooks/useActions'
 import { colors } from '../../../assests/styles/colors'
 import TeamRoster from '../../../common/components/dashboard/entities/teams/components/teamCard/TeamRosterPage/TeamRoster'
-import { playersSelector } from '../../../module/players/playersSelectors'
 import { playersThunks } from '../../../module/players/playersSlice'
 import styled from 'styled-components'
 import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
@@ -16,9 +15,7 @@ export const TeamDetail = () => {
   const { pathname } = useLocation()
   const { teamId } = useParams()
   const navigate = useNavigate()
-  const { getPlayersTC } = useActions(playersThunks)
 
-  // const { team } = useSelector(playersSelector)
   const { teamPlayers, team } = useSelector(teamsSelector)
   const { deleteTeamTC, getTeamIdTC, getTeamPlayers } = useActions(teamsThunks)
 

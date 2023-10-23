@@ -87,7 +87,7 @@ const Container = styled.div`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     flex-direction: column;
   }
 
@@ -103,7 +103,7 @@ const Logo = styled.div`
   justify-content: center;
   align-items: flex-end;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     margin: 48px 0;
   }
 `
@@ -112,7 +112,7 @@ const Img = styled.img`
   max-width: 531px;
   max-height: 531px;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     max-width: 300px;
     max-height: 300px;
   }
@@ -126,7 +126,7 @@ const InfoContainer = styled.div`
   width: 110%;
   padding-top: 65px;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     padding: 0 10px;
     width: 100%;
     align-items: center;
@@ -148,7 +148,7 @@ const Title = styled.h1`
   color: ${colors.white};
   margin-bottom: 60px;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     margin-bottom: 48px;
     line-height: 25px;
   }
@@ -163,7 +163,7 @@ const InfoRow = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     flex-direction: column;
     margin-bottom: 32px;
   }
@@ -175,7 +175,7 @@ const ItemWrapper = styled.div`
   margin-bottom: 54px;
   flex-basis: calc(35% - 10px);
 
-  @media screen and ${breakpoints.laptop} {
+  @media screen and ${breakpoints.nextHub} {
     align-items: center;
     &:first-child {
       margin-bottom: 32px;

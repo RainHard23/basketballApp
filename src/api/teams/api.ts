@@ -1,5 +1,4 @@
 import { instance } from '../common/api/commonApi'
-import { PlayerType } from '../players/api'
 
 export const teamApi = {
   addTeam(newTeam: TeamType) {

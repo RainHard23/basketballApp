@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { useActions } from '../../../api/common/hooks/useActions'
-import playerImage from '../../../assests/images/playerInfoDetail.png'
 import { colors } from '../../../assests/styles/colors'
 import { getAge } from '../../../core/helpers/getAgeFunc'
 import { playersSelector } from '../../../module/players/playersSelectors'
 import { playersThunks } from '../../../module/players/playersSlice'
 import styled from 'styled-components'
-import { Breadcrumbs } from '../../../common/components/dashboard/entities/Breadcrumbs'
 import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
 import { breakpoints } from '../../../assests/styles/adaptive'
 

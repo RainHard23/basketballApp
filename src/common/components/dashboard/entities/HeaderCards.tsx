@@ -5,9 +5,6 @@ import Button from '../../ui/Button'
 import { Input } from '../../ui/controlledInput/Input'
 import styled from 'styled-components'
 import { breakpoints } from '../../../../assests/styles/adaptive'
-import { colors } from '../../../../assests/styles/colors'
-import { CustomSelect } from '../../ui/select/Select'
-import Select from 'react-select'
 
 type Props = {
   linkPath: string

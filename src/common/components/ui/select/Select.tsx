@@ -21,7 +21,7 @@ type SelectPropsType = {
   errorMessage?: any
 }
 
-export const Select1: FC<SelectPropsType> = ({
+export const CustomSelect: FC<SelectPropsType> = ({
   control,
   isMulti,
   label,

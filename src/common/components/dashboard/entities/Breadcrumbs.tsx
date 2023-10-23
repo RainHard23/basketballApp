@@ -11,7 +11,7 @@ export const Breadcrumbs: FC<PropsType> = ({ crumbs }) => {
   return (
     <Container>
       {crumbs.map((crumb, index) => (
-        <React.Fragment key={crumb.title}>
+        <React.Fragment key={index}>
           <TitleLink to={crumb.url}>{crumb.title}</TitleLink>
           {index < crumbs.length - 1 && <Slesh>&nbsp;/&nbsp;</Slesh>}
         </React.Fragment>

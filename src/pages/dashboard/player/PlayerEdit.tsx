@@ -8,7 +8,7 @@ import { colors } from '../../../assests/styles/colors'
 import Button from '../../../common/components/ui/Button'
 import { ControlledInputFile } from '../../../common/components/ui/CustomInputFile'
 import { ControlledTextField } from '../../../common/components/ui/controlledInput/ControlledInput'
-import { Select1 } from '../../../common/components/ui/select/Select'
+import { CustomSelect } from '../../../common/components/ui/select/Select'
 import { playersThunks } from '../../../module/players/playersSlice'
 import { teamsSelector } from '../../../module/teams/teamsSelectors'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -165,7 +165,7 @@ export const PlayerFormEdit = () => {
                   type={'text'}
                 />
                 <ContainerSelect>
-                  <Select1
+                  <CustomSelect
                     errorMessage={errors?.position?.message}
                     control={control}
                     isMulti={false}
@@ -175,7 +175,7 @@ export const PlayerFormEdit = () => {
                   />
                 </ContainerSelect>
                 <ContainerSelect>
-                  <Select1
+                  <CustomSelect
                     errorMessage={errors?.team?.message}
                     control={control}
                     isMulti={false}

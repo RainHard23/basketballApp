@@ -19,11 +19,11 @@ type Player = {
 }
 
 interface TeamRosterProps {
-  dataPlayers: PlayerType[]
+  players: PlayerType[] | undefined
   team: any
 }
 
-const TeamRoster: FC<TeamRosterProps> = ({ dataPlayers, team }) => {
+const TeamRoster: FC<TeamRosterProps> = ({ players, team }) => {
   return (
     <Container>
       <TeamRosterContainer>
@@ -36,24 +36,25 @@ const TeamRoster: FC<TeamRosterProps> = ({ dataPlayers, team }) => {
           <TableRight>Age</TableRight>
         </PlayerInfoContainer>
         <RosterGrid>
-          {dataPlayers.map((player, index) => {
-            const age = getAge(player.birthday)
+          {players &&
+            players.map((player, index) => {
+              const age = getAge(player.birthday)
 
-            return (
-              <PlayerRosterCard
-                age={age}
-                height={player.height}
-                id={player.id}
-                imgSrc={player?.avatarUrl || iconPlayerRoster}
-                key={index}
-                number={player.number}
-                playerName={player.name}
-                position={player.position}
-                teamId={team}
-                weight={player.weight}
-              />
-            )
-          })}
+              return (
+                <PlayerRosterCard
+                  age={age}
+                  height={player.height}
+                  id={player.id}
+                  imgSrc={player?.avatarUrl || iconPlayerRoster}
+                  key={index}
+                  number={player.number}
+                  playerName={player.name}
+                  position={player.position}
+                  teamId={team}
+                  weight={player.weight}
+                />
+              )
+            })}
         </RosterGrid>
       </TeamRosterContainer>
     </Container>

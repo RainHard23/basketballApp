@@ -40,19 +40,6 @@ export const PlayersPage = () => {
     }))
   }
 
-  const updatePageSize = useCallback(
-    (newPageSize: number) => {
-      setParramsQuery(prevParamsQuery => ({
-        ...prevParamsQuery,
-        paramsQuery: {
-          ...prevParamsQuery.paramsQuery,
-          pageSize: newPageSize,
-        },
-      }))
-    },
-    [setParramsQuery]
-  )
-
   const updatePageSelect = useCallback(
     (newPageSelect: number) => {
       setParramsQuery(prevParamsQuery => ({
@@ -86,6 +73,19 @@ export const PlayersPage = () => {
     uniquePlayerIds.add(player.id)
     return true
   })
+
+  const updatePageSize = useCallback(
+    (newPageSize: number) => {
+      setParramsQuery(prevParamsQuery => ({
+        ...prevParamsQuery,
+        paramsQuery: {
+          ...prevParamsQuery.paramsQuery,
+          pageSize: newPageSize,
+        },
+      }))
+    },
+    [setParramsQuery]
+  )
 
   return (
     <CardsdLayouts

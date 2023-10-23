@@ -5,10 +5,15 @@ import Button from '../../ui/Button'
 import { Input } from '../../ui/controlledInput/Input'
 import styled from 'styled-components'
 import { breakpoints } from '../../../../assests/styles/adaptive'
+import { colors } from '../../../../assests/styles/colors'
+import { CustomSelect } from '../../ui/select/Select'
+import Select from 'react-select'
 
 type Props = {
   linkPath: string
   updateSearchQuery: (value: string) => void
+  teamsSelectOptions?: any
+  handleInputChange?: any
 }
 
 export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
@@ -29,6 +34,7 @@ export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
 
     setTimerId(newTimerId)
   }
+
   return (
     <Container>
       <ContainerItems>

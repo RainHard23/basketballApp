@@ -52,6 +52,11 @@ export const playersApi = {
   getPositionPlayer() {
     return instance.get<string[]>('api/Player/GetPositions')
   },
+  getPlayerTeamIds(TeamId: Array<{ value: string }>) {
+    const newParams = TeamId.map(el => ['TeamIds', el.value])
+    const Params = new URLSearchParams(newParams).toString()
+    return instance.get<PlayersType>(`api/Player/GetPlayers?${Params}`)
+  },
 }
 
 export type ParamsType = {

@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import { HeaderDetails } from '../../../common/components/dashboard/entities/HeaderDetails'
 import { deleteTeamTC, teamsThunks } from '../../../module/teams/teamsSlice'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { teamsSelector } from '../../../module/teams/teamsSelectors'
 
 export const TeamDetail = () => {
   const { pathname } = useLocation()
@@ -19,7 +20,14 @@ export const TeamDetail = () => {
   const navigate = useNavigate()
   const { getPlayersTC } = useActions(playersThunks)
 
-  const { dataPlayers, team } = useSelector(playersSelector)
+  const { team } = useSelector(playersSelector)
+  const { teamPlayers } = useSelector(teamsSelector)
+  const { deleteTeamTC, getTeamIdTC, getTeamPlayers } = useActions(teamsThunks)
+
+  useEffect(() => {
+    teamId && getTeamIdTC({ id: teamId })
+    teamId && getTeamPlayers([{ value: teamId }])
+  }, [getTeamIdTC, teamId, getTeamPlayers])
 
   const [parramsQuery, setParramsQuery] = useState({
     paramsQuery: {
@@ -38,7 +46,7 @@ export const TeamDetail = () => {
     { title: 'Teams', url: '/' },
     { title: team?.name, url: pathname },
   ]
-  const { deleteTeamTC } = useActions(teamsThunks)
+
   const handleDeleteTeam = () => {
     deleteTeamTC(Number(teamId))
     navigate('/')
@@ -83,7 +91,7 @@ export const TeamDetail = () => {
           </TeamInfo>
         </Container>
       )}
-      <TeamRoster dataPlayers={dataPlayers} team={teamId} />
+      <TeamRoster players={teamPlayers} team={teamId} />
     </>
   )
 }

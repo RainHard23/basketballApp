@@ -2,6 +2,7 @@ import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thu
 import { teamApi, TeamType } from '../../api/teams/api'
 import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
+import { playersApi, PlayerType } from '../../api/players/api'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   'players/getPlayerId',
@@ -71,6 +72,24 @@ export const deleteTeamTC = createAppAsyncThunk('teams/deleteTeam', async (teamI
   }
 })
 
+const getTeamPlayers = createAppAsyncThunk(
+  'teams/getTeamPlayers',
+  async (ParamasTeamId: Array<{ value: string }>, { rejectWithValue }) => {
+    try {
+      const response = await playersApi.getPlayerTeamIds(ParamasTeamId)
+      return response.data
+    } catch (err: any) {
+      if (err.response) {
+        // Если есть ответ с ошибкой от сервера
+        return rejectWithValue(err.response.data)
+      } else {
+        // В противном случае
+        return rejectWithValue(err)
+      }
+    }
+  }
+)
+
 const getTeamsTC = createAppAsyncThunk<
   {
     count: number
@@ -101,9 +120,11 @@ type dataTeamsType = {
   size: number
   team?: TeamType
   filteredTeam?: TeamType
+  teamPlayers?: any
 }
 
 const initialState: dataTeamsType = {
+  teamPlayers: [],
   count: 0,
   dataTeams: [],
   page: 1,
@@ -136,6 +157,9 @@ const slice = createSlice({
           state.dataTeams[updatedTeamIndex] = action.payload.model
         }
       })
+      .addCase(getTeamPlayers.fulfilled, (state, action) => {
+        state.teamPlayers = action.payload.data
+      })
       .addCase(getTeamIdTC.fulfilled, (state, action) => {
         state.filteredTeam = action.payload
       })
@@ -145,4 +169,11 @@ const slice = createSlice({
 export const teamsReducer = slice.reducer
 
 export const teamsAction = slice.actions
-export const teamsThunks = { addTeamTC, getTeamsTC, deleteTeamTC, updateTeamTC, getTeamIdTC }
+export const teamsThunks = {
+  addTeamTC,
+  getTeamsTC,
+  deleteTeamTC,
+  updateTeamTC,
+  getTeamIdTC,
+  getTeamPlayers,
+}

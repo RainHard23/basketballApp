@@ -119,8 +119,7 @@ type dataTeamsType = {
   page: number
   size: number
   team?: TeamType
-  filteredTeam?: TeamType
-  teamPlayers?: any
+  teamPlayers?: PlayerType[]
 }
 
 const initialState: dataTeamsType = {
@@ -161,7 +160,7 @@ const slice = createSlice({
         state.teamPlayers = action.payload.data
       })
       .addCase(getTeamIdTC.fulfilled, (state, action) => {
-        state.filteredTeam = action.payload
+        state.team = action.payload
       })
   },
 })

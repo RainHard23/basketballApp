@@ -18,27 +18,14 @@ export const TeamDetail = () => {
   const navigate = useNavigate()
   const { getPlayersTC } = useActions(playersThunks)
 
-  const { team } = useSelector(playersSelector)
-  const { teamPlayers } = useSelector(teamsSelector)
+  // const { team } = useSelector(playersSelector)
+  const { teamPlayers, team } = useSelector(teamsSelector)
   const { deleteTeamTC, getTeamIdTC, getTeamPlayers } = useActions(teamsThunks)
 
   useEffect(() => {
     teamId && getTeamIdTC({ id: teamId })
     teamId && getTeamPlayers([{ value: teamId }])
   }, [getTeamIdTC, teamId, getTeamPlayers])
-
-  const [parramsQuery, setParramsQuery] = useState({
-    paramsQuery: {
-      name: '',
-      page: 1,
-      pageSize: 6,
-      team: teamId,
-    },
-  })
-
-  useEffect(() => {
-    getPlayersTC(parramsQuery)
-  }, [])
 
   const crumbs = [
     { title: 'Teams', url: '/' },

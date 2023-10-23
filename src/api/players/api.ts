@@ -32,17 +32,7 @@ export const playersApi = {
         throw error
       })
   },
-  getTeam(paramsQuery: any) {
-    return instance
-      .get<TeamType>('api/team/get', {
-        params: { id: paramsQuery.team },
-      })
-      .then(res => res.data)
-      .catch(error => {
-        console.error('Error fetching teams:', error)
-        throw error
-      })
-  },
+
   deletePlayer(playerId: number) {
     return instance.delete<PlayerType>(`/api/Player/Delete?id=${playerId}`)
   },

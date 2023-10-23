@@ -13,7 +13,7 @@ import { breakpoints } from '../../../assests/styles/adaptive'
 
 export const PlayersDetail = () => {
   const { pathname } = useLocation()
-  const { playerId, teamId } = useParams()
+  const { playerId } = useParams()
   const { getPlayersIdTC, deletePlayerTC } = useActions(playersThunks)
 
   const { player } = useSelector(playersSelector)

@@ -98,20 +98,16 @@ const getPlayersTC = createAppAsyncThunk<
     dataPlayers: PlayerType[]
     page: number
     size: number
-    team: any
   },
   { paramsQuery: ParamsType }
 >('player/getPlayers', async ({ paramsQuery }) => {
   try {
     const res = await playersApi.getPlayers(paramsQuery)
-    const team = await playersApi.getTeam(paramsQuery)
-
     return {
       count: res.count,
       dataPlayers: res.data,
       page: res.page,
       size: res.size,
-      team: team,
     }
   } catch (error) {
     console.error('Error fetching teams:', error)
@@ -147,7 +143,6 @@ const slice = createSlice({
         state.count = action.payload.count
         state.size = action.payload.size
         state.page = action.payload.page
-        state.team = action.payload.team
       })
       .addCase(getPlayersIdTC.fulfilled, (state, action) => {
         state.player = action.payload

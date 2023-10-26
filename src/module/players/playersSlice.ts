@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
 import { handleServerAppError } from '../../api/common/utils/handle-server-app-error'
 import { appActions } from '../app/appSlice'
+import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
 
 const getPositionPlayerTC = createAppAsyncThunk(
   'players/getPositionPlayer',
@@ -13,7 +14,7 @@ const getPositionPlayerTC = createAppAsyncThunk(
       const response = await playersApi.getPositionPlayer()
       return response.data
     } catch (error: any) {
-      handleServerAppError(error.data, dispatch)
+      handleServerAppError(error, dispatch)
       return rejectWithValue(null)
     }
   }
@@ -21,6 +22,7 @@ const getPositionPlayerTC = createAppAsyncThunk(
 export const updatePlayerTC = createAppAsyncThunk(
   'players/updatePlayer',
   async (arg: { model: PlayerType & { imageFile: File } }, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI
     try {
       const { imageFile, ...playerData } = arg.model
 
@@ -36,8 +38,8 @@ export const updatePlayerTC = createAppAsyncThunk(
       await playersApi.updatePlayer(updatedPlayer)
       return arg
     } catch (error) {
-      console.error('Error updating player:', error)
-      throw error
+      handleServerNetworkError(error, dispatch)
+      return rejectWithValue(null)
     }
   }
 )
@@ -61,7 +63,8 @@ export const addPlayerTC = createAppAsyncThunk(
       }
       return await playersApi.addPlayer(playerWithAvatar)
     } catch (error: any) {
-      dispatch(appActions.setAppError({ error: 'Such player already exists' }))
+      console.log(error.message)
+      handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
     }
   }
@@ -81,12 +84,11 @@ export const deletePlayerTC = createAppAsyncThunk(
 
 const getPlayersIdTC = createAppAsyncThunk<PlayerType, { id: number }>(
   'players/getPlayerId',
-  async ({ id }, { rejectWithValue }) => {
+  async ({ id }, { rejectWithValue, dispatch }) => {
     try {
       return await playersApi.getPlayerId(id)
     } catch (error) {
-      console.error('Error fetching teams:', error)
-
+      handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
     }
   }
@@ -100,18 +102,19 @@ const getPlayersTC = createAppAsyncThunk<
     size: number
   },
   { paramsQuery: ParamsType }
->('player/getPlayers', async ({ paramsQuery }) => {
+>('player/getPlayers', async ({ paramsQuery }, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
   try {
     const res = await playersApi.getPlayers(paramsQuery)
     return {
-      count: res.count,
-      dataPlayers: res.data,
-      page: res.page,
-      size: res.size,
+      count: res.data.count,
+      dataPlayers: res.data.data,
+      page: res.data.page,
+      size: res.data.size,
     }
   } catch (error) {
-    console.error('Error fetching teams:', error)
-    throw error
+    handleServerNetworkError(error, dispatch)
+    return rejectWithValue(null)
   }
 })
 
@@ -148,7 +151,7 @@ const slice = createSlice({
         state.player = action.payload
       })
       .addCase(addPlayerTC.fulfilled, (state, action) => {
-        state.dataPlayers.push(action.payload)
+        state.dataPlayers.push(action.payload.data)
       })
       .addCase(deletePlayerTC.fulfilled, (state, action) => {
         state.dataPlayers = state.dataPlayers.filter(player => player.id !== action.payload)

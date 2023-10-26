@@ -22,7 +22,7 @@ type FormData = {
   conference: string
   division: string
   foundationYear: number
-  imageUrl: any
+  imageUrl: string
   name: string
   imageFile: File
 }
@@ -65,7 +65,6 @@ export const TeamFormAdd = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
     setValue,
   } = useForm<any>({
     mode: 'onBlur',
@@ -96,7 +95,7 @@ export const TeamFormAdd = () => {
                 control={control}
                 errorMessage={errors?.imageUrl?.message}
                 imagevisible={isImageVisible}
-                name={'avatarFile'}
+                name={'imageUrl'}
                 selectFile={handleFileSelect}
               />
             </AddImg>

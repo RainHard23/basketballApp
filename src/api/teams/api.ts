@@ -10,7 +10,7 @@ export const teamApi = {
         throw error
       })
   },
-  getTeams(paramsQuery?: any) {
+  getTeams(paramsQuery?: ParamsTypeTeam) {
     return instance
       .get<TeamsType>('api/Team/GetTeams', {
         params: paramsQuery,
@@ -36,6 +36,11 @@ export const teamApi = {
         throw error
       })
   },
+}
+
+export type ParamsTypeTeam = {
+  page: number
+  pageSize: number
 }
 
 export type TeamsType = {

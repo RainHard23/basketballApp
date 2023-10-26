@@ -2,13 +2,7 @@ import { instance } from '../common/api/commonApi'
 
 export const playersApi = {
   addPlayer(newPlayer: PlayerType) {
-    return instance
-      .post<PlayerType>('api/Player/Add', newPlayer)
-      .then(res => res.data)
-      .catch(error => {
-        console.error('Error fetching teams:', error)
-        throw error
-      })
+    return instance.post<PlayerType>('api/Player/Add', newPlayer)
   },
   getPlayerId(id: number) {
     return instance
@@ -22,15 +16,9 @@ export const playersApi = {
       })
   },
   getPlayers(paramsQuery: ParamsType) {
-    return instance
-      .get<PlayersType>('api/Player/GetPlayers', {
-        params: paramsQuery,
-      })
-      .then(res => res.data)
-      .catch(error => {
-        console.error('Error fetching teams:', error)
-        throw error
-      })
+    return instance.get<PlayersType>('api/Player/GetPlayers', {
+      params: paramsQuery,
+    })
   },
 
   deletePlayer(playerId: number) {

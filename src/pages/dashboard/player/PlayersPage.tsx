@@ -55,7 +55,7 @@ export const PlayersPage = () => {
 
   useEffect(() => {
     getPlayersTC(parramsQuery)
-    getTeamsTC({ paramsQuery: { name: '', page: 1, pageSize: 24 } })
+    getTeamsTC({ paramsQuery: { page: 1, pageSize: 24 } })
   }, [parramsQuery, getTeamsTC])
   useEffect(() => {}, [])
 

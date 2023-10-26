@@ -10,7 +10,7 @@ export const handleServerAppError = <D>(
   if (showError) {
     dispatch(
       appActions.setAppError({
-        error: data.messages.length ? data.messages[0] : 'Some error occurred',
+        error: data.message.length ? data.message : 'Some error occurred',
       })
     )
   }

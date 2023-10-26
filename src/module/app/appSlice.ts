@@ -25,15 +25,17 @@ const slice = createSlice({
         },
         (state, action) => {
           const { error, payload } = action
-
+          debugger
           if (payload) {
             if (payload.showGlobalError) {
               state.error = payload.data.messages.length
                 ? payload.data.messages[0]
                 : 'Some error occurred'
             }
+            debugger
           } else {
             state.error = error.message ? error.message : 'Some error occurred'
+            debugger
           }
           state.status = 'failed'
         }

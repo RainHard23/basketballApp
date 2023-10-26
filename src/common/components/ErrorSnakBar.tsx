@@ -74,7 +74,6 @@ export const ErrorSnackbar2: FC<ErrorSnackbarProps> = ({ error, onClose }) => {
     setIsVisible(false)
     onClose()
   }
-
   return isVisible ? (
     <Snackbar>
       <Alert severity="error" onClick={handleSnackbarClose}>

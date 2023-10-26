@@ -47,7 +47,7 @@ export const PlayerFormAdd = () => {
   }))
 
   useEffect(() => {
-    getTeamsTC({ paramsQuery: { name: '', page: 1, pageSize: 24 } })
+    getTeamsTC({ paramsQuery: { page: 1, pageSize: 24 } })
     getPositionPlayerTC()
   }, [])
 

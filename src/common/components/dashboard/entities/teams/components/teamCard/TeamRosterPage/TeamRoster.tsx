@@ -8,19 +8,9 @@ import { PlayerRosterCard, TableLeft, TableRight } from './RosterInfoCard/Player
 import styled from 'styled-components'
 import { breakpoints } from '../../../../../../../../assests/styles/adaptive'
 
-type Player = {
-  age: string
-  cm: string
-  img: string
-  in: string
-  kg: string
-  name: string
-  position: string
-}
-
 interface TeamRosterProps {
   players: PlayerType[] | undefined
-  team: any
+  team?: string
 }
 
 const TeamRoster: FC<TeamRosterProps> = ({ players, team }) => {

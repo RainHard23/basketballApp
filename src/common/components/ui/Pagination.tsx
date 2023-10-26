@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 type PropsType = {
   paginationPage?: number
-  updatePageSelect: any
+  updatePageSelect: (newPageSelect: number) => void
 }
 
 export const Pagination: FC<PropsType> = ({ paginationPage, updatePageSelect }) => (

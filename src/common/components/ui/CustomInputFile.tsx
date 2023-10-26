@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { Control, FieldError, FieldPath, FieldValues, useController } from 'react-hook-form'
 
 import { ReactComponent as IconAddPhoto } from '../../../assests/images/iconAddPhoto.svg'
 import { colors } from '../../../assests/styles/colors'
@@ -7,11 +7,11 @@ import styled from 'styled-components'
 
 export type ControlledInputFileProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>
-  errorMessage?: any
-  imagevisible?: any
+  errorMessage: any
+  imagevisible?: string | null
   name: FieldPath<TFieldValues>
-  selectFile: any
-} & Omit<any, 'id' | 'onChange' | 'value'>
+  selectFile: (file: File | null) => void
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id' | 'onChange' | 'value'>
 
 export const ControlledInputFile = <TFieldValues extends FieldValues>({
   control,
@@ -31,7 +31,7 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
   const [selectedImage, setSelectedImage] = useState<null | string>(null)
 
   useEffect(() => {
-    setSelectedImage(imagevisible)
+    imagevisible && setSelectedImage(imagevisible)
   }, [imagevisible])
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0]

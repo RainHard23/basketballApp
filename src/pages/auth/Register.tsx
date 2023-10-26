@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import styled from 'styled-components'
 import * as yup from 'yup'
 import { ErrorSnackbar } from '../../common/components/ErorBar'
+import { Schema } from 'yup'
 
 export const Register = () => {
   type FormData = {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Controller } from 'react-hook-form'
+import { Control, Controller, FieldError, FieldValues } from 'react-hook-form'
 import Select from 'react-select'
 
 import { colors } from '../../../../assests/styles/colors'
@@ -11,17 +11,17 @@ export type OptionType = {
   value?: number | string
 }
 
-type SelectPropsType = {
-  control?: any
+type SelectPropsType<TFieldValues extends FieldValues> = {
+  control?: Control<TFieldValues>
   isMulti?: boolean
   label?: string
   long?: boolean
   name: string
   options?: OptionType[]
-  errorMessage?: any
+  errorMessage: any
 }
 
-export const CustomSelect: FC<SelectPropsType> = ({
+export const CustomSelect: FC<SelectPropsType<FieldValues>> = ({
   control,
   isMulti,
   label,

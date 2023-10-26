@@ -9,8 +9,6 @@ import { breakpoints } from '../../../../assests/styles/adaptive'
 type Props = {
   linkPath: string
   updateSearchQuery: (value: string) => void
-  teamsSelectOptions?: any
-  handleInputChange?: any
 }
 
 export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {

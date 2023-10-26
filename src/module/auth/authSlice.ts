@@ -2,7 +2,7 @@ import { authAPI, LoginParamsType, RegisterParamsType } from '../../api/auth/api
 import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thunk'
 import { createSlice } from '@reduxjs/toolkit'
 
-const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean; user: any }, LoginParamsType>(
+const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean; user: string }, LoginParamsType>(
   'auth/login',
   async (arg, thunkAPI) => {
     const { rejectWithValue } = thunkAPI
@@ -21,26 +21,26 @@ const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean; user: any }, LoginPar
   }
 )
 
-const registrationTC = createAppAsyncThunk<{ isLoggedIn: boolean; user: any }, RegisterParamsType>(
-  'auth/register',
-  async (arg, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI
-    const res = await authAPI.register(arg)
+const registrationTC = createAppAsyncThunk<
+  { isLoggedIn: boolean; user: string },
+  RegisterParamsType
+>('auth/register', async (arg, thunkAPI) => {
+  const { rejectWithValue } = thunkAPI
+  const res = await authAPI.register(arg)
 
-    if (res.data && res.data?.token) {
-      localStorage.setItem('user', JSON.stringify(res.data))
+  if (res.data && res.data?.token) {
+    localStorage.setItem('user', JSON.stringify(res.data))
 
-      let userData = JSON.stringify(res.data)
-      localStorage.setItem('user', userData)
+    let userData = JSON.stringify(res.data)
+    localStorage.setItem('user', userData)
 
-      return { isLoggedIn: true, user: JSON.parse(userData) }
-    } else {
-      const isShowAppError = !res.data.fieldsErrors.length
+    return { isLoggedIn: true, user: JSON.parse(userData) }
+  } else {
+    const isShowAppError = !res.data.fieldsErrors.length
 
-      return rejectWithValue({ data: res.data, showGlobalError: isShowAppError })
-    }
+    return rejectWithValue({ data: res.data, showGlobalError: isShowAppError })
   }
-)
+})
 
 const userJSON = localStorage.getItem('user')
 const user = userJSON ? JSON.parse(userJSON) : null

@@ -13,7 +13,7 @@ type PlayerInfoProps = {
   number: number
   playerName: string
   position: string
-  teamId: string
+  teamId?: string
   weight: number
 }
 

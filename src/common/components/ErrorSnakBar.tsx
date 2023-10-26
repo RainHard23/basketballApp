@@ -45,7 +45,7 @@ const Snackbar: FC<SnackbarProps> = ({ children }) => {
 
 type ErrorSnackbarProps = {
   error: string | null
-  onClose: any
+  onClose: (event?: React.SyntheticEvent, reason?: string) => void
 }
 
 export const ErrorSnackbar2: FC<ErrorSnackbarProps> = ({ error, onClose }) => {

@@ -13,8 +13,7 @@ const getPositionPlayerTC = createAppAsyncThunk(
     try {
       const response = await playersApi.getPositionPlayer()
       return response.data
-    } catch (error: any) {
-      handleServerAppError(error, dispatch)
+    } catch (error) {
       return rejectWithValue(null)
     }
   }
@@ -62,8 +61,7 @@ export const addPlayerTC = createAppAsyncThunk(
         avatarUrl,
       }
       return await playersApi.addPlayer(playerWithAvatar)
-    } catch (error: any) {
-      console.log(error.message)
+    } catch (error) {
       handleServerNetworkError(error, dispatch)
       return rejectWithValue(null)
     }
@@ -124,7 +122,6 @@ type dataPlayersType = {
   page: number
   player?: PlayerType
   size: number
-  team: any
   position?: string[]
 }
 
@@ -133,7 +130,6 @@ const initialState: dataPlayersType = {
   dataPlayers: [],
   page: 1,
   size: 0,
-  team: [],
 }
 const slice = createSlice({
   initialState: initialState,

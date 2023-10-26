@@ -153,7 +153,7 @@ export const PlayerFormAdd = () => {
                 />
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors?.position?.message}
+                    errorMessage={errors}
                     control={control}
                     isMulti={false}
                     label={'Position'}

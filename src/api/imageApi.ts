@@ -4,7 +4,7 @@ import { instance } from './common/api/commonApi'
 export const imageApi = {
   // Метод сохранения изображения
   postImage: async (formData: FormData) => {
-    return instance.post<string, any>('api/Image/SaveImage', formData, {
+    return instance.post<string>('api/Image/SaveImage', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },

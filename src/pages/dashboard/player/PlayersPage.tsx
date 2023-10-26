@@ -15,21 +15,19 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { teamsDataSelector } from '../../../module/teams/teamsSelectors'
 import { breakpoints } from '../../../assests/styles/adaptive'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
+import { logout } from '../../../module/auth/authSlice'
 
 export const PlayersPage = () => {
-  const { count, dataPlayers, size } = useSelector(playersSelector)
-  const { getPlayersTC } = useActions(playersThunks)
-  const dataTeams = useSelector(teamsDataSelector)
+  const { count, size, playersWithTeams } = useSelector(playersSelector)
+  const { getPlayersWithTeamsTC } = useActions(playersThunks)
   const status = useSelector(selectAppStatus)
-  const { getTeamsTC } = useActions(teamsThunks)
+
   const [parramsQuery, setParramsQuery] = useState({
     paramsQuery: {
-      name: '',
       page: 1,
       pageSize: 6,
     },
   })
-
   const updateSearchQuery = (value: string) => {
     setParramsQuery(prevParamsQuery => ({
       ...prevParamsQuery,
@@ -54,9 +52,9 @@ export const PlayersPage = () => {
   )
 
   useEffect(() => {
-    getPlayersTC(parramsQuery)
-    getTeamsTC({ paramsQuery: { page: 1, pageSize: 24 } })
-  }, [parramsQuery, getTeamsTC])
+    const { paramsQuery } = parramsQuery
+    getPlayersWithTeamsTC(paramsQuery)
+  }, [parramsQuery])
   useEffect(() => {}, [])
 
   const paginationPage = useMemo(() => {
@@ -64,15 +62,6 @@ export const PlayersPage = () => {
       return Math.ceil(count / size)
     }
   }, [count, size])
-
-  const uniquePlayerIds = new Set()
-  const uniquePlayers = dataPlayers.filter(player => {
-    if (uniquePlayerIds.has(player.id)) {
-      return false
-    }
-    uniquePlayerIds.add(player.id)
-    return true
-  })
 
   const updatePageSize = useCallback(
     (newPageSize: number) => {
@@ -95,23 +84,21 @@ export const PlayersPage = () => {
       updatePageSelect={updatePageSelect}
       updatePageSize={updatePageSize}
     >
-      {status === 'loading' || !dataTeams ? (
+      {status === 'loading' || !playersWithTeams ? (
         <Loader />
       ) : (
         <>
-          {uniquePlayers.length > 0 ? (
+          {playersWithTeams.length > 0 ? (
             <CardsContainer>
               <ErrorSnackbar />
-              {uniquePlayers.map(el => {
-                const playerTeam = dataTeams.find(team => team.id === el.team)
-                const teamName = playerTeam?.name
+              {playersWithTeams.map(el => {
                 return (
                   <PlayerCard
                     avatarUrl={el.avatarUrl}
                     id={el.id}
                     key={el.id}
                     name={el.name}
-                    teamName={teamName}
+                    teamName={el.teamName}
                   />
                 )
               })}

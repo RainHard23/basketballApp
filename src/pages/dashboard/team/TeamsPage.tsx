@@ -21,7 +21,6 @@ export const TeamsPage = () => {
   const status = useSelector(selectAppStatus)
   const [parramsQuery, setParramsQuery] = useState({
     paramsQuery: {
-      name: '',
       page: 1,
       pageSize: 6,
     },

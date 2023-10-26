@@ -38,14 +38,10 @@ export const playersApi = {
 }
 
 export type ParamsType = {
-  name: string
   page: number
   pageSize: number
 }
 
-export type TeamType = {
-  id: number
-}
 
 export type PlayersType = {
   count: number

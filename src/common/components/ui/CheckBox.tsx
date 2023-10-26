@@ -1,29 +1,30 @@
 import React, { FC } from 'react'
-import { Control, Controller, FieldValues, UseControllerProps } from 'react-hook-form'
+import {Control, Controller, FieldError, FieldValues, Path, UseControllerProps} from 'react-hook-form'
 import { fonts } from '../../../assests/fonts/fonts'
 import iconCheck from '../../../assests/icons/iconCheck.svg'
 import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'
-
 type CheckboxProps<TFieldValues extends FieldValues = FieldValues> = {
   checked?: boolean
-  control?: any
+  control?: Control<TFieldValues>
   disabled?: boolean
-  errorMessage: any
+  errorMessage?: FieldError
   id?: string
   label?: string
-  name: string
+  name: Path<TFieldValues>
   required?: boolean
 }
 
-export const CheckBox: FC<CheckboxProps> = ({
+
+
+export const CheckBox = <TFieldValues extends FieldValues> ({
   checked,
   control,
   disabled,
   errorMessage,
   label,
   name,
-}) => {
+}: CheckboxProps<TFieldValues>) => {
   return (
     <>
       <CheckboxWrapper>

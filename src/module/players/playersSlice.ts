@@ -2,11 +2,8 @@ import { createAppAsyncThunk } from '../../api/common/utils/create-app-async-thu
 import { ParamsType, playersApi, PlayerType } from '../../api/players/api'
 import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
-import { handleServerAppError } from '../../api/common/utils/handle-server-app-error'
-import { appActions } from '../app/appSlice'
 import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
 import { teamApi } from '../../api/teams/api'
-import { useNotification } from '../../common/components/notification/useNotification'
 import { NotificationActions } from '../../common/components/notification/notificationSlice'
 
 // const { displayNotification } = useNotification()
@@ -51,7 +48,7 @@ export const updatePlayerTC = createAppAsyncThunk(
       dispatch(
         NotificationActions.addNotification({
           type: 'error',
-          message: 'Failed to update player.', // Можно уточнить сообщение, если тип ошибки известен
+          message: 'Failed to update player.',
         })
       )
       return rejectWithValue(null)

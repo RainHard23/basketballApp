@@ -19,16 +19,17 @@ export const MainRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<DashboardLayout />}>
-          <Route element={<TeamsPage />} index path={'/'} />
+          <Route element={<TeamsPage />} index path={'/team'} />
 
           <Route element={<TeamDetail />} path={'/team/:teamId'} />
-          <Route element={<TeamFormAdd />} path={'/teams/create'} />
-          <Route element={<TeamFormEdit />} path={'/teams/edit/' + ':id'} />
+          <Route element={<TeamFormAdd />} path={'/team/create'} />
+          <Route element={<TeamFormEdit />} path={'/team/edit/' + ':id'} />
 
-          <Route element={<PlayersDetail />} path={'/team/:teamId/:playerId'} />
-          <Route element={<PlayerFormAdd />} path={'/team/:teamId/players/create'} />
-          <Route element={<PlayerFormEdit />} path={'/players/edit/' + ':id'} />
           <Route element={<PlayersPage />} path={'/players'} />
+          <Route element={<PlayerFormAdd />} path={'/players/create'} />
+          <Route element={<PlayersDetail />} path={'/players/:teamId/:playerId'} />
+
+          <Route element={<PlayerFormEdit />} path={'/players/edit/' + ':id'} />
         </Route>
 
         <Route element={<AuthLayout />}>

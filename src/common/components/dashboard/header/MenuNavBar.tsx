@@ -19,14 +19,14 @@ export const MenuNavBar: FC<PropsType> = ({ onSidebar }) => {
   const userName = useSelector(userSelector)
   const dispatch = useDispatch()
 
-  const location = useLocation()
-  const currentPath = location.pathname
+  // const location = useLocation()
+  // const currentPath = location.pathname
 
-  const teamPaths = ['/', '/team', '/teams/create']
-  const playerPaths = ['/players', '/team/:teamId/:playerId', '/team/:teamId/players/create']
-
-  const isTeamsActive = teamPaths.includes(currentPath)
-  const isPlayersActive = playerPaths.includes(currentPath)
+  // const teamPaths = ['/', '/team', '/teams/create']
+  // const playerPaths = ['/players', '/team/:teamId/:playerId', '/team/:teamId/players/create']
+  //
+  // const isTeamsActive = teamPaths.includes(currentPath)
+  // const isPlayersActive = playerPaths.includes(currentPath)
 
   const handleLogout = () => {
     dispatch(logout())
@@ -39,11 +39,11 @@ export const MenuNavBar: FC<PropsType> = ({ onSidebar }) => {
           <UserImg />
           <UserName>{userName.name}</UserName>
         </UserAccount>
-        <NavItem active={isTeamsActive} to={'/'}>
+        <NavItem to={'/team'}>
           <IconTeams />
           <LinkText>Teams</LinkText>
         </NavItem>
-        <NavItem active={isPlayersActive} to={'/players'}>
+        <NavItem to={'/players'}>
           <IconPlayers />
           <LinkText>Players</LinkText>
         </NavItem>
@@ -122,18 +122,29 @@ const Nav = styled.nav`
   }
 `
 
-const NavItem = styled(NavLink)<{ active?: boolean }>`
+const NavItem = styled(NavLink)`
   cursor: pointer;
   display: flex;
   text-decoration: none;
   align-items: center;
   margin-bottom: 36px;
   flex-direction: column;
-  color: ${props => (props.active ? colors.red : colors.lightGrey)};
+  color: ${colors.lightGrey};
+
+  &.active {
+    color: ${colors.red};
+
+    svg path {
+      fill: ${colors.red};
+    }
+  }
 
   svg {
     path {
-      fill: ${props => (props.active ? colors.red : colors.lightGrey)};
+      fill: ${colors.lightGrey};
+    }
+    &.active.path {
+      fill: ${colors.red};
     }
   }
 

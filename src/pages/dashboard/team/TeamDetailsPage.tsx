@@ -25,7 +25,7 @@ export const TeamDetail = () => {
   }, [getTeamIdTC, teamId, getTeamPlayers])
 
   const crumbs = [
-    { title: 'Teams', url: '/' },
+    { title: 'Teams', url: '/teams' },
     { title: team?.name, url: pathname },
   ]
 
@@ -39,8 +39,8 @@ export const TeamDetail = () => {
       <HeaderDetails
         crumbs={crumbs}
         onDeleteTeam={handleDeleteTeam}
-        editPath={`/teams/edit/${teamId}`}
-        pathRedirect={'/'}
+        editPath={`/team/edit/${teamId}`}
+        pathRedirect={'/team'}
       />
       {team && (
         <Container key={team.id}>

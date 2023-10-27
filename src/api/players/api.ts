@@ -42,7 +42,6 @@ export type ParamsType = {
   pageSize: number
 }
 
-
 export type PlayersType = {
   count: number
   data: PlayerType[]

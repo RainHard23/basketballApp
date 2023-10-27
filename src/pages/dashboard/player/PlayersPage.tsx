@@ -79,7 +79,7 @@ export const PlayersPage = () => {
   return (
     <CardsdLayouts
       updateSearchQuery={updateSearchQuery}
-      linkPath={'/team/:teamId/players/create'}
+      linkPath={'/players/create'}
       paginationPage={paginationPage}
       updatePageSelect={updatePageSelect}
       updatePageSize={updatePageSize}

@@ -75,7 +75,7 @@ export const TeamFormEdit = () => {
     imageUrl: yup.mixed().required('Image is required'),
     name: yup.string().required('Name is required.'),
   })
-
+  console.log(prevTeamData?.imageUrl)
   const {
     control,
     formState: { errors },
@@ -90,6 +90,7 @@ export const TeamFormEdit = () => {
       division: prevTeamData?.division,
       foundationYear: prevTeamData?.foundationYear,
       imageUrl: prevTeamData?.imageUrl,
+
       name: prevTeamData?.name,
     },
   })

@@ -22,7 +22,7 @@ import { ErrorSnackbar } from '../../../common/components/ErorBar'
 import { breakpoints } from '../../../assests/styles/adaptive'
 
 type FormDataType = {
-  avatarUrl: any
+  avatarUrl: string
   birthday: Date
   height: number
   name: string
@@ -121,7 +121,7 @@ export const PlayerFormAdd = () => {
 
   const handleFormSubmitted = handleSubmit(onSubmit)
   const crumbs = [
-    { title: 'Players', url: '/players' },
+    { title: 'Player', url: '/players' },
     { title: 'Add new player', url: pathname },
   ]
   return (
@@ -153,7 +153,7 @@ export const PlayerFormAdd = () => {
                 />
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors}
+                    errorMessage={errors.position?.message}
                     control={control}
                     isMulti={false}
                     label={'Position'}

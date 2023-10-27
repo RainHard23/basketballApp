@@ -74,7 +74,7 @@ export const TeamsPage = () => {
   return (
     <CardsdLayouts
       updateSearchQuery={updateSearchQuery}
-      linkPath={'/teams/create'}
+      linkPath={'/team/create'}
       paginationPage={paginationPage}
       updatePageSelect={updatePageSelect}
       updatePageSize={updatePageSize}

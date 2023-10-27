@@ -13,7 +13,7 @@ type Props = {
 
 export const CardsHeader: FC<Props> = ({ linkPath, updateSearchQuery }) => {
   const [searchValue, setSearchValue] = useState('')
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null)
+  const [timerId, setTimerId] = useState<ReturnType<typeof setTimeout> | null>(null)
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target

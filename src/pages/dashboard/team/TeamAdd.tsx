@@ -74,7 +74,7 @@ export const TeamFormAdd = () => {
   const onSubmit: SubmitHandler<FormData> = data => {
     addTeamTC(data)
     setIsImageVisible('')
-    navigate('/')
+    navigate('/team')
   }
 
   const handleFormSubmitted = handleSubmit(onSubmit)

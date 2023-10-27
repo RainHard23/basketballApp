@@ -35,7 +35,7 @@ export const PlayerRosterCard: FC<PlayerInfoProps> = ({
       <TableRow key={id}>
         <TableLeft>{number}</TableLeft>
         <TableLeft>
-          <TableItem onClick={() => navigate(`/team/${teamId}/${id}`)}>
+          <TableItem onClick={() => navigate(`/players/${teamId}/${id}`)}>
             <PlayerLogo>
               <Img alt={'Logo'} src={`http://dev.trainee.dex-it.ru${imgSrc}`} />
             </PlayerLogo>

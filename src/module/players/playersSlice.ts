@@ -105,18 +105,22 @@ export const getPlayersWithTeamsTC = createAppAsyncThunk(
   async (paramsQuery: ParamsType, thunkAPI) => {
     try {
       const response = await playersApi.getPlayers(paramsQuery)
-
       const { data, count, size } = response.data
 
-      const playersWithTeamsName = await Promise.all(
-        data.map(async player => {
-          const teamResponse = await teamApi.getTeamId(player.team)
-          return {
-            ...player,
-            teamName: teamResponse.name,
-          }
-        })
-      )
+      const uniqueTeamIds = Array.from(new Set(data.map(player => player.team)))
+
+      const teamsResponses = await Promise.all<any>(uniqueTeamIds.map(id => teamApi.getTeamId(id)))
+
+      // Преобразуем массив ответов в объект для быстрого доступа
+      const teamsMap = teamsResponses.reduce((acc, team) => {
+        acc[team.id] = team.name
+        return acc
+      }, {})
+
+      const playersWithTeamsName = data.map(player => ({
+        ...player,
+        teamName: teamsMap[player.team],
+      }))
 
       return {
         playersWithTeams: playersWithTeamsName,
@@ -202,7 +206,6 @@ type dataPlayersType = {
   size: number
   position?: string[]
   playersWithTeams: PlayerType[]
-  notification?: any
 }
 
 const initialState: dataPlayersType = {

@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
 import { playersApi, PlayerType } from '../../api/players/api'
 import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
+import { NotificationActions } from '../../common/components/ui/notificationSlice'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   'players/getPlayerId',
@@ -35,9 +36,25 @@ export const updateTeamTC = createAppAsyncThunk(
       }
 
       await teamApi.updateTeam(updatedTeam)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Team successfully updated!',
+        })
+      )
+
       return arg
     } catch (error) {
       handleServerNetworkError(error, dispatch)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Failed to update team.',
+        })
+      )
+
       return rejectWithValue(null)
     }
   }
@@ -53,15 +70,32 @@ export const addTeamTC = createAppAsyncThunk(
       // Загрузка изображения, если оно было передано
       const imageUrl = newTeam.imageFile ? await imageApi.getUploadedImage(newTeam.imageFile) : ''
 
-      // Обновление данных нового игрока с учетом аватара
-      const teamWithAvatar: TeamType = {
+      // Обновление данных новой команды с учетом изображения
+      const teamWithImageUrl: TeamType = {
         ...teamData,
         imageUrl,
       }
-      const res = await teamApi.addTeam(teamWithAvatar)
+
+      const res = await teamApi.addTeam(teamWithImageUrl)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Team successfully added!',
+        })
+      )
+
       return res
     } catch (error) {
       handleServerNetworkError(error, dispatch)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Such team already exists.',
+        })
+      )
+
       return rejectWithValue(null)
     }
   }
@@ -72,14 +106,29 @@ export const deleteTeamTC = createAppAsyncThunk(
     const { rejectWithValue, dispatch } = thunkAPI
     try {
       await teamApi.deleteTeam(teamId)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Team successfully deleted!',
+        })
+      )
+
       return teamId
     } catch (error) {
       handleServerNetworkError(error, dispatch)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Failed to delete team.',
+        })
+      )
+
       return rejectWithValue(null)
     }
   }
 )
-
 const getTeamPlayers = createAppAsyncThunk(
   'teams/getTeamPlayers',
   async (ParamasTeamId: Array<{ value: string }>, thunkAPI) => {

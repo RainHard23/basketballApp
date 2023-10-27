@@ -6,6 +6,10 @@ import { handleServerAppError } from '../../api/common/utils/handle-server-app-e
 import { appActions } from '../app/appSlice'
 import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
 import { teamApi } from '../../api/teams/api'
+import { useNotification } from '../../common/components/ui/useNotification'
+import { NotificationActions } from '../../common/components/ui/notificationSlice'
+
+// const { displayNotification } = useNotification()
 
 const getPositionPlayerTC = createAppAsyncThunk(
   'players/getPositionPlayer',
@@ -25,10 +29,8 @@ export const updatePlayerTC = createAppAsyncThunk(
     const { rejectWithValue, dispatch } = thunkAPI
     try {
       const { imageFile, imageUrlLogo, ...playerData } = arg.model
-
       // Загрузка изображения, если оно было передано
       const avatarUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : imageUrlLogo || ''
-
       // Обновление данных игрока с учетом изображения
       const updatedPlayer: PlayerType = {
         ...playerData,
@@ -36,9 +38,22 @@ export const updatePlayerTC = createAppAsyncThunk(
       }
 
       await playersApi.updatePlayer(updatedPlayer)
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Player successfully updated!',
+        })
+      )
+
       return arg
     } catch (error) {
       handleServerNetworkError(error, dispatch)
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Failed to update player.', // Можно уточнить сообщение, если тип ошибки известен
+        })
+      )
       return rejectWithValue(null)
     }
   }
@@ -52,18 +67,34 @@ export const addPlayerTC = createAppAsyncThunk(
       const { imageFile, ...playerData } = newPlayer
 
       // Загрузка изображения, если оно было передано
-      const avatarUrl = newPlayer.imageFile
-        ? await imageApi.getUploadedImage(newPlayer.imageFile)
-        : ''
+      const avatarUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
 
       // Обновление данных нового игрока с учетом аватара
       const playerWithAvatar: PlayerType = {
         ...playerData,
         avatarUrl,
       }
-      return await playersApi.addPlayer(playerWithAvatar)
+
+      const response = await playersApi.addPlayer(playerWithAvatar)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Player successfully added!',
+        })
+      )
+
+      return response
     } catch (error) {
       handleServerNetworkError(error, dispatch)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Such player already exists.',
+        })
+      )
+
       return rejectWithValue(null)
     }
   }
@@ -101,12 +132,28 @@ export const getPlayersWithTeamsTC = createAppAsyncThunk(
 
 export const deletePlayerTC = createAppAsyncThunk(
   'players/deletePlayer',
-  async (deletePlayer: number) => {
+  async (playerId: number, thunkAPI) => {
+    const { dispatch } = thunkAPI
     try {
-      await playersApi.deletePlayer(deletePlayer)
-      return deletePlayer
+      await playersApi.deletePlayer(playerId)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'success',
+          message: 'Player successfully deleted!',
+        })
+      )
+      return playerId
     } catch (error) {
-      throw error
+      handleServerNetworkError(error, dispatch)
+
+      dispatch(
+        NotificationActions.addNotification({
+          type: 'error',
+          message: 'Failed to delete player.',
+        })
+      )
+      return thunkAPI.rejectWithValue(null)
     }
   }
 )

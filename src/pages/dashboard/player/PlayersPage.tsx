@@ -91,8 +91,6 @@ export const PlayersPage = () => {
         <>
           {playersWithTeams.length > 0 ? (
             <CardsContainer>
-              <ErrorSnackbar />
-
               {playersWithTeams.map(el => {
                 return (
                   <PlayerCard

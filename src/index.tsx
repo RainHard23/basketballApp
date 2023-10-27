@@ -5,6 +5,7 @@ import App from './App'
 import { store } from './core/redux/store'
 import reportWebVitals from './reportWebVitals'
 import ReactDOM from 'react-dom/client'
+import { Notification } from './common/components/ui/notification'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -12,6 +13,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <Notification />
     </Provider>
   </React.StrictMode>
 )

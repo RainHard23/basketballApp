@@ -5,7 +5,7 @@ import App from './App'
 import { store } from './core/redux/store'
 import reportWebVitals from './reportWebVitals'
 import ReactDOM from 'react-dom/client'
-import { Notification } from './common/components/ui/notification'
+import { Notification } from './common/components/notification/notification'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 

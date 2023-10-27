@@ -93,7 +93,7 @@ export const TeamFormAdd = () => {
             <AddImg>
               <ControlledInputFile
                 control={control}
-                errorMessage={errors?.imageUrl?.message}
+                errorMessage={errors?.imageUrl}
                 imagevisible={isImageVisible}
                 name={'imageUrl'}
                 selectFile={handleFileSelect}

@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { imageApi } from '../../api/imageApi'
 import { playersApi, PlayerType } from '../../api/players/api'
 import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
-import { NotificationActions } from '../../common/components/ui/notificationSlice'
+import { NotificationActions } from '../../common/components/notification/notificationSlice'
 
 const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
   'players/getPlayerId',

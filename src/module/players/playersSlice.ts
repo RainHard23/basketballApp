@@ -6,8 +6,8 @@ import { handleServerAppError } from '../../api/common/utils/handle-server-app-e
 import { appActions } from '../app/appSlice'
 import { handleServerNetworkError } from '../../api/common/utils/handle-server-network-error'
 import { teamApi } from '../../api/teams/api'
-import { useNotification } from '../../common/components/ui/useNotification'
-import { NotificationActions } from '../../common/components/ui/notificationSlice'
+import { useNotification } from '../../common/components/notification/useNotification'
+import { NotificationActions } from '../../common/components/notification/notificationSlice'
 
 // const { displayNotification } = useNotification()
 

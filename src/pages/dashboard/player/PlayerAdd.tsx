@@ -137,7 +137,7 @@ export const PlayerFormAdd = () => {
             <AddImg>
               <ControlledInputFile
                 control={control}
-                errorMessage={errors.avatarFile}
+                errorMessage={errors.avatarUrl}
                 imagevisible={isImageVisible}
                 name={'avatarFile'}
                 selectFile={handleFileSelect}

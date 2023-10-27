@@ -75,7 +75,6 @@ export const TeamFormEdit = () => {
     imageUrl: yup.mixed().required('Image is required'),
     name: yup.string().required('Name is required.'),
   })
-  console.log(prevTeamData?.imageUrl)
   const {
     control,
     formState: { errors },
@@ -89,15 +88,17 @@ export const TeamFormEdit = () => {
       conference: prevTeamData?.conference,
       division: prevTeamData?.division,
       foundationYear: prevTeamData?.foundationYear,
-      imageUrl: prevTeamData?.imageUrl,
-
       name: prevTeamData?.name,
+      imageUrl: prevTeamData?.imageUrl,
     },
   })
+
+  const imageUrlLogo = prevTeamData?.imageUrl
 
   const onSubmit: SubmitHandler<FormData> = data => {
     const updatedTeamData = {
       model: {
+        imageUrlLogo,
         id: Number(id),
         ...data,
       },
@@ -105,7 +106,7 @@ export const TeamFormEdit = () => {
     updateTeamTC(updatedTeamData)
     setIsImageVisible('')
     setValue('imageUrl', '')
-    navigate('/')
+    navigate('/team')
   }
 
   const handleFormSubmitted = handleSubmit(onSubmit)
@@ -122,7 +123,11 @@ export const TeamFormEdit = () => {
               <ControlledInputFile
                 control={control}
                 errorMessage={errors?.imageUrl?.message}
-                imagevisible={isImageVisible}
+                imagevisible={
+                  !isImageVisible && id
+                    ? 'http://dev.trainee.dex-it.ru' + prevTeamData?.imageUrl
+                    : isImageVisible
+                }
                 name={'avatarFile'}
                 selectFile={handleFileSelect}
               />

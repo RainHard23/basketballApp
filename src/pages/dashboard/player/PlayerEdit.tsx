@@ -101,6 +101,11 @@ export const PlayerFormEdit = () => {
       .required('Height is required.'),
   })
 
+  const prevDate = prevPlayerData && new Date(prevPlayerData?.birthday)
+  const day = prevDate && ('0' + prevDate.getDate()).slice(-2)
+  const month = prevDate && ('0' + (prevDate.getMonth() + 1)).slice(-2)
+  const prevDatePlayer = prevDate && prevDate.getFullYear() + '-' + month + '-' + day
+
   const {
     control,
     formState: { errors },
@@ -118,12 +123,14 @@ export const PlayerFormEdit = () => {
       position: prevPlayerData?.position,
       team: prevPlayerData?.team,
       weight: prevPlayerData?.weight,
+      birthday: prevDate && prevDatePlayer,
     },
   })
-
+  const imageUrlLogo = prevPlayerData?.avatarUrl
   const onSubmit: SubmitHandler<FormDataType> = data => {
     const updatedTeamData = {
       model: {
+        imageUrlLogo,
         id: Number(id),
         ...data,
       },
@@ -150,7 +157,11 @@ export const PlayerFormEdit = () => {
               <ControlledInputFile
                 control={control}
                 errorMessage={errors?.avatarUrl?.message}
-                imagevisible={isImageVisible}
+                imagevisible={
+                  !isImageVisible && id
+                    ? 'http://dev.trainee.dex-it.ru' + prevPlayerData?.avatarUrl
+                    : isImageVisible
+                }
                 name={'avatarFile'}
                 selectFile={handleFileSelect}
               />

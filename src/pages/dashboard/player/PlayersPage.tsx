@@ -16,12 +16,13 @@ import { teamsDataSelector } from '../../../module/teams/teamsSelectors'
 import { breakpoints } from '../../../assests/styles/adaptive'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
 import { logout } from '../../../module/auth/authSlice'
+import { AppRootStateType } from '../../../core/redux/store'
 
 export const PlayersPage = () => {
   const { count, size, playersWithTeams } = useSelector(playersSelector)
   const { getPlayersWithTeamsTC } = useActions(playersThunks)
   const status = useSelector(selectAppStatus)
-
+  const notification = useSelector((state: AppRootStateType) => state.players.notification)
   const [parramsQuery, setParramsQuery] = useState({
     paramsQuery: {
       page: 1,
@@ -91,6 +92,7 @@ export const PlayersPage = () => {
           {playersWithTeams.length > 0 ? (
             <CardsContainer>
               <ErrorSnackbar />
+
               {playersWithTeams.map(el => {
                 return (
                   <PlayerCard

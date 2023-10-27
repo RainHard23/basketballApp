@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { NotFound } from '../../pages/NotFound'
 import { Login } from '../../pages/auth/Login'
@@ -18,7 +18,8 @@ export const MainRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<DashboardLayout />}>
+        <Route path={'/'} element={<DashboardLayout />}>
+          <Route path="/" element={<Navigate to="/team" />} />
           <Route element={<TeamsPage />} index path={'/team'} />
 
           <Route element={<TeamDetail />} path={'/team/:teamId'} />

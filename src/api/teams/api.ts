@@ -55,6 +55,6 @@ export type TeamType = {
   division: string
   foundationYear: number
   id?: number
-  imageUrl: string
+  imageUrl?: string
   name: string
 }

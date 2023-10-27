@@ -20,6 +20,7 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { AppRootStateType } from '../../../core/redux/store'
 
 type FormDataType = {
   avatarUrl: string

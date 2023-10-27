@@ -20,13 +20,13 @@ const getTeamIdTC = createAppAsyncThunk<TeamType, { id?: string }>(
 
 export const updateTeamTC = createAppAsyncThunk(
   'teams/updateTeam',
-  async (arg: { model: TeamType & { imageFile: File } }, thunkAPI) => {
+  async (arg: { model: TeamType & { imageFile?: File; imageUrlLogo?: string } }, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI
     try {
-      const { imageFile, ...teamData } = arg.model
+      const { imageFile, imageUrlLogo, ...teamData } = arg.model
 
       // Загрузка изображения, если оно было передано
-      const imageUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : ''
+      const imageUrl = imageFile ? await imageApi.getUploadedImage(imageFile) : imageUrlLogo || ''
 
       // Обновление данных команды с учетом изображения
       const updatedTeam: TeamType = {

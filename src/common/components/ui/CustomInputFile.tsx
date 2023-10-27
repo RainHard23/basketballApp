@@ -1,78 +1,85 @@
-import React, {useEffect, useState} from 'react'
-import {Control, FieldError, FieldErrorsImpl, FieldPath, FieldValues, Merge, Path, useController} from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import {
+  Control,
+  FieldError,
+  FieldErrorsImpl,
+  FieldPath,
+  FieldValues,
+  Merge,
+  Path,
+  useController,
+} from 'react-hook-form'
 
-import {ReactComponent as IconAddPhoto} from '../../../assests/images/iconAddPhoto.svg'
-import {colors} from '../../../assests/styles/colors'
+import { ReactComponent as IconAddPhoto } from '../../../assests/images/iconAddPhoto.svg'
+import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'
 
-type ErrorMessageType = FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+type ErrorMessageType = FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 
 type CustomInputFileProps<TFieldValues extends FieldValues = FieldValues> = {
-    control: Control<TFieldValues>;
-    errorMessage?: any;
-    imagevisible?: string | null | undefined;
-    name: Path<TFieldValues>;
-    selectFile: (file: File | null) => void;
-
-};
+  control: Control<TFieldValues>
+  errorMessage?: any
+  imagevisible?: string | null | undefined
+  name: Path<TFieldValues>
+  selectFile: (file: File | null) => void
+}
 
 export const ControlledInputFile = <TFieldValues extends FieldValues>({
-                                                                          control,
-                                                                          errorMessage,
-                                                                          imagevisible,
-                                                                          name,
-                                                                          selectFile,
-                                                                          ...rest
-                                                                          // ... другие пропсы ...
-                                                                      }: CustomInputFileProps<TFieldValues>) => {
-    const {
-        field: {onChange, ref},
-    } = useController({
-        control,
-        name,
-    })
+  control,
+  errorMessage,
+  imagevisible,
+  name,
+  selectFile,
+  ...rest // ... другие пропсы ...
+}: CustomInputFileProps<TFieldValues>) => {
+  const {
+    field: { onChange, ref },
+  } = useController({
+    control,
+    name,
+  })
 
-    const [selectedImage, setSelectedImage] = useState<null | string>(null)
+  const [selectedImage, setSelectedImage] = useState<null | string>(null)
 
-    useEffect(() => {
-        imagevisible && setSelectedImage(imagevisible)
-    }, [imagevisible])
-    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files && event.target.files[0]
+  useEffect(() => {
+    imagevisible && setSelectedImage(imagevisible)
+  }, [imagevisible])
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0]
 
-        selectFile(file || null)
+    selectFile(file || null)
 
-        if (file) {
-            const reader = new FileReader()
+    if (file) {
+      const reader = new FileReader()
 
-            reader.onload = e => {
-                if (e.target) {
-                    setSelectedImage(e.target.result as string)
-                }
-            }
-            reader.readAsDataURL(file)
-        } else {
-            setSelectedImage(null)
+      reader.onload = e => {
+        if (e.target) {
+          setSelectedImage(e.target.result as string)
         }
+      }
+      reader.readAsDataURL(file)
+    } else {
+      setSelectedImage(null)
     }
+  }
 
-    return (
-        <>
-            <CustomImgInputContainer>
-                <CustomFileInputIcon/>
-                {selectedImage && <ImgLoad alt={'Selected Image'} src={selectedImage}/>}
-                <CustomStyledInput
-                    accept={'image/*'}
-                    name={name}
-                    onChange={handleFileSelect}
-                    ref={ref}
-                    type={'file'}
-                    {...rest}
-                />
-            </CustomImgInputContainer>
-            {errorMessage && true && <ErrorMessage >{errorMessage.message}</ErrorMessage>}
-        </>
-    )
+  return (
+    <>
+      <CustomImgInputContainer>
+        <CustomFileInputIcon />
+        {selectedImage && <ImgLoad alt={'Selected Image'} src={selectedImage} />}
+        <CustomStyledInput
+          accept={'image/*'}
+          name={name}
+          onChange={handleFileSelect}
+          ref={ref}
+          type={'file'}
+          {...rest}
+        />
+      </CustomImgInputContainer>
+      {errorMessage && true && <ErrorMessage>{errorMessage.message}</ErrorMessage>}
+    </>
+  )
 }
 const ImgLoad = styled.img`
   max-width: 100%;

@@ -62,7 +62,7 @@ export const updateTeamTC = createAppAsyncThunk(
 
 export const addTeamTC = createAppAsyncThunk(
   'teams/addTeam',
-  async (newTeam: TeamType & { imageFile: File }, thunkAPI) => {
+  async (newTeam: TeamType & { imageFile?: File }, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI
     try {
       const { imageFile, ...teamData } = newTeam

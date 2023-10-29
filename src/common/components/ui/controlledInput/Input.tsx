@@ -6,10 +6,11 @@ import searchIcon from '../../../../assests/icons/iconSearch.svg'
 import { colors } from '../../../../assests/styles/colors'
 import styled from 'styled-components'
 import { breakpoints } from '../../../../assests/styles/adaptive'
+import { FieldError } from 'react-hook-form'
 
 export type InputProps = {
   disabled?: boolean
-  errorMessage?: any
+  errorMessage?: string
   label?: string
   placeholder?: string
   type: 'date' | 'number' | 'password' | 'search' | 'text'

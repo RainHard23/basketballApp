@@ -24,7 +24,7 @@ type FormData = {
   foundationYear: number
   imageUrl: string
   name: string
-  imageFile: File
+  imageFile?: File
 }
 
 export const TeamFormAdd = () => {
@@ -44,7 +44,7 @@ export const TeamFormAdd = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setValue('imageUrl', null)
+      setValue('imageUrl', 'null')
     }
   }
   const { addTeamTC } = useActions(teamsThunks)
@@ -57,7 +57,7 @@ export const TeamFormAdd = () => {
       .min(1900, 'Year of foundation must be greater than or equal to 1900.')
       .max(2024, 'Year of foundation must be less than or equal to 2024.')
       .required('Year of foundation is required.'),
-    imageUrl: yup.mixed().required('Image is required'),
+    imageUrl: yup.string().required('Image is required'),
     name: yup.string().required('Name is required.'),
   })
 
@@ -66,7 +66,7 @@ export const TeamFormAdd = () => {
     formState: { errors },
     handleSubmit,
     setValue,
-  } = useForm<any>({
+  } = useForm<FormData>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   })
@@ -101,30 +101,21 @@ export const TeamFormAdd = () => {
             </AddImg>
             <ContainerInput>
               <WrapperItem>
+                <ControlledTextField control={control} label={'Name'} name={'name'} type={'text'} />
                 <ControlledTextField
                   control={control}
-                  errorMessage={errors}
-                  label={'Name'}
-                  name={'name'}
-                  type={'text'}
-                />
-                <ControlledTextField
-                  control={control}
-                  errorMessage={errors}
                   label={'Division'}
                   name={'division'}
                   type={'text'}
                 />
                 <ControlledTextField
                   control={control}
-                  errorMessage={errors}
                   label={'Conference'}
                   name={'conference'}
                   type={'text'}
                 />
                 <ControlledTextField
                   control={control}
-                  errorMessage={errors}
                   label={'Year of foundation'}
                   name={'foundationYear'}
                   type={'number'}

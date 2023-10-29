@@ -52,7 +52,7 @@ export type PlayersType = {
 
 export type PlayerType = {
   avatarUrl?: string
-  birthday: Date
+  birthday: Date | string
   height: number
   id?: number
   name: string

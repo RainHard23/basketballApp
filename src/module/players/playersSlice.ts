@@ -58,7 +58,7 @@ export const updatePlayerTC = createAppAsyncThunk(
 
 export const addPlayerTC = createAppAsyncThunk(
   'players/addPlayer',
-  async (newPlayer: PlayerType & { imageFile: File }, thunkAPI) => {
+  async (newPlayer: PlayerType & { imageFile?: File }, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI
     try {
       const { imageFile, ...playerData } = newPlayer

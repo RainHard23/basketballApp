@@ -75,30 +75,16 @@ export const Register = () => {
         <Title>Sign Up</Title>
       </WrapperTitle>
       <Form onSubmit={handleFormSubmitted}>
+        <ControlledTextField control={control} label={'Name'} name={'userName'} type={'text'} />
+        <ControlledTextField control={control} label={'Login'} name={'login'} type={'text'} />
         <ControlledTextField
           control={control}
-          errorMessage={errors.userName}
-          label={'Name'}
-          name={'userName'}
-          type={'text'}
-        />
-        <ControlledTextField
-          control={control}
-          errorMessage={errors.login}
-          label={'Login'}
-          name={'login'}
-          type={'text'}
-        />
-        <ControlledTextField
-          control={control}
-          errorMessage={errors.password}
           label={'Password'}
           name={'password'}
           type={'password'}
         />
         <ControlledTextField
           control={control}
-          errorMessage={errors.confirmPassword}
           label={'Enter your password again'}
           name={'confirmPassword'}
           type={'password'}

@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Control,
-  FieldError,
-  FieldErrorsImpl,
-  FieldPath,
-  FieldValues,
-  Merge,
-  Path,
-  useController,
-} from 'react-hook-form'
+import { Control, FieldError, FieldValues, Path, useController } from 'react-hook-form'
 
 import { ReactComponent as IconAddPhoto } from '../../../assests/images/iconAddPhoto.svg'
 import { colors } from '../../../assests/styles/colors'
 import styled from 'styled-components'
 
-type ErrorMessageType = FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
-
 type CustomInputFileProps<TFieldValues extends FieldValues = FieldValues> = {
   control: Control<TFieldValues>
-  errorMessage?: any
+  errorMessage?: FieldError
   imagevisible?: string | null | undefined
   name: Path<TFieldValues>
   selectFile: (file: File | null) => void

@@ -11,17 +11,17 @@ export type OptionType = {
   value?: number | string
 }
 
-type SelectPropsType<TFieldValues extends FieldValues> = {
-  control?: Control<TFieldValues>
+type SelectPropsType<TFieldValues extends FieldValues = FieldValues> = {
+  control: any
   isMulti?: boolean
   label?: string
   long?: boolean
   name: string
   options?: OptionType[]
-  errorMessage: any
+  errorMessage?: FieldError
 }
 
-export const CustomSelect: FC<SelectPropsType<FieldValues>> = ({
+export const CustomSelect: FC<SelectPropsType> = ({
   control,
   isMulti,
   label,
@@ -52,7 +52,7 @@ export const CustomSelect: FC<SelectPropsType<FieldValues>> = ({
           )}
         />
       </SelectStyles>
-      {errorMessage && true && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {errorMessage && true && <ErrorMessage>{errorMessage.message}</ErrorMessage>}
     </SelectWrapper>
   )
 }

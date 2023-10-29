@@ -20,6 +20,7 @@ import { teamsThunks } from '../../../module/teams/teamsSlice'
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
 import { ErrorSnackbar } from '../../../common/components/ErorBar'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { AppRootStateType } from '../../../core/redux/store'
 
 type FormDataType = {
   avatarUrl: string
@@ -30,7 +31,7 @@ type FormDataType = {
   position: string
   team: number
   weight: number
-  imageFile: File
+  imageFile?: File
 }
 
 export const PlayerFormAdd = () => {
@@ -65,16 +66,16 @@ export const PlayerFormAdd = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setValue('avatarUrl', null)
+      setValue('avatarUrl', 'null')
     }
   }
 
   const schema = yup.object().shape({
-    avatarUrl: yup.mixed().required('Image is required'),
+    avatarUrl: yup.string().required('Image is required'),
     birthday: yup
       .date()
       .max(new Date(), 'Date of birth cannot be in the future.')
-      .min(new Date('1700-01-01'), 'Date of birth should be after 1700.')
+      .min(new Date('1950-01-01'), 'Date of birth should be after 1950.')
       .required('Date of birth is required.'),
     name: yup.string().required('Name is required.').max(50, 'Name must be at most 50 characters'),
     team: yup.number().required('Team is required'),
@@ -107,7 +108,7 @@ export const PlayerFormAdd = () => {
     handleSubmit,
     reset,
     setValue,
-  } = useForm<any>({
+  } = useForm<FormDataType>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   })
@@ -138,22 +139,16 @@ export const PlayerFormAdd = () => {
                 control={control}
                 errorMessage={errors.avatarUrl}
                 imagevisible={isImageVisible}
-                name={'avatarFile'}
+                name={'avatarUrl'}
                 selectFile={handleFileSelect}
               />
             </AddImg>
             <ContainerInput>
               <WrapperItem>
-                <ControlledTextField
-                  control={control}
-                  errorMessage={errors}
-                  label={'Name'}
-                  name={'name'}
-                  type={'text'}
-                />
+                <ControlledTextField control={control} label={'Name'} name={'name'} type={'text'} />
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors.position?.message}
+                    errorMessage={errors.position}
                     control={control}
                     isMulti={false}
                     label={'Position'}
@@ -163,7 +158,7 @@ export const PlayerFormAdd = () => {
                 </ContainerSelect>
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors?.team?.message}
+                    errorMessage={errors?.team}
                     control={control}
                     isMulti={false}
                     label={'Team'}
@@ -174,21 +169,18 @@ export const PlayerFormAdd = () => {
                 <ContainerInputDetail>
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Height (cm)'}
                     name={'height'}
                     type={'number'}
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Weight (kg)'}
                     name={'weight'}
                     type={'number'}
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Birthday'}
                     name={'birthday'}
                     placeholder={'sss'}
@@ -196,7 +188,6 @@ export const PlayerFormAdd = () => {
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Number'}
                     name={'number'}
                     type={'number'}

@@ -20,17 +20,18 @@ import { Breadcrumbs } from '../../../common/components/dashboard/entities/Bread
 import { usePlayerPositions } from '../../../core/helpers/getPosition'
 import { playersPlayerSelector } from '../../../module/players/playersSelectors'
 import { breakpoints } from '../../../assests/styles/adaptive'
+import { date } from 'yup'
 
 type FormDataType = {
-  avatarUrl: any
-  birthday: Date
+  avatarUrl: string
+  birthday: string
   height: number
   name: string
   number: number
   position: string
   team: number
   weight: number
-  imageFile: File
+  imageFile?: File
 }
 
 export const PlayerFormEdit = () => {
@@ -65,17 +66,13 @@ export const PlayerFormEdit = () => {
       }
       reader.readAsDataURL(file)
     } else {
-      setValue('avatarUrl', null)
+      setValue('avatarUrl', 'null')
     }
   }
 
   const schema = yup.object().shape({
-    avatarUrl: yup.mixed().required('Image is required'),
-    birthday: yup
-      .date()
-      .max(new Date(), 'Date of birth cannot be in the future.')
-      .min(new Date('1700-01-01'), 'Date of birth should be after 1700.')
-      .required('Date of birth is required.'),
+    avatarUrl: yup.string().required('Image is required'),
+    birthday: yup.string().required('Date of birth is required.'),
     name: yup.string().required('Name is required.').max(50, 'Name must be at most 50 characters'),
     team: yup.number().required('Team is required'),
     position: yup.string().required('Position is required.'),
@@ -110,9 +107,8 @@ export const PlayerFormEdit = () => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
     setValue,
-  } = useForm<any>({
+  } = useForm<FormDataType>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
     defaultValues: {
@@ -156,28 +152,22 @@ export const PlayerFormEdit = () => {
             <AddImg>
               <ControlledInputFile
                 control={control}
-                errorMessage={errors?.avatarUrl?.message}
+                errorMessage={errors?.avatarUrl}
                 imagevisible={
                   !isImageVisible && id
                     ? 'http://dev.trainee.dex-it.ru' + prevPlayerData?.avatarUrl
                     : isImageVisible
                 }
-                name={'avatarFile'}
+                name={'avatarUrl'}
                 selectFile={handleFileSelect}
               />
             </AddImg>
             <ContainerInput>
               <WrapperItem>
-                <ControlledTextField
-                  control={control}
-                  errorMessage={errors}
-                  label={'Name'}
-                  name={'name'}
-                  type={'text'}
-                />
+                <ControlledTextField control={control} label={'Name'} name={'name'} type={'text'} />
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors?.position?.message}
+                    errorMessage={errors?.position}
                     control={control}
                     isMulti={false}
                     label={'Position'}
@@ -187,7 +177,7 @@ export const PlayerFormEdit = () => {
                 </ContainerSelect>
                 <ContainerSelect>
                   <CustomSelect
-                    errorMessage={errors?.team?.message}
+                    errorMessage={errors?.team}
                     control={control}
                     isMulti={false}
                     label={'Team'}
@@ -198,21 +188,18 @@ export const PlayerFormEdit = () => {
                 <ContainerInputDetail>
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Height (cm)'}
                     name={'height'}
                     type={'number'}
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Weight (kg)'}
                     name={'weight'}
                     type={'number'}
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Birthday'}
                     name={'birthday'}
                     placeholder={'sss'}
@@ -220,7 +207,6 @@ export const PlayerFormEdit = () => {
                   />
                   <ControlledTextField
                     control={control}
-                    errorMessage={errors}
                     label={'Number'}
                     name={'number'}
                     type={'number'}
